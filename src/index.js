@@ -10,7 +10,7 @@ import 'font-awesome/css/font-awesome.min.css';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App></App>
+    <App/>
   </BrowserRouter>,
   document.getElementById('root')
 );

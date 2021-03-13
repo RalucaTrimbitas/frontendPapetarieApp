@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import "bootstrap/dist/css/bootstrap.css";
-import Footer from './footer';
+import Footer from "./footer";
 
-class LoginForm extends Component {
+class LoginForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: { email: "", password: "" },
+      numeUtilizator: "",
+      parola: "",
       errors: {},
     };
 
     this.schema = {
-      email: Joi.string().required().label("Email"),
-      password: Joi.string().required().label("Parola"),
+      numeUtilizator: Joi.string().required(),
+      parola: Joi.string().required(),
     };
     this.handleChange = this.handleChange.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
@@ -21,6 +22,43 @@ class LoginForm extends Component {
 
   doSubmit = () => {
     //Call the server
+    const payload = {
+      numeUtilizator: this.state.numeUtilizator,
+      parola: this.state.parola,
+    };
+    fetch("http://localhost:8080/autentificare", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }).then((res) => {
+      if (res.status === 200) {
+        localStorage.setItem("numeUtilizator", this.state.numeUtilizator);
+        res.json().then((json) => {
+          const { result, name } = json;
+          localStorage.setItem("name", name);
+          if (result === "administrator") {
+            localStorage.setItem("userType", result);
+            this.props.history.replace("/administratordashboard");
+            console.log("administrator dashboard");
+          }
+          if (result === "client") {
+            console.log(" Client !!!! Submitted");
+            localStorage.setItem("userType", result);
+            this.props.history.push("/clientdashboard")
+          }
+        });
+
+        // LOGIN PERSISTANCE
+      } else if (res.status === 404) {
+        alert("Username doesn't exist!");
+      } else if (res.status === 401) {
+        alert("Password is wrong!");
+      }
+    });
+
     console.log("Submitted");
   };
 
@@ -33,18 +71,18 @@ class LoginForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container-log" >
+        <div className="container-log">
           <div className="row">
             <div className="col-md-4 login-sec">
               <h2 className="text-center">Autentificare</h2>
               <form className="login-form">
                 <div className="form-group">
-                  <label className="text-label">E-mail</label>
+                  <label className="text-label">Nume utilizator</label>
                   <input
                     type="text"
-                    name="email"
+                    name="numeUtilizator"
                     className="form-control"
-                    placeholder="Email"
+                    placeholder="Nume utilizator"
                     onChange={this.handleChange}
                   ></input>
                 </div>
@@ -53,7 +91,7 @@ class LoginForm extends Component {
                   <label className="text-label">Parola</label>
                   <input
                     type="password"
-                    name="password"
+                    name="parola"
                     className="form-control"
                     placeholder="Parola"
                     onChange={this.handleChange}
@@ -76,7 +114,8 @@ class LoginForm extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    Nu ai cont inca? <a href="/inregistrare"> Creaaza-ti un cont</a>
+                    Nu ai cont inca?{" "}
+                    <a href="/inregistrare"> Creaaza-ti un cont</a>
                   </p>
                 </div>
               </form>
@@ -198,8 +237,8 @@ class LoginForm extends Component {
             </div>
           </div>
         </div>
-      <br></br>
-      <Footer></Footer>
+        <br></br>
+        <Footer></Footer>
       </React.Fragment>
     );
   }

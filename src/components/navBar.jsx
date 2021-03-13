@@ -37,12 +37,12 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" id="nav-brand" to="/home">
-          <img id="logoDiana" src="./poze/logoDiana6.png"></img>
+          <img id="logoDiana" src="./poze/logoDiana6.png" alt="logo"></img>
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarTogglerDemo02"
@@ -50,15 +50,15 @@ const NavBar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item dropdown">
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
-                href="#"
+                className="nav-link dropdown-toggle"
+                // href="#"
                 id="navbarDropdown1"
                 role="button"
                 data-toggle="dropdown"
@@ -67,7 +67,7 @@ const NavBar = () => {
               >
                 Produse
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown1">
                 <NavLink
                   className="dropdown-item"
                   to="/./produse/accesorii-birou"
@@ -92,7 +92,7 @@ const NavBar = () => {
                 </NavLink>
               </div>
             </li>
-            <li class="nav-item active">
+            <li className="nav-item active">
               <NavLink
                 className="nav-item nav-link"
                 to="/promotii"
@@ -101,14 +101,14 @@ const NavBar = () => {
                 Promoții
               </NavLink>
             </li>
-            <li class="nav-item">
-              <form class="form-inline my-2 my-lg-0">
+            <li className="nav-item">
+              <form className="form-inline my-2 my-lg-0">
                 <input
-                  class="form-control mr-sm-2"
+                  className="form-control mr-sm-2"
                   type="search"
                   placeholder="Search"
                 />
-                <button class="btn btn-cautare my-2 my-sm-0" type="submit">
+                <button className="btn btn-cautare my-2 my-sm-0" type="submit">
                   Caută
                 </button>
               </form>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Footer from "./footer";
@@ -113,8 +112,8 @@ class ContactForm extends Component {
               <a href="tel:+407270392149" id="headertext">
                 +40 751 215 301
               </a>
-              <div class="mapouter">
-                <div class="gmap_canvas">
+              <div className="mapouter">
+                <div className="gmap_canvas">
                   <iframe
                     width="600"
                     height="500"
