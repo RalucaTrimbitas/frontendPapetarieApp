@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
 import Footer from "./footer";
 
 class ContactForm extends Component {
@@ -32,7 +33,7 @@ class ContactForm extends Component {
       <React.Fragment>
         <div className="container-contact">
           <div className="row">
-            <div className="col-md-5 contact-sec">
+            <div className="col-md-5 contact-sec offset-md-4">
               <h2 className="text-center">Contactează-ne</h2>
               <form className="contact-form">
                 <div className="form-group">
@@ -78,7 +79,7 @@ class ContactForm extends Component {
                 </div>
               </form>
             </div>
-            <div className="col-md-4 contact-sec2 ">
+            <div className="col-md-4 contact-sec2">
               <h3>CONTACT</h3>
               <br></br>
               <p>
@@ -86,11 +87,11 @@ class ContactForm extends Component {
                 noi!
               </p>
               <span id="paragrafPapetarie">
-                {/* <FontAwesomeIcon className="icon-mapLoc-contact" icon={faMapMarkerAlt} />{" "}
+                <FontAwesomeIcon className="icon-mapLoc-contact" icon={faMapMarkerAlt} />{" "}
               Strada Simion Barnutiu, bloc 5, scara A, Parter, Blaj, județul
-              Alba */}
+              Alba
               </span>
-              {/* <br></br> */}
+              <br></br>
               <FontAwesomeIcon
                 className="icon-mail-contact"
                 icon={faEnvelope}
@@ -112,9 +113,9 @@ class ContactForm extends Component {
               <a href="tel:+407270392149" id="headertext">
                 +40 751 215 301
               </a>
-              <div className="mapouter">
-                <div className="gmap_canvas">
-                  <iframe
+              {/* <div className="mapouter" >
+                <div className="gmap_canvas"> */}
+                  {/* <iframe
                     width="600"
                     height="500"
                     id="gmap_canvas"
@@ -128,9 +129,9 @@ class ContactForm extends Component {
                   <br></br>
                   <a href="https://www.embedgooglemap.net">
                     how to embed a google map in html
-                  </a>
-                </div>
-              </div>
+                  </a> */}
+                {/* </div>
+              </div> */}
             </div>
           </div>
         </div>

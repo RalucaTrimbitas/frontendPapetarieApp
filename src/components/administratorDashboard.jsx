@@ -13,7 +13,10 @@ class AdministratorDashboard extends Component {
 
     render() { 
         return ( 
+            <React.Fragment>
             <p>Administrator Dashboard</p>
+            <h2>Salutare, {localStorage.getItem("name")}!</h2>
+            </React.Fragment>
          );
     }
 }

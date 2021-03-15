@@ -11,37 +11,37 @@ class HomePage extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h3 class="text-center header-text">
-          <span class="text-center"> Categoriile noastre</span>
+        <h3 className="text-center header-text">
+          <span className="text-center"> Categoriile noastre</span>
         </h3>
-        <div class="container my-4">
-          <div class="row text-center">
-            <div class="col-md-3 mb-4 col1">
-              <h4 class="my-5 h4">Accesorii de birou</h4>
+        <div className="container my-4">
+          <div className="row text-center">
+            <div className="col-md-3 mb-4 col1">
+              <h4 className="my-5 h4">Accesorii de birou</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/accesorii-birou"
               >
                 <img
-                  class="rounded-circle z-depth-2"
+                  className="rounded-circle z-depth-2"
                   alt="100x100"
                   src="./poze/acces.jpg"
                   data-holder-rendered="true"
                   style={{ width: 280, height: 270 }}
                 />
-              {/* <footer class="blockquote-footer">
+              {/* <footer className="blockquote-footer">
           Someone famous in <cite title="Source Title">Source Title</cite>
         </footer> */}
               </NavLink>
             </div>
-            <div class="col-md-3 mb-4">
-              <h4 class="my-5 h4">Instrumente de scris</h4>
+            <div className="col-md-3 mb-4">
+              <h4 className="my-5 h4">Instrumente de scris</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/instrumente-scris"
               >
                 <img
-                  class="rounded-circle z-depth-2"
+                  className="rounded-circle z-depth-2"
                   alt="100x100"
                   src="./poze/pen.jpg"
                   data-holder-rendered="true"
@@ -49,14 +49,14 @@ class HomePage extends React.Component {
                 />
               </NavLink>
             </div>
-            <div class="col-md-3 mb-4">
-              <h4 class="my-5 h4">Rechizite scolare</h4>
+            <div className="col-md-3 mb-4">
+              <h4 className="my-5 h4">Rechizite scolare</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/rechizite-scolare"
               >
                 <img
-                  class="rounded-circle z-depth-2"
+                  className="rounded-circle z-depth-2"
                   alt="100x100"
                   src="./poze/penar.jpeg"
                   data-holder-rendered="true"
@@ -64,14 +64,14 @@ class HomePage extends React.Component {
                 />
               </NavLink>
             </div>
-            <div class="col-md-3 mb-4">
-              <h4 class="my-5 h4">Art and hobby- creativ</h4>
+            <div className="col-md-3 mb-4">
+              <h4 className="my-5 h4">Art and hobby- creativ</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/arthobby"
               >
                 <img
-                  class="rounded-circle z-depth-2"
+                  className="rounded-circle z-depth-2"
                   alt="100x100"
                   src="./poze/craft1.png"
                   data-holder-rendered="true"

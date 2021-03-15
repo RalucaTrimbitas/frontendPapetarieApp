@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <React.Fragment>
       <div className="row al_center" id="rowHead">
-        <div className="col-lg-6 col-12 tc tl_lg col-md-12">
+        <div className="col-md-12">
           <div className="header-text-up">
             <FontAwesomeIcon
               className="icon-phone"

@@ -29,6 +29,7 @@ export default class DefaultClientDashboard extends React.Component{
             </div> */}
 {/* 
             <br></br> */}
+            <p>Ana are mere!</p>
         </div>
         )
     }

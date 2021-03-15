@@ -1,21 +1,25 @@
-import React from 'react';
-import { withRouter } from "react-router";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
-class ClientDashboard extends React.Component {
-
-    constructor(props){
-        super(props);
-        //this.show = this.show.bind(this);
-    }
+class ClientDashboard extends Component {
     
+
+    constructor(){
+        super();
+        //this.show = this.show.bind(this);
+        // this.getPendingRequests = this.getPendingRequests.bind(this)
+        // this.state = {render: <DefaultCompanyDashboard/>, pendingRequests: this.getPendingRequests()}
+    }
+
     render() { 
-        alert("render clientdashboard")
         return ( 
+            <React.Fragment>
             <p>Client Dashboard</p>
+            <h2>Salutare, {localStorage.getItem("name")}!</h2>
+            </React.Fragment>
          );
     }
 }
  
-
 const Dashboard = withRouter(ClientDashboard);
 export default Dashboard

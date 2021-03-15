@@ -50,12 +50,13 @@ import AdministratorDashboard from './components/administratorDashboard';
 class App extends Component{
   render() {
     return (
-      <div >
+      // <div >
+      <React.Fragment>
         <NavBar></NavBar>
-          <div className="content" >
+     
             <Switch>
               <Route path="/home" exact component={HomePage} />
-              <Route path="/autentificare" component={LoginForm}></Route>
+              <Route Route path="/autentificare" component={LoginForm}></Route>
               <Route path="/contact" component={ContactForm}></Route>
               <Route path="/inregistrare" component={RegisterForm} ></Route>
               <Route path="/termeni-conditii" component={Termeni}></Route>
@@ -69,8 +70,9 @@ class App extends Component{
               <Route path="/not-found" component={NotFound}></Route>
               <Redirect to="/not-found" />
               </Switch>
-          </div>
-      </div>
+              </React.Fragment>
+          // </div>
+      // </div>
 
     );
   }

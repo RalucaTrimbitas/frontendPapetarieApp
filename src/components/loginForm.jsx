@@ -20,7 +20,8 @@ class LoginForm extends React.Component {
     this.doSubmit = this.doSubmit.bind(this);
   }
 
-  doSubmit = () => {
+  doSubmit = (e) => {
+    e.preventDefault();
     //Call the server
     const payload = {
       numeUtilizator: this.state.numeUtilizator,
@@ -29,7 +30,7 @@ class LoginForm extends React.Component {
     fetch("http://localhost:8080/autentificare", {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -44,10 +45,11 @@ class LoginForm extends React.Component {
             this.props.history.replace("/administratordashboard");
             console.log("administrator dashboard");
           }
+          else 
           if (result === "client") {
-            console.log(" Client !!!! Submitted");
             localStorage.setItem("userType", result);
-            this.props.history.push("/clientdashboard")
+            this.props.history.replace("/clientdashboard");
+            console.log("client dashboard");
           }
         });
 
@@ -73,7 +75,7 @@ class LoginForm extends React.Component {
       <React.Fragment>
         <div className="container-log">
           <div className="row">
-            <div className="col-md-4 login-sec">
+            <div className="col-md-4 login-sec offset-md-2">
               <h2 className="text-center">Autentificare</h2>
               <form className="login-form">
                 <div className="form-group">
@@ -101,21 +103,21 @@ class LoginForm extends React.Component {
                 <div className="form-check">
                   <label className="form-check-label">
                     <input type="checkbox" className="form-check-input"></input>
-                    <p>Pastreaza datele</p>
+                    <p>Păstrează datele</p>
                   </label>
                   <button
                     type="submit"
                     className="btn btn-login float-right"
                     onClick={this.doSubmit}
                   >
-                    Submit
+                    Autentificare
                   </button>
                   <p>
                     <br></br>
                     <br></br>
                     <br></br>
-                    Nu ai cont inca?{" "}
-                    <a href="/inregistrare"> Creaaza-ti un cont</a>
+                    Nu ai cont încă?{" "}
+                    <a href="/inregistrare"> Creaază-ți un cont</a>
                   </p>
                 </div>
               </form>

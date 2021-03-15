@@ -37,18 +37,18 @@
   }
 }
 
-#reg-block {
+/* #reg-block {
   width: 100%;
   height: 100%;
   padding: 30px 0px;
   float: right;
   margin: 0 17%;
   width: 62%;
-}
+} */
 
 #roww {
   /* background-image: url("./pictures/ok.jpg"); */
-  width:110%;
+  width:100%;
   display: inline;
 }
 
@@ -81,10 +81,53 @@
 
 /* register form */
 .reg-sec {
-  /* background-color:#fff; */
   padding: 50px 40px;
   position: relative;
-  /* background: rgba(0, 0, 0, 0.1); */
+  background-image: url("./pictures/pix5.jpg");
+  float:left;
+  display: inline;
+  /* padding: 50px 30px; */
+  position: relative;
+  /* border-radius: 15px; */
+  box-shadow: rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+/* .reg-heading > h2 {
+  font-size: 332px;
+}
+
+@media(max-width:1023px)
+{
+.reg-heading > h2 {
+  font-size: 20vw;
+}
+} */
+
+/* @media screen and (max-width: 1768px) {
+  h2{
+  font-size:10px;
+  }
+  } */
+
+  .form-control {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+/* .reg-form {
+  width:50%;
+  margin-left: 380px;
+  margin-top:38px;
+  position: relative;  
+} */
+
+@media only screen and (max-width : 1768px) {
+  .reg-form {
+
+      float:right;
+      width: 100%;
+  }
+
 }
 
 .reg-sec h2 {
@@ -106,22 +149,23 @@
   margin-left: auto;
   margin-right: auto;
 }
-
+/* 
 .container-reg {
   position: static;
   background: #fff;
   font-family: "\f15a";
-  /* box-shadow: 150px 20px 1000px rgba(0, 0, 0, 0.4); */
-  width:100%;
+  box-shadow: 150px 20px 1000px rgba(0, 0, 0, 0.4);
+  width:50%;
   margin-left:100px;
   height: 100%;
   display: inline;
-}
+} */
 
 .container-log {
   background: #fff;
   border-radius: 15px;
   box-shadow:150px 20px 1000px  rgba(0, 0, 0, 0.2);
+  box-sizing: 100px 100px 100px 700px;
   width:68%;
   margin-left:270px;
   display: inline;
@@ -146,14 +190,15 @@
 }
 
 .contact-sec2 {
-  margin-left: 100px;
+  margin-left: 30px;
   margin-top:40px;
 }
 
 .login-sec {
   padding: 50px 30px;
   position: relative;
-  /* background: rgba(0, 0, 0, 0.1); */
+  
+  /* margin-left: 250px; */
 }
 
 .login-sec .copy-text {
@@ -192,6 +237,14 @@
   color: #fff;
   font-weight: 400;
 }
+
+.btn-register {
+  background: #4b1515de;
+  color: #fff;
+  font-weight: 500;
+  width:150px;
+  font-size: 18px;
+}
 .btn-contact {
   background: #4b1515de;
   color: #fff;
@@ -224,6 +277,8 @@
 .form-check-input {
   font-size: 20px;
 }
+
+
 
 .text-label {
   font-family: "\f15a";
@@ -501,7 +556,7 @@ a.menu-item:hover {
 }
 
 #foot {
-  margin-top:750px;
+  margin-top:850px;
 }
 
 .card-header{
@@ -517,6 +572,7 @@ a.menu-item:hover {
 .nav-item.dropdown:hover .dropdown-menu {
   display: block;
 }
+
 
 /* AICI------ */
 /* .nav-item.btn-group.dropright:hover .dropdown-menu2 {
@@ -583,3 +639,9 @@ margin-top: -1px;
 
 .mapouter{position:relative;text-align:right;height:300px;width:500px;}
 .mapouter.mapouter>.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:500px;}
+
+#gmap_canvas{
+  
+  position:relative;text-align:right;height:300px;width:500px;
+  display: inline;
+}
