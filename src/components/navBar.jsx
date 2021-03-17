@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
-import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
-// import { faShoppingCart as farShoppingCart } from "@fortawesome/free-regular-svg-icons";
+import {FiShoppingCart} from "react-icons/all"
+import {FiHeart} from "react-icons/all"
+import {FaRegUser} from "react-icons/all"
+import {FcSearch} from "react-icons/all"
+
 
 const NavBar = () => {
   return (
@@ -17,7 +18,7 @@ const NavBar = () => {
             <FontAwesomeIcon
               className="icon-phone"
               icon={faPhone}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer" , color: "#4b1515de"}}
             />
             <a href="tel:+407270392149" id="headertext">
               +40 751 215 301
@@ -25,7 +26,7 @@ const NavBar = () => {
             <FontAwesomeIcon
               className="icon-mail"
               icon={faEnvelope}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer" , color: "#4b1515de"}}
             />{" "}
             <a
               className="cg"
@@ -37,9 +38,9 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-light bg-light" >
         <Link className="navbar-brand" id="nav-brand" to="/home">
-          <img id="logoDiana" src="./poze/logoDiana6.png" alt="logo"></img>
+          <img className="hvr-grow" id="logoDiana" src="./poze/logoDiana.png" alt="logo"></img>
         </Link>
         <button
           className="navbar-toggler"
@@ -58,12 +59,12 @@ const NavBar = () => {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                // href="#"
                 id="navbarDropdown1"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style={{color:"#4b1515de"}}
               >
                 Produse
               </a>
@@ -97,35 +98,44 @@ const NavBar = () => {
                 className="nav-item nav-link"
                 to="/promotii"
                 id="navItem"
+                style={{color:"#4b1515de"}}
               >
                 Promoții
               </NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item d-inline">
               <form className="form-inline my-2 my-lg-0">
                 <input
-                  className="form-control mr-sm-2"
+                  className="form-control ml-auto mr-2 "
+                  id="SearchInput"
                   type="search"
-                  placeholder="Search"
+                  placeholder="&#61442;"
+                  style={{borderColor: "#4b1515de"}}
                 />
                 <button className="btn btn-cautare my-2 my-sm-0" type="submit">
                   Caută
                 </button>
               </form>
             </li>
+            {/* <li class="text-truncate">
+        <form class="input-group w-100">
+            <input class="form-control" name="search" placeholder="Search Here" autocomplete="off" autofocus="autofocus" type="text"/>
+            <div class="input-group-btn">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
+        </form>
+</li>   */}
           </ul>
-          <NavLink className="nav-item nav-link" to="/produseFavorite">
-            <FontAwesomeIcon
-              className="icon-heart"
-              icon={farHeart}
+          <NavLink className="nav-item nav-link" to="/produse-favorite">
+            <FiHeart
+              className="icons-nav hvr-grow"
               style={{ cursor: "pointer" }}
-            />
+            ></FiHeart>
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/cosCumparaturi">
-            <FontAwesomeIcon
-              className="icon-cart"
-              icon={faShoppingCart}
-              style={{ cursor: "pointer" }}
+          <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
+            <FiShoppingCart
+            className="icons-nav hvr-grow"
+            style={{ cursor: "pointer" }}
             />
           </NavLink>
           <NavLink
@@ -133,11 +143,10 @@ const NavBar = () => {
             to="/autentificare"
             id="navItem"
           >
-            <FontAwesomeIcon
-              className="icon-user"
-              icon={farUser}
-              style={{ cursor: "pointer" }}
-            />
+            <FaRegUser
+            className="icons-nav hvr-grow"
+            style={{ cursor: "pointer" }}
+            ></FaRegUser>
           </NavLink>
         </div>
       </nav>

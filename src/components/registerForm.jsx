@@ -88,8 +88,8 @@ class RegisterForm extends Component {
   render() {
     return (
       <React.Fragment>
-          <div className="container-reg">
-            <div className="row" id="roww">
+           <div className="container-reg">
+            <div className="row row-form-reg" >
               <div className="col-md-6 reg-sec offset-md-3">
                 <h2 className="text-center" >Înregistrare</h2>
                 <form className="reg-form">
@@ -167,7 +167,8 @@ class RegisterForm extends Component {
                 </form>
               </div>
             </div>
-          </div>
+          </div> 
+    
         <div id="foot">
           <Footer></Footer>
         </div>

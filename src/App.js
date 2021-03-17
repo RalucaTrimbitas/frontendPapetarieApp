@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Route, Redirect, Switch } from'react-router-dom';
 import NotFound from './components/notFound';
 import NavBar from './components/navBar';
@@ -52,8 +52,7 @@ class App extends Component{
     return (
       // <div >
       <React.Fragment>
-        <NavBar></NavBar>
-     
+          <NavBar></NavBar>
             <Switch>
               <Route path="/home" exact component={HomePage} />
               <Route Route path="/autentificare" component={LoginForm}></Route>
@@ -68,7 +67,7 @@ class App extends Component{
               <PrivateAdministratorRoute path="/administratordashboard" component={AdministratorDashboard}/>
 
               <Route path="/not-found" component={NotFound}></Route>
-              <Redirect to="/not-found" />
+              {/* <Redirect to="/not-found" /> */}
               </Switch>
               </React.Fragment>
           // </div>

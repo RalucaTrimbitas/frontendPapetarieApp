@@ -76,11 +76,13 @@ class LoginForm extends React.Component {
         <div className="container-log">
           <div className="row">
             <div className="col-md-4 login-sec offset-md-2">
-              <h2 className="text-center">Autentificare</h2>
+              <h2 className="text-center" >Autentificare</h2>
               <form className="login-form">
                 <div className="form-group">
                   <label className="text-label">Nume utilizator</label>
                   <input
+                    // id="UserInput"
+                    // placeholder="&#61447;"
                     type="text"
                     name="numeUtilizator"
                     className="form-control"

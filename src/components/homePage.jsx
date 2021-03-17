@@ -12,12 +12,12 @@ class HomePage extends React.Component {
     return (
       <React.Fragment>
         <h3 className="text-center header-text">
-          <span className="text-center"> Categoriile noastre</span>
+          <span className="text-center" style={{color: "#3E1B0D"}}> Categoriile noastre</span>
         </h3>
         <div className="container my-4">
           <div className="row text-center">
             <div className="col-md-3 mb-4 col1">
-              <h4 className="my-5 h4">Accesorii de birou</h4>
+              <h4 className="my-5 h4 "style={{color: "#3E1B0D"}}>Accesorii de birou</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/accesorii-birou"
@@ -35,7 +35,7 @@ class HomePage extends React.Component {
               </NavLink>
             </div>
             <div className="col-md-3 mb-4">
-              <h4 className="my-5 h4">Instrumente de scris</h4>
+              <h4 className="my-5 h4" style={{color: "#3E1B0D"}}>Instrumente de scris</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/instrumente-scris"
@@ -50,7 +50,7 @@ class HomePage extends React.Component {
               </NavLink>
             </div>
             <div className="col-md-3 mb-4">
-              <h4 className="my-5 h4">Rechizite scolare</h4>
+              <h4 className="my-5 h4" style={{color: "#3E1B0D"}}>Rechizite scolare</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/rechizite-scolare"
@@ -65,7 +65,7 @@ class HomePage extends React.Component {
               </NavLink>
             </div>
             <div className="col-md-3 mb-4">
-              <h4 className="my-5 h4">Art and hobby- creativ</h4>
+              <h4 className="my-5 h4" style={{color: "#3E1B0D"}}>Art and hobby- creativ</h4>
               <NavLink
                 className="nav-item-aut nav-link"
                 to="/./produse/arthobby"
@@ -86,7 +86,7 @@ class HomePage extends React.Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">
-                  <FontAwesomeIcon className="icon-car" icon={faCar} />
+                  <FontAwesomeIcon className="icons-card" icon={faCar} />
                   TRANSPORT{" "}
                 </h5>
                 <p className="card-text">
@@ -100,13 +100,13 @@ class HomePage extends React.Component {
               <div className="card-body">
                 <h5 className="card-title">
                   <FontAwesomeIcon
-                    className="icon-clock"
+                    className="icons-card"
                     icon={faClock}
                   />
                   COMENZI ONLINE 24/7
                 </h5>
                 <p className="card-text">
-                  Puteți comanda atât online,cât și telefonic la numarul: 0751215301 ( L-V: 8-16)
+                  Puteți comanda atât online,cât și telefonic la numărul: 0751215301 ( L-V: 8-16)
                   <br></br>
                 </p>
               </div>
@@ -116,7 +116,7 @@ class HomePage extends React.Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">
-                  <FontAwesomeIcon className="icon-redo" icon={faRedo} />
+                  <FontAwesomeIcon className="icons-card" icon={faRedo} />
                   RETUR GRATUIT
                 </h5>
                 <p className="card-text">
@@ -130,11 +130,11 @@ class HomePage extends React.Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">
-                  <FontAwesomeIcon className="icon-lock" icon={faLock} />
+                  <FontAwesomeIcon className="icons-card" icon={faLock} />
                   PLATA ÎN SIGURANȚĂ
                 </h5>
                 <p className="card-text">
-                  Plata se face in momentul ridicarii produselor, cash sau card.
+                  Plata se face în momentul ridicării produselor, cash sau card.
                 </p>
               </div>
             </div>
