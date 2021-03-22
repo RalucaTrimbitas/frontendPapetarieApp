@@ -52,45 +52,37 @@
   display: inline;
 }
 
-
-.login-block {
-  /* background: #de6262; 
-  background: -webkit-linear-gradient(
-    to bottom,
-    #ffb88c,
-    #de6262
-  ); 
-  background: linear-gradient(
-    to bottom,
-    #ffb88c,
-    #de6262
-  );  */
-  float: left;
-  width: 60%;
-  padding: 50px 0;
+#login-form {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
-.banner-sec {
-  background-image: url("./pictures/birou.jpg")
-    no-repeat left bottom;
-  /* background-color: #e36262;; */
-  /* background-size: cover; */
-  min-height: 500px;
-  border-radius: 0 10px 10px 0;
-  padding: 0;
+#register-form {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
+
+/*.banner-sec {*/
+/*  background-image: url("./pictures/birou.jpg")*/
+/*    no-repeat left bottom;*/
+/*  !* background-color: #e36262;; *!*/
+/*  !* background-size: cover; *!*/
+/*  min-height: 500px;*/
+/*  border-radius: 0 10px 10px 0;*/
+/*  padding: 0;*/
+/*}*/
 
 /* register form */
 .reg-sec {
   padding: 50px 40px;
   position: relative;
-  background-image: url("./pictures/pix5.jpg");
+  /* background-image: url("./pictures/pix5.jpg"); */
   float:left;
   display: inline;
   /* padding: 50px 30px; */
   position: relative;
   /* border-radius: 15px; */
-  box-shadow: rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.3);
   margin-top: 50px;
 }
 
@@ -114,17 +106,17 @@
 
   /* inputs login form */
   .form-control {
-    background: rgba(0, 0, 0, 0.1);
+    /* background: rgba(0, 0, 0, 0.1); */
     /* border-color:hsl(9, 42%, 35%); */
-    background-color: transparent;
+    /* background-color: transparent; */
   }
 
-/* .reg-form {
-  width:50%;
+.reg-form {
+  /* width:50%;
   margin-left: 380px;
   margin-top:38px;
-  position: relative;  
-} */
+  position: relative;   */
+}
 
 @media only screen and (max-width : 1768px) {
   .reg-form {
@@ -164,8 +156,8 @@
   height: 100%;
   display: inline;
 } */
-/* 
-.container-log {
+
+/* .container-log {
   background: #fff;
   border-radius: 15px;
   box-shadow:150px 20px 1000px  rgba(0, 0, 0, 0.2);
@@ -173,7 +165,7 @@
   width:68%;
   margin-left:270px;
   display: inline;
-} */
+}  */
 
 .container {
   background: #fff;
@@ -310,9 +302,18 @@ body {
   /* /* background: #12c2e9;   */
   /* background: -webkit-linear-gradient(to right, #d67070, #c471ed, #12c2e9);  
   background: linear-gradient(to right, #ffb88c, #bd6c6c, #de6262);  */
-  /* background: #ecdfc8; */
+  
   
  } 
+
+ body.background-register {
+  background-image: url("./pictures/img.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* display: flex; */
+ }
 
 /* body, html, .App, #root, .outer {
   width: 100%;
@@ -363,6 +364,7 @@ body {
 .icon-phone {
   margin-left: 20px;
   font-size: 1.2rem;
+
 }
 .icon-phone-contact {
   margin-left: 20px;
@@ -454,6 +456,9 @@ body {
 }
 #rowHead {
   padding: 12px 10px 20px 10px;
+  /* background-image: url("./pictures/texture5.jpg"); */
+  /* background-repeat: no-repeat; */
+  background-color: white;
 }
 
 .navbar-light {
@@ -561,13 +566,20 @@ margin-top: -1px;
 } */
 
 
+.card-footer{
+  background-color: rgb(224, 213, 194);
+  /* background-image: url("./pictures/texture5.jpg"); */
+}
+
+/*NAVBAR DROPDOWNS*/
  .navbar-nav .dropdown-item:hover{
   color:black;
 } 
 
 
 .navbar-nav .dropdown-menu{
-  background-color: rgba(26, 9, 9, 0.6);
+  background-color: rgba(34, 2, 2, 0.6);
+  /* background-color: rgb(73, 31, 31); */
   width:300px;
 }
 
@@ -584,10 +596,10 @@ margin-top: -1px;
 #btnDropDown {
   color:white;
   font-size: 18px;
-  display:100%;
+  /*display: 100%;*/
   width:300px;
   
-} */
+}
 
 .nav-link.dropdown-toggle:hover .dropdown-menu:hover{
   display: block;
@@ -659,5 +671,19 @@ color: hsl(9, 42%, 35%);
   transform: scale(1.1);
 }
 
+.navbar{
+/* background-color: rgba(0, 0, 0, 0.1); */
+padding-left:-30px !important;
+padding-right:-20px;
+background-image: url("./pictures/texture5.jpg");
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+#card-client {
+  /*width: 200px;*/
+}
 
 

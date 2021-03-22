@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import Footer from "./footer";
+import Footer from "../utils/footer";
 
 class RegisterForm extends Component {
   constructor() {
@@ -86,11 +86,13 @@ class RegisterForm extends Component {
     });
   }
   render() {
+    document.body.classList = "";
+    document.body.classList.add("background-register");
     return (
       <React.Fragment>
            <div className="container-reg">
             <div className="row row-form-reg" >
-              <div className="col-md-6 reg-sec offset-md-3">
+              <div className="col-md-6 reg-sec offset-md-3" id="register-form">
                 <h2 className="text-center" >Înregistrare</h2>
                 <form className="reg-form">
                   <div className="form-group">
