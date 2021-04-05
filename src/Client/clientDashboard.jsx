@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import SidebarCategorii from "../SideBars/sidebarCategorii";
-import Footer from "../utils/footer";
+import SidebarCategorii from "../components/SideBars/sidebarCategorii";
+import Footer from "../components/utils/footer";
+import SidebarClient from "../components/SideBars/sidebarClient";
 
 class ClientDashboard extends Component {
   // constructor(){
@@ -16,7 +17,8 @@ class ClientDashboard extends Component {
     document.body.classList.add("background-clientDashboard");
     return (
       <React.Fragment>
-        <SidebarCategorii></SidebarCategorii>
+        {/*<SidebarCategorii></SidebarCategorii>*/}
+        <SidebarClient></SidebarClient>
       </React.Fragment>
     );
   }

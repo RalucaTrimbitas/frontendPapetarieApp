@@ -169,7 +169,7 @@ class NavBarClient extends React.Component {
                 <FaRegUser
                   className="icons-nav hvr-grow mt-3 ml-2 mr-3"
                   style={{ cursor: "pointer"}}
-                ></FaRegUser>
+                />
                 {/* <FontAwesomeIcon className="icon-user" icon={faUser} /> */}
               </p>
               <div
@@ -178,26 +178,26 @@ class NavBarClient extends React.Component {
               >
                 <NavLink
                   className="dropdown-item"
-                  to="/setari-cont"
+                  to="/panou-control"
                 >
                 <FiSettings style={{marginRight:"6px"}}></FiSettings>
-                Setări cont
+                Detalii cont
                 </NavLink>
 
-                <NavLink
-                  className="dropdown-item"
-                  to="/istoric-comenzi"
-                >
-                  <RiHistoryFill style={{marginRight:"6px"}}></RiHistoryFill>
-                  Istoric comenzi
-                </NavLink>
-                <NavLink
-                  className="dropdown-item"
-                  to="/adrese-client"
-                >
-                  <AiOutlineHome  style={{marginRight:"6px"}}></AiOutlineHome>
-                  Adrese
-                </NavLink>
+                {/*<NavLink*/}
+                {/*  className="dropdown-item"*/}
+                {/*  to="/istoric-comenzi"*/}
+                {/*>*/}
+                {/*  <RiHistoryFill style={{marginRight:"6px"}}></RiHistoryFill>*/}
+                {/*  Istoric comenzi*/}
+                {/*</NavLink>*/}
+                {/*<NavLink*/}
+                {/*  className="dropdown-item"*/}
+                {/*  to="/adrese-client"*/}
+                {/*>*/}
+                {/*  <AiOutlineHome  style={{marginRight:"6px"}}></AiOutlineHome>*/}
+                {/*  Adrese*/}
+                {/*</NavLink>*/}
                 <div class="dropdown-divider"></div>
                 <NavLink 
                 className="dropdown-item"

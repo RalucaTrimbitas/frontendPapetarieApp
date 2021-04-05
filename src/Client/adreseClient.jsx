@@ -9,52 +9,7 @@ class AdreseClient extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container-fluid">
-                    <div className="row" >
-                        <div
-                            className="col-md-3 col-xs-1 p-l-0 p-r-0 in"
-                            id="sidebar"
-                            style={{paddingLeft: "0px", marginTop: "100px"}}
-                        >
-                            <div className="list-group panel">
-                                <a
-                                    href="/setari-cont"
-                                    className="list-group-item collapsed"
-                                    data-parent="#sidebar"
-                                >
-                                    <FiSettings style={{marginRight: "10px"}}></FiSettings>
-                                    <span className="hidden-sm-down">Setări cont</span>{" "}
-                                </a>
-
-                                <a
-                                    href="/istoric-comenzi"
-                                    className="list-group-item collapsed"
-                                    data-parent="#sidebar"
-                                >
-                                    <RiHistoryFill style={{marginRight:"10px"}}></RiHistoryFill>
-                                    <span className="hidden-sm-down">Istoric comenzi</span>
-                                </a>
-                                <a
-                                    href="/adrese-client"
-                                    className="list-group-item collapsed"
-                                    data-parent="#sidebar"
-                                >
-                                    {/*<i className="fa fa-book"></i>{" "}*/}
-                                    <AiOutlineHome  style={{marginRight:"10px"}}></AiOutlineHome>
-                                    <span className="hidden-sm-down">Adrese</span>
-                                </a>
-                                <a
-                                    href="/autentificare"
-                                    className="list-group-item collapsed"
-                                    data-parent="#sidebar"
-                                >
-                                    <FaSignOutAlt style={{marginRight:"10px"}}></FaSignOutAlt>
-                                    <span className="hidden-sm-down">Deconectare</span>
-                                </a>
-
-                            </div>
-                        </div>
-                        <main className="col-md-8 col-xs-11 ml-5">
+                        <main className="col-md-12 col-xs-11">
                             <div className="card">
                                 <div className="card-header text-center" id="card-client">Adrese</div>
                                 <div className="card-body">
@@ -117,10 +72,7 @@ class AdreseClient extends Component {
                                 </div>
                             </div>
                         </main>
-                    </div>
-                </div>
 
-                <Footer></Footer>
             </React.Fragment>
         )}
 }
