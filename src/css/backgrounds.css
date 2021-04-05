@@ -1,0 +1,17 @@
+body.background-register {
+    background-image: url("../pictures/img.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    /* display: flex; */
+   }
+
+body.background-panou {
+    background-image: url("../pictures/img.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    /* display: flex; */
+}

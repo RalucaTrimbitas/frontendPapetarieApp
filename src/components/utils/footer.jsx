@@ -14,10 +14,10 @@ const Footer = () => {
               <h6 className="txt_title text-center">
                 {/* <img id="logoDianaFooter" className="hvr-grow" src="./poze/logoDiana6.png" alt="logo"></img> */}
                 <Link className="navbar-brand" id="nav-brand" to="/home">
-          <img className="hvr-grow" id="logoDianaFooter" src="/poze/logoDiana.png" alt="logo"></img>
+          <img className="hvr-grow" id="logoDianaFooter" src="/poze/logoDiana.png" alt="logo"/>
         </Link>
               </h6>
-              <br></br>
+              <br/>
               <span id="paragrafPapetarie">
                 <FontAwesomeIcon
                   className="icon-mapLoc"
@@ -26,8 +26,8 @@ const Footer = () => {
                 Strada Simion Barnutiu, bloc 5, scara A, Parter, Blaj, județul
                 Alba
               </span>
-              <br></br>
-              <br></br>
+              <br/>
+              <br/>
               <FontAwesomeIcon className="icon-mail1" icon={faEnvelope} />
               <a
                 className="cg"
@@ -37,8 +37,8 @@ const Footer = () => {
               >
                 comenzi@papetarie.ro
               </a>
-              <br></br>
-              <br></br>
+              <br/>
+              <br/>
               <FontAwesomeIcon
                 className="icon-phone1"
                 icon={faPhone}
@@ -50,31 +50,31 @@ const Footer = () => {
             </div>
             <div className="footer-title col-md-3 text-center">
               <h5 className="txt_title text-center" style={{color: "#4b1515de"}}>Categorii</h5>
-              <br></br>
+              <br/>
               {/* <a href="/categorii/rechizite"> Rechizite</a> */}
-              <NavLink
-                className="nav-item-aut nav-link menu-item"
-                to="/categorii/rechizite"
+              <Link
+                  className="nav-item-aut nav-link menu-item"
+                to="/produse/accesorii-birou/agende-si-blocnotes-uri"
               >
                 Accesorii de birou
-              </NavLink>
+              </Link>
               <NavLink
                 className="nav-item-aut nav-link menu-item"
-                to="/categorii/birotica"
+                to="/produse/instrumente-scris/creioane-negre-si-creioane-mecanice"
               >
                 Instrumente de scris
               </NavLink>
 
               <NavLink
                 className="nav-item-aut nav-link menu-item"
-                to="/categorii/jucarii"
+                to="/produse/rechizite-scolare/caiete"
               >
                 Rechizite școlare
               </NavLink>
 
               <NavLink
                 className="nav-item-aut nav-link menu-item"
-                to="/categorii/cadouri"
+                to="/produse/articole-creative/abtibilde-si-stampile-copii"
               >
                 Articole creative și craft
               </NavLink>
@@ -105,7 +105,7 @@ const Footer = () => {
             </div>
             <div className="footer-title col-md-3 text-center">
               <h5 className="txt_title text-center" style={{color: "#4b1515de"}}>Link-uri utile</h5>
-              <br></br>
+              <br/>
               {/* <NavLink
                 className="nav-item-aut nav-link menu-item"
                 to="/despre"
@@ -113,40 +113,40 @@ const Footer = () => {
                 Despre noi
               </NavLink> */}
               {/* <a href="/contact"> Contact</a> */}
-              <NavLink
+              <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/contact"
+                to="/informatii/contact"
               >
                 Contact
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/termeni-conditii"
+                to="/informatii/termeni-conditii"
               >
                 Termeni și condiții
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/retur"
+                to="/informatii/politica-de-retur"
               >
                 Politica de retur
-              </NavLink>
+              </Link>
             </div>
             <div className="footer-title col-md-3 text-center">
               <h5 className="txt_title text-center" style={{color: "#4b1515de"}}>Informații utile</h5>
-              <br></br>
-              <NavLink
+              <br/>
+              <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/plata"
+                to="/informatii/plata"
               >
                 Cum plătesc?
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/informatii-livrare"
+                to="/informatii/informatii-livrare"
               >
                 Informații livrare
-              </NavLink>
+              </Link>
             </div>
           </div>
         </div>

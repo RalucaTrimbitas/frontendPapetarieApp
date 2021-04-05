@@ -64,49 +64,23 @@ const NavBarDefault = () => {
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item dropdown">
-              <p
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown1"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style={{ color: "black" }}
-              >
-                Produse
-              </p>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown1">
-                <NavLink
-                  className="dropdown-item"
-                  to="/./produse/accesorii-birou"
-                >
-                  Accesorii de birou
-                </NavLink>
+              <li className="nav-item active">
+                  <NavLink
+                    className="nav-item nav-link lya"
+                    // to="/produse/accesorii-birou(1.1)"
+                    to="/produse-sidebar"
+                    style={{ color: "#492020" }}
+                  >
+                    Produse
+                  </NavLink>
+              </li>
 
-                <NavLink
-                  className="dropdown-item"
-                  to="/./produse/instrumente-scris"
-                >
-                  Instrumente de scris
-                </NavLink>
-                <NavLink
-                  className="dropdown-item"
-                  to="/./produse/rechizite-scolare"
-                >
-                  Rechizite școlare
-                </NavLink>
-                <NavLink className="dropdown-item" to="/./produse/arthobby">
-                  Articole creative și craft
-                </NavLink>
-              </div>
-            </li>
             <li className="nav-item active">
               <NavLink
                 className="nav-item nav-link"
                 to="/promotii"
                 id="navItem"
-                style={{ color: "black" }}
+                style={{ color: "#492020" }}
               >
                 Promoții
               </NavLink>

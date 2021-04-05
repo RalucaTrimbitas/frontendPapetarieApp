@@ -5,7 +5,7 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FaSignOutAlt, FiShoppingCart } from "react-icons/all";
 import { FiHeart } from "react-icons/all";
-import { FaRegUser, FiSettings,RiHistoryFill, AiOutlineHome } from "react-icons/all";
+import { FaRegUser, FiSettings } from "react-icons/all";
 
 class NavBarClient extends React.Component {
   handleLogout = () => {
@@ -48,7 +48,7 @@ class NavBarClient extends React.Component {
               id="logoDiana"
               src="/poze/logoDiana.png"
               alt="logo"
-            ></img>
+            />
           </Link>
           <button
             className="navbar-toggler"
@@ -59,57 +59,27 @@ class NavBarClient extends React.Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"/>
           </button>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li className="nav-item dropdown">
-                <p
-                  className="nav-link dropdown-toggle"
-                  id="navbarDropdown1"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style={{color:"black"}}
-                >
-                  Produse
-                </p>
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="navbarDropdown1"
-                >
-                  <NavLink
-                    className="dropdown-item"
-                    to="/./produse/accesorii-birou"
-                  >
-                    Accesorii de birou
-                  </NavLink>
-
-                  <NavLink
-                    className="dropdown-item"
-                    to="/./produse/instrumente-scris"
-                  >
-                    Instrumente de scris
-                  </NavLink>
-                  <NavLink
-                    className="dropdown-item"
-                    to="/./produse/rechizite-scolare"
-                  >
-                    Rechizite școlare
-                  </NavLink>
-                  <NavLink className="dropdown-item" to="/./produse/arthobby">
-                    Articole creative și craft
-                  </NavLink>
-                </div>
-              </li>
               <li className="nav-item active">
                 <NavLink
-                  className="nav-item nav-link"
-                  to="/promotii"
-                  id="navItem"
-                  style={{color:"black"}}
+                    className="nav-item nav-link lya"
+                    to="/produse-sidebar"
+                    style={{ color: "#492020" }}
+                >
+                  Produse
+                </NavLink>
+              </li>
+
+              <li className="nav-item active">
+                <NavLink
+                    className="nav-item nav-link"
+                    to="/promotii"
+                    id="navItem"
+                    style={{ color: "#492020" }}
                 >
                   Promoții
                 </NavLink>
@@ -136,7 +106,7 @@ class NavBarClient extends React.Component {
               <FiHeart
                 className="icons-nav hvr-grow"
                 style={{ cursor: "pointer" }}
-              ></FiHeart>
+              />
             </NavLink>
             <NavLink className="nav-item nav-link " to="/cos-cumparaturi">
               <FiShoppingCart
@@ -144,23 +114,9 @@ class NavBarClient extends React.Component {
                 style={{ cursor: "pointer" }}
               />
             </NavLink>
-
-            {/* <NavLink
-            className="nav-item nav-link"
-            to="/autentificare"
-            id="navItem"
-          >
-            <FaRegUser
-              className="icons-nav hvr-grow mr-4"
-              style={{ cursor: "pointer" }}
-            ></FaRegUser>
-          </NavLink> */}
-
-
-
-            <div class="nav-item dropdown navbar-nav">
+            <div className="nav-item dropdown navbar-nav">
               <p
-                class="nav-link dropdown "
+                className="nav-link dropdown "
                 id="dropdownMenu2"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -170,7 +126,6 @@ class NavBarClient extends React.Component {
                   className="icons-nav hvr-grow mt-3 ml-2 mr-3"
                   style={{ cursor: "pointer"}}
                 />
-                {/* <FontAwesomeIcon className="icon-user" icon={faUser} /> */}
               </p>
               <div
                 className="dropdown-menu dropdown-menu-right"
@@ -178,49 +133,22 @@ class NavBarClient extends React.Component {
               >
                 <NavLink
                   className="dropdown-item"
-                  to="/panou-control"
+                  to="/contul-meu/setari-cont"
                 >
-                <FiSettings style={{marginRight:"6px"}}></FiSettings>
-                Detalii cont
+                <FiSettings style={{marginRight:"6px"}}/>
+                Panou control
                 </NavLink>
 
-                {/*<NavLink*/}
-                {/*  className="dropdown-item"*/}
-                {/*  to="/istoric-comenzi"*/}
-                {/*>*/}
-                {/*  <RiHistoryFill style={{marginRight:"6px"}}></RiHistoryFill>*/}
-                {/*  Istoric comenzi*/}
-                {/*</NavLink>*/}
-                {/*<NavLink*/}
-                {/*  className="dropdown-item"*/}
-                {/*  to="/adrese-client"*/}
-                {/*>*/}
-                {/*  <AiOutlineHome  style={{marginRight:"6px"}}></AiOutlineHome>*/}
-                {/*  Adrese*/}
-                {/*</NavLink>*/}
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"/>
                 <NavLink 
                 className="dropdown-item"
                 onClick={this.handleLogout.bind(this)}
                 id="navItem" to="/autentificare">
-                  <FaSignOutAlt style={{marginRight:"6px"}}></FaSignOutAlt>
+                  <FaSignOutAlt style={{marginRight:"6px"}}/>
                   Deconectare
                 </NavLink>
               </div>
             </div>
-            
-            {/* <NavLink
-            onClick={this.handleLogout.bind(this)}
-            className="nav-item nav-link"
-            to="/autentificare"
-            id="navItem"
-          >
-              <FaSignOutAlt
-              className="icons-nav hvr-grow mr-4 ml-1"
-              style={{ cursor: "pointer" }}
-              ></FaSignOutAlt>
-           
-          </NavLink> */}
           </div>
         </nav>
       </React.Fragment>

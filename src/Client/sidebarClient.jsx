@@ -5,6 +5,7 @@ import AdreseClient from "./adreseClient";
 import {AiOutlineHome, FaSignOutAlt, FiSettings, RiHistoryFill} from "react-icons/all";
 import Footer from "../components/utils/footer";
 import ContulMeu from "./contulMeu";
+import Link from "react-router-dom/Link";
 
 
 class SidebarClient extends Component {
@@ -43,24 +44,27 @@ class SidebarClient extends Component {
                             style={{marginTop: "120px"}}
                         >
                             <div className="list-group panel">
-                                <div
+                                <Link
+                                    to="/contul-meu/setari-cont"
                                     onClick={() => this.show("setari-cont")}
                                     className="list-group-item"
                                     data-parent="#sidebar"
                                 >
                                     <FiSettings style={{marginRight:"10px"}}/>
                                     <span className="hidden-sm-down">Setări cont</span>{" "}
-                                </div>
+                                </Link>
 
-                                <div
+                                <Link
+                                    to="/contul-meu/istoric-comenzi"
                                     onClick={() => this.show("istoric-comenzi")}
                                     className="list-group-item"
                                     data-parent="#sidebar"
                                 >
                                     <RiHistoryFill style={{marginRight:"10px"}}/>
                                     <span className="hidden-sm-down">Istoric comenzi</span>
-                                </div>
-                                <div
+                                </Link>
+                                <Link
+                                    to="/contul-meu/adrese"
                                     onClick={() => this.show("adrese")}
                                     className="list-group-item"
                                     data-parent="#sidebar"
@@ -68,7 +72,7 @@ class SidebarClient extends Component {
                                     {/*<i className="fa fa-book"></i>{" "}*/}
                                     <AiOutlineHome  style={{marginRight:"10px"}}/>
                                     <span className="hidden-sm-down">Adrese</span>
-                                </div>
+                                </Link>
                                 <div
                                     onClick={() => this.show("deconectare")}
                                     className="list-group-item"

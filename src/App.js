@@ -5,81 +5,55 @@ import NavBar from './components/NavBars/navBar';
 import LoginForm from './components/Forms/loginForm';
 import RegisterForm from './components/Forms/registerForm';
 import ContactForm from './components/Forms/contactForm';
-import HomePage from './components/Dashboards/homePage';
+import HomePage from './components/HomePage/homePage';
 import Termeni from './components/Info/termeni';
 import Retur from './components/Info/retur';
 import Plata from './components/Info/plata';
 import Livrare from './components/Info/livrare';
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
-import PrivateClientRoute from './components/Routes/privateClientRoute';
-import PrivateAdministratorRoute from './components/Routes/privateAdministratorRoute';
-import ClientDashboard from './components/Dashboards/clientDashboard';
-import AdministratorDashboard from './components/Dashboards/administratorDashboard';
+import "./css/produse.css"
+import PrivateClientRoute from './Client/privateClientRoute';
+import PrivateAdministratorRoute from './Administrator/privateAdministratorRoute';
+import ClientDashboard from './Client/clientDashboard';
+import AdministratorDashboard from './Administrator/administratorDashboard';
 import './css/sidebar.css';
+import './css/footer.css';
+import './css/navbar.css';
+import './css/backgrounds.css';
+import './css/icons.css';
+import './css/forms.css';
+import './css/detalii.css';
 import SidebarCategorii from "./components/SideBars/sidebarCategorii";
-import SidebarClient from "./components/SideBars/sidebarClient";
-import SetariContClient from "./components/Info/setariContClient";
-import IstoricComenziClient from "./components/Info/istoricComenziClient";
-import AdreseClient from "./components/Info/adreseClient";
-
-
-
-
-// function App() {
-//   return (
-//     <React.Fragment>
-//       <NavBar></NavBar>
-//       <main className="container">
-//         <Switch>
-//         <Route path="/home" component={HomePage}></Route>
-//         <Route path="/contact" component={ContactForm}></Route>
-//         <Route path="/inregistrare" component={RegisterForm} ></Route>
-//         <Route path="/autentificare" component={LoginForm}></Route>
-//         <Route path="/termeni-conditii" component={Termeni}></Route>
-//         <Route path="/retur" component={Retur}></Route>
-//         <Route path="/plata" component={Plata}></Route>
-//         <Route path="/informatii-livrare" component={Livrare}></Route>
-//         <Route path="/not-found" component={NotFound}></Route>
-
-//         <PrivateClientRoute path="/clientdashboard" component={ClientDashboard}></PrivateClientRoute>
-//         <PrivateAdministratorRoute path="/administratordashboard" component={AdministratorDashboard}></PrivateAdministratorRoute>
-
-//         <Redirect from="/" exact to="/home"></Redirect>
-//         </Switch>
-//       </main>
-
-//     </React.Fragment>
-//   )
-// }
+import SidebarClient from "./Client/sidebarClient";
+import Detalii from "./components/Store/Detalii";
+import ProduseView from "./components/Store/ProduseList";
+import Footer from "./components/utils/footer";
+import Informatii from "./components/Info/informatii";
 
 class App extends Component{
+
   render() {
     return (
       // <div >
       <React.Fragment>
-          <NavBar></NavBar>
-            <Switch>
+          <NavBar/>
+            <Switch >
               <Route path="/home" exact component={HomePage} />
-              <Route Route path="/autentificare" component={LoginForm}></Route>
-              <Route path="/contact" component={ContactForm}></Route>
-              <Route path="/inregistrare" component={RegisterForm} ></Route>
-              <Route path="/termeni-conditii" component={Termeni}></Route>
-              <Route path="/retur" component={Retur}></Route>
-              <Route path="/plata" component={Plata}></Route>
-              <Route path="/./produse/accesorii-birou" component={SidebarCategorii}></Route>
-              <Route path="/informatii-livrare" component={Livrare}></Route>
-              {/*<Route path="/setari-cont" component={SidebarClient}></Route>*/}
-              <Route path="/setari-cont" component={SetariContClient}></Route>
-              <Route path="/istoric-comenzi" component={IstoricComenziClient}></Route>
-              <Route path="/adrese-client" component={AdreseClient}></Route>
+              <Route path="/autentificare" component={LoginForm}/>
+              <Route path="/inregistrare" component={RegisterForm} />
+              <Route path="/informatii/:id" component={Informatii}/>
 
-              <PrivateClientRoute path="/clientdashboard" component={ClientDashboard}/>
+              <Route path="/produse-sidebar" component={SidebarCategorii}/>
+              <Route path="/produse/detalii/:id" component={Detalii} />
+              <Route exact path="/produse/:id/:id" component={ProduseView} />
+
+              <PrivateClientRoute path="/contul-meu/:id" component={ClientDashboard}/>
               <PrivateAdministratorRoute path="/administratordashboard" component={AdministratorDashboard}/>
 
-              <Route path="/not-found" component={NotFound}></Route>
-              {/* <Redirect to="/home" /> */}
-              <Redirect from="/" exact to="/home"></Redirect>
+              <Route path="/not-found" component={NotFound}/>
+
+              <Redirect from="/" exact to="/home"/>
               </Switch>
               </React.Fragment>
           // </div>

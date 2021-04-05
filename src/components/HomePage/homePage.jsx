@@ -38,12 +38,12 @@ class HomePage extends React.Component {
               </h4>
               <NavLink
                 className="nav-item-aut nav-link"
-                to="/./produse/accesorii-birou"
+                to="/produse/accesorii-birou/agende-si-blocnotes-uri"
               >
                 <img
                   className="rounded-circle z-depth-2"
                   alt="100x100"
-                  src="./poze/acces.jpg"
+                  src="/./poze/home-page/acces.jpg"
                   data-holder-rendered="true"
                   style={{ width: 280, height: 270 }}
                 />
@@ -58,12 +58,12 @@ class HomePage extends React.Component {
               </h4>
               <NavLink
                 className="nav-item-aut nav-link"
-                to="/./produse/instrumente-scris"
+                to="/produse/instrumente-scris/creioane-negre-si-creioane-mecanice"
               >
                 <img
                   className="rounded-circle z-depth-2"
                   alt="100x100"
-                  src="./poze/pen.jpg"
+                  src="/./poze/home-page/pen.jpg"
                   data-holder-rendered="true"
                   style={{ width: 280, height: 270 }}
                 />
@@ -75,12 +75,12 @@ class HomePage extends React.Component {
               </h4>
               <NavLink
                 className="nav-item-aut nav-link"
-                to="/./produse/rechizite-scolare"
+                to="/produse/rechizite-scolare/caiete"
               >
                 <img
                   className="rounded-circle z-depth-2"
                   alt="100x100"
-                  src="./poze/penar.jpeg"
+                  src="/./poze/home-page/penar.jpeg"
                   data-holder-rendered="true"
                   style={{ width: 280, height: 270 }}
                 />
@@ -92,12 +92,12 @@ class HomePage extends React.Component {
               </h4>
               <NavLink
                 className="nav-item-aut nav-link"
-                to="/./produse/arthobby"
+                to="/produse/articole-creative/abtibilde-si-stampile-copii"
               >
                 <img
                   className="rounded-circle z-depth-2"
                   alt="100x100"
-                  src="./poze/craft1.png"
+                  src="/./poze/home-page/craft1.png"
                   data-holder-rendered="true"
                   style={{ width: 280, height: 270 }}
                 />
@@ -107,7 +107,7 @@ class HomePage extends React.Component {
         </div>
         <div className="row" id="header">
           <div className="col-sm-3">
-            <div className="card">
+            <div className="card card-homePage">
               <div className="card-body">
                 <h5 className="card-title">
                   <FontAwesomeIcon className="icons-card" icon={faCar} />
@@ -120,7 +120,7 @@ class HomePage extends React.Component {
             </div>
           </div>
           <div className="col-sm-3">
-            <div className="card">
+            <div className="card" id="card-homePage">
               <div className="card-body">
                 <h5 className="card-title">
                   <FontAwesomeIcon className="icons-card" icon={faClock} />
@@ -129,13 +129,13 @@ class HomePage extends React.Component {
                 <p className="card-text">
                   Puteți comanda atât online,cât și telefonic la numărul:
                   0751215301 ( L-V: 8-16)
-                  <br></br>
+                  <br/>
                 </p>
               </div>
             </div>
           </div>
           <div className="col-sm-3">
-            <div className="card">
+            <div className="card" id="card-homePage">
               <div className="card-body">
                 <h5 className="card-title">
                   <FontAwesomeIcon className="icons-card" icon={faRedo} />
@@ -148,8 +148,8 @@ class HomePage extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-sm-3">
-            <div className="card">
+          <div className="col-sm-3" id="card-homePage">
+            <div className="card" >
               <div className="card-body">
                 <h5 className="card-title">
                   <FontAwesomeIcon className="icons-card" icon={faLock} />
@@ -162,7 +162,7 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
-        <Footer></Footer>
+        <Footer/>
       </React.Fragment>
     );
   }

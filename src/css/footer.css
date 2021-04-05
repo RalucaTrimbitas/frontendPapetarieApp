@@ -1,0 +1,31 @@
+.card-footer {
+  background-color: #cfb5a2;
+  /* background-image: url("./pictures/texture5.jpg"); */
+}
+
+/* link-uri footer */
+.nav-item-aut:hover {
+  color: #4b1515de !important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.btn-cautare {
+  background: #4b1515de;
+  color: #fff;
+  font-weight: 300;
+  width: 100px;
+}
+
+#logoDianaFooter {
+  width: 170px;
+}
+
+.footer-title {
+  margin-top: 30px;
+}
+
+#foot {
+  margin-top:850px;
+}
+

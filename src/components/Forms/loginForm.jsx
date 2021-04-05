@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
           else 
           if (result === "client") {
             localStorage.setItem("userType", result);
-            this.props.history.replace("/clientdashboard");
+            this.props.history.replace("/contul-meu/setari-cont");
             console.log("client dashboard");
           }
         });

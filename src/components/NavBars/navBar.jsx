@@ -1,7 +1,7 @@
 import React from "react";
 import NavBarDefault from "./navBarDefault";
-import NavBarClient from "./navBarClient";
-import NavBarAdministrator from "./navBarAdministrator";
+import NavBarClient from "../../Client/navBarClient";
+import NavBarAdministrator from "../../Administrator/navBarAdministrator";
 import authentication from "../utils/auth.jsx";
 
 class NavBar extends React.Component {

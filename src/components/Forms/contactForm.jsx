@@ -31,7 +31,6 @@ class ContactForm extends Component {
   render() {
     return (
       <React.Fragment>
-  
         <div className="container-contact">
           <div className="row">
             <div className="col-md-5 contact-sec offset-md-4">
