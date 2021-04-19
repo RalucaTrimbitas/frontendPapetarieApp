@@ -13,10 +13,10 @@ export class ProduseList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            produse: []
+            produse: [],
+            cos_cumparaturi: [],
+            cart: [],
         };
-
-        console.log(this.props.match.params.id)
 
         this.renderProduse = this.renderProduse.bind(this);
 
@@ -37,12 +37,51 @@ export class ProduseList extends Component {
                     console.log("error")
                 }
             })
+
+        fetch('http://localhost:8080/cos-cumparaturi', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        this.setState({cos_cumparaturi: json});
+                    });
+                    // LOGIN PERSISTANCE
+                } else {
+                    console.log("error")
+                }
+            })
     }
 
-    componentDidMount() {
-        // this.props.history.replace("/produse/accesorii-birou/:id");
+    addCart = (id) => {
+        console.log(id)
+        try {
+            fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
+                method: "POST",
+                body: JSON.stringify({
+                    idProdus: id,
+                }),
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                },
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log("Produsul s-a adaugat")
+                    } else {
+                        console.log("error")
+                    }
+                })
+        }
+        catch (err){
+            console.log(err)
+        }
     }
-
 
     renderProduse = (produs) => {
         const {codDeBare,denumire,pret,descriere,src} = produs;
@@ -53,11 +92,11 @@ export class ProduseList extends Component {
                     </Link>
                     <div className="content">
                         <h4>
-                            <Link to={`/produse/detalii/${codDeBare}`} onClick={localStorage.setItem("codDeBare", codDeBare)} style={{color:"#4b1515de"}}>{denumire}</Link>
+                            <Link to={`/produse/detalii/${codDeBare}`} style={{color:"#4b1515de"}}>{denumire}</Link>
                         </h4>
                         <span>{pret} lei</span>
                         <p>{descriere}</p>
-                        <button>Adaugă în coș</button>
+                        <button onClick={() => this.addCart(codDeBare)}>Adaugă în coș</button>
                     </div>
                 </div>
         )
@@ -65,26 +104,6 @@ export class ProduseList extends Component {
 
     renderCategoriiProduse(text) {
         return (
-            // <React.Fragment>
-            //     <div className="container-fluid">
-            //     <div className="row">
-            //         <div className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in">
-            //             <SidebarCategorii show={this.show}/>
-            //         </div>
-            //         <div className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
-            //         {this.state.produse
-            //             .filter(item => {
-            //                 return item.idCategorieProdus === text
-            //             })
-            //             .map(produs => this.renderProduse(produs))}
-            //         </div>
-            //     </div>
-            //     </div>
-            //     <Footer/>
-            //
-            // </React.Fragment>
-
-
             <Container fluid>
                 <Row>
                     <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -97,14 +116,13 @@ export class ProduseList extends Component {
                             })
                             .map(produs => this.renderProduse(produs))}
                     </Col>
-                    <Footer/>
                 </Row>
+                <Footer/>
             </Container>
         )
     }
 
     render() {
-
         //Categoria 1 -  Accesorii de birou
         if (this.props.match.params.id === "accesorii-birou") {
             return this.renderCategoriiProduse("1")

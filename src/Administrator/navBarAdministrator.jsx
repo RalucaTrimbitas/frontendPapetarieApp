@@ -79,7 +79,7 @@ links = () => {
               <div className="dropdown-menu" aria-labelledby="navbarDropdown1">
                 <NavLink
                   className="dropdown-item"
-                  to="/./produse/accesorii-birou"
+                  to="/produse/accesorii-birou/agende-si-blocnotes-uri"
                 >
                   Accesorii de birou
                 </NavLink>

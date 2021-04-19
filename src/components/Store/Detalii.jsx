@@ -1,4 +1,6 @@
 import {Component} from "react";
+import {Link} from "react-router-dom";
+import Footer from "../utils/footer";
 
 export class Detalii extends Component {
     constructor(props) {
@@ -33,26 +35,28 @@ export class Detalii extends Component {
             <>
                 {this.state.getAllProduse
                     .filter(item => {
-                    return item.codDeBare === localStorage.getItem("codDeBare")
+                    return item.codDeBare === this.props.match.params.id
                 })
                     .map(item => (
                     <div className="details" key={item.codDeBare}>
-                        <img src={item.src} alt="ImagineaMEA" style={{backgroundImage: `url(${item.src})`}}/>
+                        <img src={item.src} alt="ImagineProdus" style={{backgroundImage: `url(${item.src})`}}/>
                         <div className="box">
                             <div className="row">
                                 <h2>{item.denumire}</h2>
-                                <span>${item.pret}</span>
+                                <span>{item.pret} lei</span>
                             </div>
                             {/*<Colors colors={item.colors}/>*/}
                             <p>{item.descriere}</p>
-                            {/*<p>{item.content}</p>*/}
+                            <p>{item.detalii}</p>
                             {/*<Link to="/cart" className="cart" onClick={() => addCart(item._id)}>*/}
-                            {/*    Add to cart*/}
-                            {/*</Link>*/}
+                            <Link to="/cos-cumparaturi" className="cart" >
+                                Adaugă în coș
+                            </Link>
                         </div>
                     </div>
                 ))
                 }
+                <Footer/>
             </>
         )
     }

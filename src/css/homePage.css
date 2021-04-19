@@ -1,0 +1,75 @@
+.img-homePage {
+    background-image: url("../pictures/homePage2.png");
+    background-position: center;
+    /*background-attachment: fixed;*/
+    background-size: cover;
+    height: 485px;
+    /*width:100%;*/
+
+}
+
+.u-clearfix:before,
+.u-clearfix:after {
+    content: '';
+    display: table;
+}
+
+.u-align-center {
+    text-align: center;
+}
+@media (min-width: 1200px) {
+    .u-align-center-xl {
+        text-align: center;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .u-align-center-lg {
+        text-align: center;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .u-align-center-md {
+        text-align: center;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .u-align-center-sm {
+        text-align: center;
+    }
+}
+@media (max-width: 575px) {
+    .u-align-center-xs {
+        text-align: center;
+    }
+}
+
+
+.u-align-left {
+    text-align: left;
+}
+@media (min-width: 1200px) {
+    .u-align-left-xl {
+        text-align: left;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .u-align-left-lg {
+        text-align: left;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .u-align-left-md {
+        text-align: left;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .u-align-left-sm {
+        text-align: left;
+    }
+}
+@media (max-width: 575px) {
+    .u-align-left-xs {
+        text-align: left;
+    }
+}
+

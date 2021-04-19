@@ -25,10 +25,6 @@ class Informatii extends Component {
             return <Livrare/>
         }
 
-            // <React.Fragment>
-            // <Termeni/>
-            // </React.Fragment>
-
     }
 
 }

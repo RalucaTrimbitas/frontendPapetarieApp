@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import SidebarClient from "./sidebarClient";
+import NavBar from "../components/NavBars/navBar";
+import NavBarClient from "./navBarClient";
 
 class ClientDashboard extends Component {
   // constructor(){

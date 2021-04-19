@@ -6,6 +6,7 @@ import {AiOutlineHome, FaSignOutAlt, FiSettings, RiHistoryFill} from "react-icon
 import Footer from "../components/utils/footer";
 import ContulMeu from "./contulMeu";
 import Link from "react-router-dom/Link";
+import {withRouter} from "react-router-dom";
 
 
 class SidebarClient extends Component {
@@ -28,12 +29,10 @@ class SidebarClient extends Component {
 
     logout(){
         localStorage.clear();
-        this.props.history.replace('/autentificare');
+        this.history.replace('/autentificare');
     }
 
-    render() {
-        document.body.classList = "";
-        document.body.classList.add("background-CategoriiDashboard");
+    render() {;
         return (
             <React.Fragment>
                 <div className="container-fluid">
@@ -93,4 +92,4 @@ class SidebarClient extends Component {
         )
     }
 }
-export default SidebarClient;
+export default withRouter(SidebarClient);

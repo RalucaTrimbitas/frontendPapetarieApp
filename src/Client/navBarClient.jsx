@@ -8,6 +8,31 @@ import { FiHeart } from "react-icons/all";
 import { FaRegUser, FiSettings } from "react-icons/all";
 
 class NavBarClient extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cart: []
+    }
+
+    fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }
+    })
+        .then(res => {
+          if (res.status === 200) {
+            res.json().then(json => {
+              this.setState({cart: json});
+            });
+            // LOGIN PERSISTANCE
+          } else {
+            console.log("error")
+          }
+        })
+
+  }
   handleLogout = () => {
     localStorage.clear();
   };
@@ -67,7 +92,7 @@ class NavBarClient extends React.Component {
               <li className="nav-item active">
                 <NavLink
                     className="nav-item nav-link lya"
-                    to="/produse-sidebar"
+                    to="/produse/accesorii-birou/agende-si-blocnotes-uri"
                     style={{ color: "#492020" }}
                 >
                   Produse
@@ -102,18 +127,24 @@ class NavBarClient extends React.Component {
                 </form>
               </li>
             </ul>
+            <div className="nav-cart">
+              <span>0</span>
             <NavLink className="nav-item nav-link" to="/produse-favorite">
               <FiHeart
                 className="icons-nav hvr-grow"
                 style={{ cursor: "pointer" }}
               />
             </NavLink>
-            <NavLink className="nav-item nav-link " to="/cos-cumparaturi">
-              <FiShoppingCart
-                className="icons-nav hvr-grow"
-                style={{ cursor: "pointer" }}
-              />
-            </NavLink>
+            </div>
+            <div className="nav-cart">
+              <span>{this.state.cart.length}</span>
+              <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
+                <FiShoppingCart
+                    className="icons-nav hvr-grow"
+                    style={{ cursor: "pointer" }}
+                />
+              </NavLink>
+            </div>
             <div className="nav-item dropdown navbar-nav">
               <p
                 className="nav-link dropdown "
