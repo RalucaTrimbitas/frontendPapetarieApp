@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCar,
   faClock,
   faLock,
   faRedo,
@@ -9,29 +8,22 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import Footer from "../utils/footer";
 import {FaPhoneAlt, HiChevronDoubleRight} from "react-icons/all";
+import NavBarClient from "../../Client/navBarClient";
+import NavBar from "../NavBars/navBar";
 
 class HomePage extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      sizeCart: localStorage.getItem("cartLength")
+    }
+  }
   render() {
     document.body.classList = "";
     document.body.classList.add("background-general");
     return (
       <React.Fragment>
-        {/* <div className="container my-4">
-          <div className="row text-center">
-            <div className="col-md-3 mb-4">
-
-              <img src="./poze/plic.jpg" alt="poza" style={{height: "500px"}}></img>
-              </div>
-              </div>
-              </div> */}
-
-        {/*<div className="img-homePage">*/}
-
-        {/*  /!*<img src="/./poze/home-page/homePage.png" style={{width: "100%"}}/>*!/*/}
-        {/*  <p>sadsfsa</p>*/}
-
-        {/*</div>*/}
-
+        <NavBar />
         <section className="u-align-center img-homePage" id="sec-f9a4">
           <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">
             <h2 className="u-custom-font u-font-playfair-display u-text u-text-default u-text-1">

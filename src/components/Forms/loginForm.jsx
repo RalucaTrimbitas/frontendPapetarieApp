@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../utils/footer";
 import {NavLink} from "react-router-dom" ;
+import NavBar from "../NavBars/navBar";
 
 class LoginForm extends React.Component {
   constructor() {
@@ -49,7 +50,7 @@ class LoginForm extends React.Component {
           else 
           if (result === "client") {
             localStorage.setItem("userType", result);
-            this.props.history.replace("/contul-meu/setari-cont");
+            this.props.history.replace("/contul-meu/acasa-client");
             console.log("client dashboard");
           }
         });
@@ -76,6 +77,7 @@ class LoginForm extends React.Component {
     document.body.classList.add("background-register");
     return (
       <React.Fragment>
+        <NavBar/>
         <div className="container-log">
           <div className="row">
             <div className="col-md-4 login-sec offset-md-4" id="login-form" style={{marginTop: "20px"}}>
@@ -84,14 +86,12 @@ class LoginForm extends React.Component {
                 <div className="form-group">
                   <label className="text-label">Nume utilizator</label>
                   <input
-                    // id="UserInput"
-                    // placeholder="&#61447;"
                     type="text"
                     name="numeUtilizator"
                     className="form-control"
                     placeholder="Nume utilizator"
                     onChange={this.handleChange}
-                  ></input>
+                  />
                 </div>
 
                 <div className="form-group">
@@ -102,12 +102,12 @@ class LoginForm extends React.Component {
                     className="form-control"
                     placeholder="Parola"
                     onChange={this.handleChange}
-                  ></input>
+                  />
                 </div>
 
                 <div className="form-check">
                   <label className="form-check-label">
-                    <input type="checkbox" className="form-check-input"></input>
+                    <input type="checkbox" className="form-check-input"/>
                     <p>Păstrează datele</p>
                   </label>
                   <button
@@ -119,9 +119,9 @@ class LoginForm extends React.Component {
                   </button>
                   <p >
                   <span style={{float : "inline"}}>
-                    <br></br>
-                    <br></br>
-                    <br></br>
+                    <br/>
+                    <br/>
+                    <br/>
                     Nu ai cont încă?
                     <NavLink className="nav-item-aut nav-link menu-item" to="/inregistrare"> Creaază-ți un cont</NavLink>
                   </span>
@@ -131,8 +131,8 @@ class LoginForm extends React.Component {
             </div>
           </div>
         </div>
-        <br></br>
-        <Footer></Footer>
+        <br/>
+        <Footer/>
       </React.Fragment>
     );
   }

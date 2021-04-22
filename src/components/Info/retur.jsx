@@ -1,9 +1,11 @@
 import React from "react";
 import Footer from '../utils/footer';
+import NavBar from "../NavBars/navBar";
 
 const Retur = () => {
   return (
     <React.Fragment>
+      <NavBar/>
     <div class="card">
       <div class="card-header text-center">Politica de Retur</div>
       <div class="card-body">

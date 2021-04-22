@@ -8,7 +8,6 @@ import { NavLink, Link } from "react-router-dom";
 const Footer = () => {
     return (
         <div className="card-footer text-muted" >
-        <div className="container">
           <div className="row">
             <div className="col-md-3 text-center" style={{color: "#4b1515de"}}>
               <h6 className="txt_title text-center">
@@ -149,7 +148,6 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-        </div>
       </div>
     )
 

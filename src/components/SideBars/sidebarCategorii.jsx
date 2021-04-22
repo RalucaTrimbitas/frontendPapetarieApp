@@ -12,7 +12,6 @@ import {
 import ProduseView from "../Store/ProduseList";
 import Link from "react-router-dom/Link";
 import DropdownItem from 'react-bootstrap/DropdownItem';
-import NavBar from "../NavBars/navBar";
 
 class SidebarCategorii extends Component {
     constructor(props) {
@@ -224,7 +223,7 @@ class SidebarCategorii extends Component {
                                       style={{paddingLeft: "50px"}}>
                                     Bibliorafturi
                                 </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
+                                <Link className="list-group-item text-left text-wrap" data-parent="#menu1"
                                       to={`/produse/accesorii-birou/calculatoare-birou-si-stiintifice`}
                                       action="replace"
                                         style={{paddingLeft: "50px"}}>
@@ -273,7 +272,7 @@ class SidebarCategorii extends Component {
                                 <span className="hidden-sm-down">Instrumente de scris <span
                                     className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu2">
+                            <div className="collapse text-wrap" id="menu2">
                                 <Link
                                     to={`/produse/instrumente-scris/creioane-negre-si-creioane-mecanice`}
                                     action="replace"

@@ -24,9 +24,7 @@ class Informatii extends Component {
         if (this.props.match.params.id === "informatii-livrare") {
             return <Livrare/>
         }
-
     }
-
 }
 
 export default Informatii;

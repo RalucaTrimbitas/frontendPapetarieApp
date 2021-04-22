@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Footer from "../utils/footer";
+import NavBar from "../NavBars/navBar";
 
 class RegisterForm extends Component {
   constructor() {
@@ -90,6 +91,7 @@ class RegisterForm extends Component {
     document.body.classList.add("background-register");
     return (
       <React.Fragment>
+        <NavBar/>
            <div className="container-reg">
             <div className="row row-form-reg" >
               <div className="col-md-6 reg-sec offset-md-3" id="register-form">
@@ -103,7 +105,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Prenume"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
                   <div className="form-group">
                     <label className="text-label">Nume</label>
@@ -113,7 +115,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Nume"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
                   <div className="form-group">
                     <label className="text-label">E-mail</label>
@@ -123,7 +125,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Email"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
                   <div className="form-group">
                     <label className="text-label">Nume utilizator</label>
@@ -133,7 +135,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Nume utilizator"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
                   <div className="form-group">
                     <label className="text-label">Parola</label>
@@ -143,7 +145,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Parola"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
                   <div className="form-group">
                     <label className="text-label">Confirmă parola</label>
@@ -153,7 +155,7 @@ class RegisterForm extends Component {
                       className="form-control"
                       placeholder="Confirma parola"
                       onChange={this.handleChange}
-                    ></input>
+                    />
                   </div>
 
                   <div className="form-check">
@@ -169,10 +171,9 @@ class RegisterForm extends Component {
                 </form>
               </div>
             </div>
-          </div> 
-    
+          </div>
         <div id="foot">
-          <Footer></Footer>
+          <Footer/>
         </div>
       </React.Fragment>
     );

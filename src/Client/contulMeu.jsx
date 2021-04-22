@@ -1,7 +1,7 @@
 import React from "react";
 const ContulMeu = () => {
     document.body.classList = "";
-    document.body.classList.add("background-panou");
+    // document.body.classList.add("background-panou");
     return (
         <React.Fragment>
             <div className="card card-panou" style={{marginTop: "80px", marginBottom: "100px"}}>

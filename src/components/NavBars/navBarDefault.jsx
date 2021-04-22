@@ -6,11 +6,11 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FiShoppingCart } from "react-icons/all";
 import { FiHeart } from "react-icons/all";
 import { FaRegUser } from "react-icons/all";
+import {logDOM} from "@testing-library/react";
 
 export class NavBarDefault extends Component {
-
   render () {
-
+    console.log("NavbarDefault")
     return (
         <React.Fragment>
           <div className="row al_center" id="rowHead">
@@ -103,24 +103,27 @@ export class NavBarDefault extends Component {
                   </form>
                 </li>
               </ul>
-              <NavLink className="nav-item nav-link" to="/produse-favorite">
-                <FiHeart
-                    className="icons-nav hvr-grow"
-                    style={{ cursor: "pointer" }}
-                />
-              </NavLink>
-              {/*<div className="nav-cart">*/}
-                {/*<span>0</span>*/}
+              <div className="nav-cart">
+                <span className={this.props.counter ? "invisible" : "visible"}>0</span>
+                <NavLink className="nav-item nav-link" to="/produse-favorite">
+                  <FiHeart
+                      className="icons-nav hvr-grow"
+                      style={{ cursor: "pointer" }}
+                  />
+                </NavLink>
+              </div>
+              <div className="nav-cart">
+                <span className={this.props.counter ? "invisible" : "visible"}>{localStorage.getItem("cartLength")}</span>
                 <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
                   <FiShoppingCart
                       className="icons-nav hvr-grow"
                       style={{ cursor: "pointer" }}
                   />
                 </NavLink>
-              {/*</div>*/}
+              </div>
               <NavLink
                   className="nav-item nav-link"
-                  to="/autentificare"
+                  to={this.props.userIcon}
                   id="navItem"
               >
                 <FaRegUser

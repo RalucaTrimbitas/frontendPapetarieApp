@@ -6,18 +6,24 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "../utils/footer";
+import {Modal, Nav} from "react-bootstrap";
+import { FaShoppingCart} from "react-icons/all";
+import NavBarClient from "../../Client/navBarClient";
+import NavBar from "../NavBars/navBar";
 
 
 export class ProduseList extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             produse: [],
             cos_cumparaturi: [],
-            cart: [],
+            sizeCart: localStorage.getItem("cartLength"),
+            show: false,
+            showModal2: false
         };
 
+        this.closeModal = this.closeModal.bind(this);
         this.renderProduse = this.renderProduse.bind(this);
 
         fetch('http://localhost:8080/produse', {
@@ -32,33 +38,26 @@ export class ProduseList extends Component {
                     res.json().then(json => {
                         this.setState({produse: json});
                     });
-                    // LOGIN PERSISTANCE
-                } else {
-                    console.log("error")
-                }
-            })
-
-        fetch('http://localhost:8080/cos-cumparaturi', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    res.json().then(json => {
-                        this.setState({cos_cumparaturi: json});
-                    });
-                    // LOGIN PERSISTANCE
                 } else {
                     console.log("error")
                 }
             })
     }
 
+    closeModal = e => {
+        this.setState({
+            show: false,
+            showModal2: false
+        });
+    };
+
     addCart = (id) => {
-        console.log(id)
+        if (localStorage.getItem('numeUtilizator') == null){
+            this.setState({
+                showModal2: true
+            });
+            return;
+        }
         try {
             fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
                 method: "POST",
@@ -73,7 +72,18 @@ export class ProduseList extends Component {
                 .then(res => {
                     if (res.status === 200) {
                         console.log("Produsul s-a adaugat")
-                    } else {
+                        this.setState({
+                            show: false,
+                            sizeCart: Number(this.state.sizeCart) + 1
+                        });
+                        localStorage.setItem("cartLength", this.state.sizeCart)
+                    }
+                    else if (res.status === 202) {
+                        this.setState({
+                            show: true
+                        });
+                    }
+                    else {
                         console.log("error")
                     }
                 })
@@ -96,7 +106,46 @@ export class ProduseList extends Component {
                         </h4>
                         <span>{pret} lei</span>
                         <p>{descriere}</p>
-                        <button onClick={() => this.addCart(codDeBare)}>Adaugă în coș</button>
+                        <button type="button" className="btn order" data-toggle="modal"
+                                data-target="#exampleModalCenter" onClick={() => this.addCart(codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
+                        <Modal show={this.state.showModal2} onHide={this.closeModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Dacă nu aveți deja un cont creat, alegeți varianta de înregistrare.</Modal.Body>
+                            <Modal.Footer>
+                                <Link type="button" className="btn order"
+                                      data-toggle="modal"
+                                      data-target="#exampleModalCenter"
+                                      to="/autentificare">
+                                    Autentificare
+                                </Link>
+                                <Link
+                                    type="button" className="btn order"
+                                    data-toggle="modal"
+                                    data-target="#exampleModalCenter"
+                                    to="/inregistrare">
+                                    Înregistrare
+                                </Link>
+                            </Modal.Footer>
+                        </Modal>
+                        {/*<Modal*/}
+                        {/*    // transparent={true}*/}
+                        {/*    size="md"*/}
+                        {/*    show={this.state.show}*/}
+                        {/*    onHide={this.closeModal}*/}
+                        {/*>*/}
+                        {/*    <Modal.Header closeButton>*/}
+                        {/*        <Modal.Title id="example-modal-sizes-title-lg">*/}
+                        {/*            Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color:"green"}}/>*/}
+                        {/*        </Modal.Title>*/}
+                        {/*    </Modal.Header>*/}
+                        {/*    <Modal.Body>*/}
+                        {/*        <Card>*/}
+                        {/*            <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>*/}
+                        {/*        </Card>*/}
+                        {/*    </Modal.Body>*/}
+                        {/*</Modal>*/}
                     </div>
                 </div>
         )
@@ -104,21 +153,27 @@ export class ProduseList extends Component {
 
     renderCategoriiProduse(text) {
         return (
-            <Container fluid>
-                <Row>
-                    <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
-                        <SidebarCategorii show={this.show}/>
-                    </Col>
-                    <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
-                        {this.state.produse
-                            .filter(item => {
-                                return item.idCategorieProdus === text
-                            })
-                            .map(produs => this.renderProduse(produs))}
-                    </Col>
-                </Row>
-                <Footer/>
-            </Container>
+            <React.Fragment>
+                {/*<NavBarClient length = {this.state.sizeCart}/>*/}
+                <NavBar/>
+                <Container fluid>
+                    <Row>
+                        <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
+                            <SidebarCategorii show={this.show}/>
+                        </Col>
+                        <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+                            {this.state.produse
+                                .filter(item => {
+                                    return item.idCategorieProdus === text
+                                })
+                                .map(produs => this.renderProduse(produs))}
+                        </Col>
+                    </Row>
+                    <Footer/>
+                </Container>
+            </React.Fragment>
+
+
         )
     }
 

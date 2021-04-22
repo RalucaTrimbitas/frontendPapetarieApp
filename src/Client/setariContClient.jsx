@@ -28,7 +28,7 @@ class SetariContClient extends Component {
 
     render() {
         document.body.classList = "";
-        document.body.classList.add("background-panou");
+        // document.body.classList.add("background-panou");
     return (
         <React.Fragment>
                     <main className="col-md-12 col-xs-11">

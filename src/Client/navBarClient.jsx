@@ -137,7 +137,7 @@ class NavBarClient extends React.Component {
             </NavLink>
             </div>
             <div className="nav-cart">
-              <span>{this.state.cart.length}</span>
+              <span>{this.props.length}</span>
               <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
                 <FiShoppingCart
                     className="icons-nav hvr-grow"
@@ -164,12 +164,11 @@ class NavBarClient extends React.Component {
               >
                 <NavLink
                   className="dropdown-item"
-                  to="/contul-meu/setari-cont"
+                  to="/contul-meu/acasa-client"
                 >
                 <FiSettings style={{marginRight:"6px"}}/>
                 Panou control
                 </NavLink>
-
                 <div className="dropdown-divider"/>
                 <NavLink 
                 className="dropdown-item"

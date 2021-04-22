@@ -1,9 +1,11 @@
 import React from "react";
 import Footer from "../utils/footer";
+import NavBar from "../NavBars/navBar";
 
 const Plata = () => {
   return (
     <React.Fragment>
+      <NavBar/>
       <div className="card">
         <div className="card-header text-center">Cum plătesc?</div>
         <div className="card-body">

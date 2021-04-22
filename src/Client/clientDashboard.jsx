@@ -1,25 +1,117 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import SidebarClient from "./sidebarClient";
-import NavBar from "../components/NavBars/navBar";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Footer from "../components/utils/footer";
+import SetariContClient from "./setariContClient";
+import IstoricComenziClient from "./istoricComenziClient";
+import AdreseClient from "./adreseClient";
+import ContulMeu from "./contulMeu";
 import NavBarClient from "./navBarClient";
+import NavBar from "../components/NavBars/navBar";
 
 class ClientDashboard extends Component {
-  // constructor(){
-  //     super();
-  //     //this.show = this.show.bind(this);
-  //     // this.getPendingRequests = this.getPendingRequests.bind(this)
-  //     // this.state = {render: <DefaultCompanyDashboard/>, pendingRequests: this.getPendingRequests()}
-  // }
+  constructor(){
+      super();
+      this.state = {
+          sizeCart: localStorage.getItem("cartLength")
+      }
+  }
+
+  renderSetariCont(text) {
+    return (
+        <React.Fragment>
+            <NavBar/>
+        <Container fluid>
+          <Row>
+            <Col className="col-md-2 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
+              <SidebarClient show={this.show}/>
+            </Col>
+            <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+              <SetariContClient/>
+            </Col>
+          </Row>
+          <Footer/>
+        </Container>
+        </React.Fragment>
+    )
+  }
+
+  renderIstoricComenzi(text) {
+    return (
+        <React.Fragment>
+            <NavBarClient length={this.state.sizeCart}/>
+        <Container fluid>
+          <Row>
+            <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
+              <SidebarClient show={this.show}/>
+            </Col>
+            <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+              <IstoricComenziClient/>
+            </Col>
+          </Row>
+          <Footer/>
+        </Container>
+        </React.Fragment>
+    )
+  }
+
+  renderAdrese(text) {
+    return (
+        <React.Fragment>
+            <NavBarClient length={this.state.sizeCart}/>
+        <Container fluid>
+          <Row>
+            <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
+              <SidebarClient show={this.show}/>
+            </Col>
+            <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+              <AdreseClient/>
+            </Col>
+          </Row>
+          <Footer/>
+        </Container>
+        </React.Fragment>
+    )
+  }
+
+    renderContulMeu(default1) {
+        return (
+            <React.Fragment>
+                <NavBarClient length={this.state.sizeCart}/>
+                <Container fluid>
+                    <Row>
+                        <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
+                            <SidebarClient show={this.show}/>
+                        </Col>
+                        <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+                            <ContulMeu/>
+                        </Col>
+                    </Row>
+                    <Footer/>
+                </Container>
+            </React.Fragment>
+        )
+    }
+
 
   render() {
     document.body.classList = "";
     document.body.classList.add("background-clientDashboard");
-    return (
-      <React.Fragment>
-        <SidebarClient/>
-      </React.Fragment>
-    );
+    if (this.props.match.params.id === "setari-cont") {
+      return this.renderSetariCont("setari-cont")
+    }
+    if (this.props.match.params.id === "istoric-comenzi") {
+      return this.renderIstoricComenzi("istoric-comenzi")
+    }
+    if (this.props.match.params.id === "adrese") {
+      return this.renderAdrese("adrese")
+    }
+      if (this.props.match.params.id === "acasa-client") {
+          return this.renderContulMeu("acasa-client")
+      }
   }
 }
 

@@ -1,12 +1,10 @@
 import React, {Component} from "react";
-import SetariContClient from "./setariContClient";
-import IstoricComenziClient from "./istoricComenziClient";
-import AdreseClient from "./adreseClient";
-import {AiOutlineHome, FaSignOutAlt, FiSettings, RiHistoryFill} from "react-icons/all";
-import Footer from "../components/utils/footer";
-import ContulMeu from "./contulMeu";
+import {AiOutlineHome, FiSettings, RiHistoryFill} from "react-icons/all";
 import Link from "react-router-dom/Link";
 import {withRouter} from "react-router-dom";
+import NavBar from "../components/NavBars/navBar";
+import {Nav} from "react-bootstrap";
+import NavBarClient from "./navBarClient";
 
 
 class SidebarClient extends Component {
@@ -14,16 +12,17 @@ class SidebarClient extends Component {
     constructor(props){
         super(props);
         this.show = this.show.bind(this);
-        this.state = {render: <ContulMeu/>}
+        this.state = {
+            goTo: ""
+        }
     }
 
     show(type){
         switch(type){
-            case "setari-cont": this.setState({render : <SetariContClient/>}); break;
-            case "istoric-comenzi": this.setState({render : <IstoricComenziClient/>}); break;
-            case "adrese": this.setState({render: <AdreseClient/>}); break;
-            case "deconectare": this.logout(); break;
-            default: this.setState({render: <ContulMeu/>})
+            case "setari-cont": this.setState({goTo : "setari-cont"}); break;
+            case "istoric-comenzi": this.setState({goTo : "istoric-comenzi"}); break;
+            case "adrese": this.setState({goTo : "adrese"}); break;
+            default: this.setState({goTo : "acasa-client"}); break;
         }
     }
 
@@ -32,13 +31,11 @@ class SidebarClient extends Component {
         this.history.replace('/autentificare');
     }
 
-    render() {;
+    render() {
         return (
             <React.Fragment>
-                <div className="container-fluid">
-                    <div className="row" >
                         <div
-                            className="col-md-3 col-xs-1 p-l-0 p-r-0 in"
+                            className="sidebar"
                             id="sidebar"
                             style={{marginTop: "120px"}}
                         >
@@ -72,22 +69,9 @@ class SidebarClient extends Component {
                                     <AiOutlineHome  style={{marginRight:"10px"}}/>
                                     <span className="hidden-sm-down">Adrese</span>
                                 </Link>
-                                <div
-                                    onClick={() => this.show("deconectare")}
-                                    className="list-group-item"
-                                    data-parent="#sidebar"
-                                >
-                                    <FaSignOutAlt style={{marginRight:"10px"}}/>
-                                    <span className="hidden-sm-down">Deconectare</span>
-                                </div>
                             </div>
                         </div>
-                        <main className="col-md-8 col-xs-11 p-l-2 p-t-2">
-                            { this.state.render }
-                        </main>
-                    </div>
-                </div>
-                <Footer/>
+
             </React.Fragment>
         )
     }

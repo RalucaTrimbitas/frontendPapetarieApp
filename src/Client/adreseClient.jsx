@@ -25,7 +25,7 @@ class AdreseClient extends Component {
 
     render() {
         document.body.classList = "";
-        document.body.classList.add("background-panou");
+        // document.body.classList.add("background-panou");
         return (
             <React.Fragment>
                         <main className="col-md-12 col-xs-11">
@@ -33,13 +33,13 @@ class AdreseClient extends Component {
                                 <div className="card-header text-center" id="card-client">Adrese</div>
                                 <div className="card-body">
                                     <blockquote className="blockquote mb-0" id="card-text">
-                                        <br></br>
+                                        <br/>
 
                                         <p className="mb-0">
                                             Livrarea comenzilor se face dar pe raza municipiului Blaj. Dacă doriți livrarea comenzii la domiciliu,
                                             completați mai jos adresa.
                                         </p>
-                                        <br></br>
+                                        <br/>
 
                                         <form className="contact-form">
                                             <div className="form-group">
@@ -51,8 +51,8 @@ class AdreseClient extends Component {
                                                     className="form-control"
                                                     placeholder="Adresă"
                                                     onChange={this.handleChange}
-                                                ></textarea>
-                                                <br></br>
+                                                />
+                                                <br/>
                                                 <button
                                                     type="submit"
                                                     className="btn btn-contact float-right"

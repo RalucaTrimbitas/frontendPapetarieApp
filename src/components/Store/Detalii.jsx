@@ -1,14 +1,19 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import Footer from "../utils/footer";
+import {AiFillCheckCircle, FaShoppingCart} from "react-icons/all";
+import {Card, Modal} from "react-bootstrap";
 
 export class Detalii extends Component {
     constructor(props) {
         super(props);
         this.state = {
             produs: [],
-            getAllProduse: []
+            getAllProduse: [],
+            show: false,
+            showModal2: false
         };
+        this.closeModal = this.closeModal.bind(this);
 
         fetch('http://localhost:8080/produse', {
             method: 'GET',
@@ -29,6 +34,46 @@ export class Detalii extends Component {
             })
 
     }
+    closeModal = e => {
+        this.setState({
+            show: false,
+            showModal2: false
+        });
+    };
+
+    addCart = (id) => {
+        if (localStorage.getItem('numeUtilizator') == null){
+            this.setState({
+                showModal2: true
+            });
+            return;
+        }
+        this.setState({
+            show: true
+        });
+        try {
+            fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
+                method: "POST",
+                body: JSON.stringify({
+                    idProdus: id,
+                }),
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                },
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log("Produsul s-a adaugat")
+                    } else {
+                        console.log("error")
+                    }
+                })
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
 
     render() {
         return (
@@ -39,6 +84,27 @@ export class Detalii extends Component {
                 })
                     .map(item => (
                     <div className="details" key={item.codDeBare}>
+                        <Modal show={this.state.showModal2} onHide={this.closeModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Dacă nu aveți deja un cont creat, alegeți varianta de înregistrare.</Modal.Body>
+                            <Modal.Footer>
+                                <Link type="button" className="btn order"
+                                      data-toggle="modal"
+                                      data-target="#exampleModalCenter"
+                                      to="/autentificare">
+                                    Autentificare
+                                </Link>
+                                <Link
+                                    type="button" className="btn order"
+                                    data-toggle="modal"
+                                    data-target="#exampleModalCenter"
+                                    to="/inregistrare">
+                                    Înregistrare
+                                </Link>
+                            </Modal.Footer>
+                        </Modal>
                         <img src={item.src} alt="ImagineProdus" style={{backgroundImage: `url(${item.src})`}}/>
                         <div className="box">
                             <div className="row">
@@ -49,9 +115,28 @@ export class Detalii extends Component {
                             <p>{item.descriere}</p>
                             <p>{item.detalii}</p>
                             {/*<Link to="/cart" className="cart" onClick={() => addCart(item._id)}>*/}
-                            <Link to="/cos-cumparaturi" className="cart" >
-                                Adaugă în coș
-                            </Link>
+                            {/*<Link to="/cos-cumparaturi" className="cart" >*/}
+                            {/*    Adaugă în coș*/}
+                            {/*</Link>*/}
+                            <button type="button" className="btn order" data-toggle="modal"
+                                    data-target="#exampleModalCenter" onClick={() => this.addCart(item.codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
+                            <Modal
+                                // transparent={true}
+                                size="md"
+                                show={this.state.show}
+                                onHide={this.closeModal}
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="example-modal-sizes-title-lg">
+                                        Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color:"green"}}/>
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Card>
+                                        <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>
+                                    </Card>
+                                </Modal.Body>
+                            </Modal>
                         </div>
                     </div>
                 ))

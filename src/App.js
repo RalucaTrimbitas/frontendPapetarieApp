@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from'react-router-dom';
 import NotFound from './components/utils/notFound';
-import NavBar from './components/NavBars/navBar';
 import LoginForm from './components/Forms/loginForm';
 import RegisterForm from './components/Forms/registerForm';
 import HomePage from './components/HomePage/homePage';
@@ -21,10 +20,12 @@ import './css/forms.css';
 import './css/detalii.css';
 import './css/homePage.css';
 import './css/cart.css';
+import './css/history.css';
 import Detalii from "./components/Store/Detalii";
 import ProduseView from "./components/Store/ProduseList";
 import Informatii from "./components/Info/informatii";
 import Cart from "./components/Store/Cart";
+
 
 class App extends Component{
 
@@ -32,7 +33,7 @@ class App extends Component{
     return (
       // <div >
       <React.Fragment>
-          <NavBar/>
+          {/*<NavBar/>*/}
             <Switch >
               <Route path="/home" exact component={HomePage} />
               <Route path="/autentificare" component={LoginForm}/>
@@ -41,11 +42,11 @@ class App extends Component{
 
               <Route path="/cos-cumparaturi" component={Cart}/>
 
-              {/*<Route path="/produse-sidebar" component={Categorii}/>*/}
               <Route path="/produse/detalii/:id" component={Detalii} />
               <Route exact path="/produse/:id/:id" component={ProduseView} />
 
               <PrivateClientRoute path="/contul-meu/:id" component={ClientDashboard}/>
+
               <PrivateAdministratorRoute path="/administratordashboard" component={AdministratorDashboard}/>
 
               <Route path="/not-found" component={NotFound}/>
