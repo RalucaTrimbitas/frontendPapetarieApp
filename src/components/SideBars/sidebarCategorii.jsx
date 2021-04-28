@@ -180,7 +180,7 @@ class SidebarCategorii extends Component {
 
     render() {
         document.body.classList = "";
-        document.body.classList.add("background-CategoriiDashboard");
+        document.body.classList.add("background-general");
         return (
             <React.Fragment>
                 {/*<div className="container-fluid">*/}
@@ -241,24 +241,24 @@ class SidebarCategorii extends Component {
                                         style={{paddingLeft: "50px"}}>
                                     Dosare, mape și folii
                                 </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
-                                      to={`/produse/accesorii-birou/foarfece-si-cuttere`}
-                                      action="replace"
-                                        style={{paddingLeft: "50px"}}>
-                                    Foarfece și cuttere
-                                </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
-                                      to={`/produse/accesorii-birou/plicuri`}
-                                      action="replace"
-                                        style={{paddingLeft: "50px"}}>
-                                    Plicuri
-                                </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
-                                      to={`/produse/accesorii-birou/lipici`}
-                                      action="replace"
-                                        style={{paddingLeft: "50px"}}>
-                                    Lipici
-                                </Link>
+                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
+                                {/*      to={`/produse/accesorii-birou/foarfece-si-cuttere`}*/}
+                                {/*      action="replace"*/}
+                                {/*        style={{paddingLeft: "50px"}}>*/}
+                                {/*    Foarfece și cuttere*/}
+                                {/*</Link>*/}
+                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
+                                {/*      to={`/produse/accesorii-birou/plicuri`}*/}
+                                {/*      action="replace"*/}
+                                {/*        style={{paddingLeft: "50px"}}>*/}
+                                {/*    Plicuri*/}
+                                {/*</Link>*/}
+                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
+                                {/*      to={`/produse/accesorii-birou/lipici`}*/}
+                                {/*      action="replace"*/}
+                                {/*        style={{paddingLeft: "50px"}}>*/}
+                                {/*    Lipici*/}
+                                {/*</Link>*/}
                             </div>
 
                             <DropdownItem

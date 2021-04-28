@@ -8,8 +8,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import Footer from "../utils/footer";
 import {FaPhoneAlt, HiChevronDoubleRight} from "react-icons/all";
-import NavBarClient from "../../Client/navBarClient";
-import NavBar from "../NavBars/navBar";
+;
 
 class HomePage extends React.Component {
   constructor(){
@@ -23,7 +22,7 @@ class HomePage extends React.Component {
     document.body.classList.add("background-general");
     return (
       <React.Fragment>
-        <NavBar />
+        {/*<NavBar />*/}
         <section className="u-align-center img-homePage" id="sec-f9a4">
           <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">
             <h2 className="u-custom-font u-font-playfair-display u-text u-text-default u-text-1">

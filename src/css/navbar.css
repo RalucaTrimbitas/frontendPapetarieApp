@@ -6,21 +6,21 @@
 .navbar-nav .dropdown-item:hover {
     display: block;
     z-index: 9999;
-    color: rgb(252, 239, 221);
-    background-color: #492020;
+    color: rgb(32, 28, 22);
+    background-color: rgba(104, 100, 100, 0.096);
 }
 
 .navbar-nav .dropdown-item:visited {
     /*background-color: #a88370 ;*/
     display: block;
     z-index: 9999;
-    background-color: #492020;
+    background-color:  rgba(104, 100, 100, 0.096);
 }
 
 .navbar-nav .dropdown-menu {
     width: 300px;
     background-color: white;
-    color: #300808;
+    color:  rgba(104, 100, 100, 0.096);
     font-size: 18px;
 }
 

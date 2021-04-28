@@ -9,8 +9,6 @@ import SetariContClient from "./setariContClient";
 import IstoricComenziClient from "./istoricComenziClient";
 import AdreseClient from "./adreseClient";
 import ContulMeu from "./contulMeu";
-import NavBarClient from "./navBarClient";
-import NavBar from "../components/NavBars/navBar";
 
 class ClientDashboard extends Component {
   constructor(){
@@ -23,7 +21,7 @@ class ClientDashboard extends Component {
   renderSetariCont(text) {
     return (
         <React.Fragment>
-            <NavBar/>
+            {/*<NavBar/>*/}
         <Container fluid>
           <Row>
             <Col className="col-md-2 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -42,7 +40,7 @@ class ClientDashboard extends Component {
   renderIstoricComenzi(text) {
     return (
         <React.Fragment>
-            <NavBarClient length={this.state.sizeCart}/>
+            {/*<NavBar/>*/}
         <Container fluid>
           <Row>
             <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -61,7 +59,7 @@ class ClientDashboard extends Component {
   renderAdrese(text) {
     return (
         <React.Fragment>
-            <NavBarClient length={this.state.sizeCart}/>
+            {/*<NavBar/>*/}
         <Container fluid>
           <Row>
             <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -80,7 +78,7 @@ class ClientDashboard extends Component {
     renderContulMeu(default1) {
         return (
             <React.Fragment>
-                <NavBarClient length={this.state.sizeCart}/>
+                {/*<NavBar/>*/}
                 <Container fluid>
                     <Row>
                         <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -106,8 +104,8 @@ class ClientDashboard extends Component {
     if (this.props.match.params.id === "istoric-comenzi") {
       return this.renderIstoricComenzi("istoric-comenzi")
     }
-    if (this.props.match.params.id === "adrese") {
-      return this.renderAdrese("adrese")
+    if (this.props.match.params.id === "actualizare-date") {
+      return this.renderAdrese("actualizare-date")
     }
       if (this.props.match.params.id === "acasa-client") {
           return this.renderContulMeu("acasa-client")

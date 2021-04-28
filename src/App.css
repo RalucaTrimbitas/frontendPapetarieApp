@@ -173,33 +173,23 @@ body {
 #btnDropDown {
   color:white;
   font-size: 18px;
-  /*display: 100%;*/
   width:300px;
 
 }
-
-
-/* .mapouter{position:relative;text-align:right;height:300px;width:500px;}
-.mapouter.mapouter>.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:500px;} */
-
-/* #gmap_canvas{
-  
-  position:relative;text-align:right;height:300px;width:500px;
-  display: inline;
-} */
-
-
 
 .container-fluid {
   padding: 0px;
 }
 
 .card-panou {
-  /*background: white;*/
-  /*opacity: .95;*/
-  background: rgba(0, 0, 0, 0.1);
+  /* background: white;
+  opacity: .95; */
+  background: rgba(104, 100, 100, 0.096);
 }
 
+#card-client {
+  background: rgba(138, 103, 57, 0.144);
+}
 
 
 

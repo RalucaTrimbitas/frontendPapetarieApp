@@ -44,7 +44,7 @@ class ContactForm extends Component {
                     className="form-control"
                     placeholder="Nume"
                     onChange={this.handleChange}
-                  ></input>
+                  />
                 </div>
                 <div className="form-group">
                   <label className="text-label">E-mail</label>
@@ -54,7 +54,7 @@ class ContactForm extends Component {
                     className="form-control"
                     placeholder="Email"
                     onChange={this.handleChange}
-                  ></input>
+                  />
                 </div>
 
                 <div className="form-group">
@@ -67,11 +67,11 @@ class ContactForm extends Component {
                     className="form-control"
                     placeholder="Mesaj"
                     onChange={this.handleChange}
-                  ></textarea>
+                  />
                   <br></br>
                   <button
                     type="submit"
-                    className="btn btn-contact float-right"
+                    className="btn btn order float-right"
                     onClick={this.doSubmit}
                   >
                     Trimite

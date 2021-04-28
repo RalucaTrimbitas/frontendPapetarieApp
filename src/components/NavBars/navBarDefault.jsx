@@ -3,12 +3,16 @@ import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { FiShoppingCart } from "react-icons/all";
+import {FaSignOutAlt, FiSettings, FiShoppingCart, RiShoppingBasket2Line} from "react-icons/all";
 import { FiHeart } from "react-icons/all";
 import { FaRegUser } from "react-icons/all";
-import {logDOM} from "@testing-library/react";
 
 export class NavBarDefault extends Component {
+
+  handleLogout = () => {
+    localStorage.clear();
+  };
+
   render () {
     console.log("NavbarDefault")
     return (
@@ -69,7 +73,7 @@ export class NavBarDefault extends Component {
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
                   <NavLink
-                      className="nav-item nav-link lya"
+                      className="nav-item nav-link "
                       // to="/produse/accesorii-birou(1.1)"
                       to="/produse/accesorii-birou/agende-si-blocnotes-uri"
                       style={{ color: "#492020" }}
@@ -121,16 +125,103 @@ export class NavBarDefault extends Component {
                   />
                 </NavLink>
               </div>
-              <NavLink
-                  className="nav-item nav-link"
-                  to={this.props.userIcon}
-                  id="navItem"
-              >
-                <FaRegUser
-                    className="icons-nav hvr-grow mr-4"
-                    style={{ cursor: "pointer" }}
-                />
-              </NavLink>
+              <div>
+                {
+                  this.props.counter ? (
+                      <NavLink
+                        className="nav-item nav-link"
+                        to={this.props.userIcon}
+                        id="navItem"
+                      >
+                        <FaRegUser
+                        className="icons-nav hvr-grow mr-4"
+                        style={{ cursor: "pointer" }}
+                      />
+                      </NavLink>
+                  ) : (
+                      <div className="nav-item dropdown navbar-nav">
+                        <p
+                            className="nav-link dropdown "
+                            id="dropdownMenu2"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                          <FaRegUser
+                              className="icons-nav hvr-grow mt-3 ml-2 mr-3"
+                              style={{ cursor: "pointer"}}
+                          />
+                        </p>
+                        <div
+                            className="dropdown-menu dropdown-menu-right"
+                            aria-labelledby="navbarDropdown1"
+                        >
+                          <NavLink
+                              className="dropdown-item"
+                              to="/contul-meu/acasa-client"
+                          >
+                            <FiSettings style={{marginRight:"6px"}}/>
+                            Panou control
+                          </NavLink>
+                          <div className="dropdown-divider"/>
+                          <NavLink
+                              className="dropdown-item"
+                              onClick={this.handleLogout.bind(this)}
+                              id="navItem" to="/autentificare">
+                            <FaSignOutAlt style={{marginRight:"6px"}}/>
+                            Deconectare
+                          </NavLink>
+                        </div>
+                      </div>
+
+                  )}
+              </div>
+              {/*<NavLink*/}
+              {/*    className="nav-item nav-link"*/}
+              {/*    to={this.props.userIcon}*/}
+              {/*    id="navItem"*/}
+              {/*>*/}
+              {/*  <FaRegUser*/}
+              {/*      className="icons-nav hvr-grow mr-4"*/}
+              {/*      style={{ cursor: "pointer" }}*/}
+              {/*  />*/}
+              {/*</NavLink>*/}
+
+
+              {/*<div className="nav-item dropdown navbar-nav">*/}
+              {/*  <p*/}
+              {/*      className="nav-link dropdown "*/}
+              {/*      id="dropdownMenu2"*/}
+              {/*      data-toggle="dropdown"*/}
+              {/*      aria-haspopup="true"*/}
+              {/*      aria-expanded="false"*/}
+              {/*  >*/}
+              {/*    <FaRegUser*/}
+              {/*        className="icons-nav hvr-grow mt-3 ml-2 mr-3"*/}
+              {/*        style={{ cursor: "pointer"}}*/}
+              {/*    />*/}
+              {/*  </p>*/}
+              {/*  <div*/}
+              {/*      className="dropdown-menu dropdown-menu-right"*/}
+              {/*      aria-labelledby="navbarDropdown1"*/}
+              {/*  >*/}
+              {/*    <NavLink*/}
+              {/*        className="dropdown-item"*/}
+              {/*        to="/contul-meu/acasa-client"*/}
+              {/*    >*/}
+              {/*      <FiSettings style={{marginRight:"6px"}}/>*/}
+              {/*      Panou control*/}
+              {/*    </NavLink>*/}
+              {/*    <div className="dropdown-divider"/>*/}
+              {/*    <NavLink*/}
+              {/*        className="dropdown-item"*/}
+              {/*        onClick={this.handleLogout.bind(this)}*/}
+              {/*        id="navItem" to="/autentificare">*/}
+              {/*      <FaSignOutAlt style={{marginRight:"6px"}}/>*/}
+              {/*      Deconectare*/}
+              {/*    </NavLink>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
             </div>
           </nav>
         </React.Fragment>

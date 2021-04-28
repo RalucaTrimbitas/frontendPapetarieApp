@@ -3,7 +3,6 @@ import Joi from "joi-browser";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../utils/footer";
 import {NavLink} from "react-router-dom" ;
-import NavBar from "../NavBars/navBar";
 
 class LoginForm extends React.Component {
   constructor() {
@@ -74,10 +73,10 @@ class LoginForm extends React.Component {
 
   render() {
     document.body.classList = "";
-    document.body.classList.add("background-register");
+    document.body.classList.add("background-panou");
     return (
       <React.Fragment>
-        <NavBar/>
+        {/*<NavBar/>*/}
         <div className="container-log">
           <div className="row">
             <div className="col-md-4 login-sec offset-md-4" id="login-form" style={{marginTop: "20px"}}>

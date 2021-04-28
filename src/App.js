@@ -21,10 +21,12 @@ import './css/detalii.css';
 import './css/homePage.css';
 import './css/cart.css';
 import './css/history.css';
+import './css/createProduct.css';
 import Detalii from "./components/Store/Detalii";
 import ProduseView from "./components/Store/ProduseList";
 import Informatii from "./components/Info/informatii";
 import Cart from "./components/Store/Cart";
+import NavBar from "./components/NavBars/navBar";
 
 
 class App extends Component{
@@ -33,7 +35,7 @@ class App extends Component{
     return (
       // <div >
       <React.Fragment>
-          {/*<NavBar/>*/}
+          <NavBar/>
             <Switch >
               <Route path="/home" exact component={HomePage} />
               <Route path="/autentificare" component={LoginForm}/>

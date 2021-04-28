@@ -1,13 +1,14 @@
 import React from "react";
 import Footer from "../utils/footer";
-import NavBar from "../NavBars/navBar";
 
 const Plata = () => {
+  document.body.classList = "";
+  document.body.classList.add("background-general");
   return (
     <React.Fragment>
-      <NavBar/>
-      <div className="card">
-        <div className="card-header text-center">Cum plătesc?</div>
+      {/*<NavBar/>*/}
+      <div className="card card-info">
+        <div className="card-header text-center" id="card-client">Cum plătesc?</div>
         <div className="card-body">
           <blockquote className="blockquote mb-0" id="card-text">
             <p className="mb-0 ">

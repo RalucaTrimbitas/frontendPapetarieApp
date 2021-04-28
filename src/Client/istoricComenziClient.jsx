@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { Card, Modal} from "react-bootstrap";
+import {FaEye, FaRegEye} from "react-icons/all";
 
 class IstoricComenziClient extends Component {
     constructor(props) {
@@ -63,28 +64,28 @@ class IstoricComenziClient extends Component {
 
     render() {
         document.body.classList = "";
-        // document.body.classList.add("background-panou");
+        document.body.classList.add("background-general");
         console.log(this.state.comanda)
         return (
             <React.Fragment>
-                <main className="col-md-12 col-xs-11">
-                    <div className="card card-panou" style={{marginTop: "80px", marginBottom: "150px"}}>
+                <main className="col-md-10 col-xs-12">
+                    <div className="card card-panou" style={{marginTop: "70px", marginBottom: "150px"}}>
                         <div className="card-header text-center" id="card-client">Istoric comenzi</div>
                         <div className="card-body">
                             {/*<blockquote className="blockquote mb-0" id="card-text">*/}
-                            <div className="col-sm-12">
+                            <div className="col-sm-12 col-xs-12">
                                 <div className="card">
                                     <div className="modal-title">
                                         <h4>Aveți {this.state.history.length} comenzi.</h4>
                                     </div>
                                     <div className="card-body">
-                                        <div className="col-sm-12">
-                                            <table className="col-sm-12">
+                                        <div className="col-sm-12 col-xs-12">
+                                            <table className="col-sm-12 col-xs-12">
                                                 <thead>
                                                 <tr>
                                                     <th>Număr comandă</th>
                                                     <th>Data plasării comenzii</th>
-                                                    <th></th>
+                                                    <th/>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -94,17 +95,14 @@ class IstoricComenziClient extends Component {
                                                             <td>{items.numarComanda}</td>
                                                             <td>{new Date(items.dataPlasare).toLocaleDateString()}</td>
                                                             <td>
-                                                                <button type="button" className="btn order"
+                                                                <FaEye type="button"
                                                                         data-toggle="modal"
                                                                         data-target="#exampleModalCenter"
                                                                         onClick={() => this.viewIstoricComanda(items.numarComanda)}
-                                                                >
-                                                                    view
-                                                                </button>
-                                                                {/*<Button className="btn order" onClick={() => this.viewIstoricComanda(items.numarComanda)}>*/}
-                                                                {/*    View*/}
-                                                                {/*</Button>*/}
-                                                                <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal}>
+                                                                        style={{size: "1.8em"}}
+                                                                />
+
+                                                                <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal} >
                                                                     <Modal.Header closeButton>
                                                                         <Modal.Title>Comanda dumneavoastră:</Modal.Title>
                                                                     </Modal.Header>
@@ -126,14 +124,20 @@ class IstoricComenziClient extends Component {
                                                                                                     <div className="col-sm-10">
                                                                                                         <span>{item.pret} lei</span>
                                                                                                     </div>
+                                                                                                    <div className="col-sm-10">
+                                                                                                        <span>{item.cantitate} buc</span>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                                 {/*<Colors colors={item.colors}/>*/}
                                                                                                 <p>{item.descriere}</p>
                                                                                                 <p>{item.detalii}</p>
                                                                                             </div>
                                                                                         </div>
+
                                                                                     )
                                                                                 })}
+                                                                                <p>SUBTOTAL: {items.suma} lei</p>
+                                                                                <p>TVA: {items.tva}%</p>
                                                                                 <p>TOTAL: {items.total} lei</p>
                                                                             </Card.Body>
                                                                         </Card>

@@ -15,3 +15,15 @@ body.background-panou {
     /* background-repeat: no-repeat; */
     /* display: flex; */
 }
+
+body.background-general {
+    background-image: url("../pictures/background1.png");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.card-info {
+    background-image: url("../pictures/background1.png");
+}
+

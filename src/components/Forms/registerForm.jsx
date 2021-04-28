@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Footer from "../utils/footer";
-import NavBar from "../NavBars/navBar";
 
 class RegisterForm extends Component {
   constructor() {
@@ -91,7 +90,7 @@ class RegisterForm extends Component {
     document.body.classList.add("background-register");
     return (
       <React.Fragment>
-        <NavBar/>
+        {/*<NavBar/>*/}
            <div className="container-reg">
             <div className="row row-form-reg" >
               <div className="col-md-6 reg-sec offset-md-3" id="register-form">

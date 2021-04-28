@@ -1,13 +1,12 @@
 import React from "react";
 import Footer from "../utils/footer";
-import NavBar from "../NavBars/navBar";
 
 const Termeni = () => {
   return (
     <React.Fragment>
-      <NavBar/>
-      <div className="card">
-        <div className="card-header text-center">Termeni și Condiții</div>
+      {/*<NavBar/>*/}
+      <div className="card card-info">
+        <div className="card-header text-center" id="card-client">Termeni și Condiții</div>
         <div className="card-body">
           <blockquote className="blockquote mb-0" id="card-text">
             <p className="mb-0 ">

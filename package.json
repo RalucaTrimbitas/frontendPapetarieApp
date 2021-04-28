@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/core": "^4.11.3",
     "html-webpack-plugin": "^4.5.0"
   }
 }

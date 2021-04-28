@@ -2,19 +2,20 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin: 40px 20px;
+    margin: 40px 25px;
     border: 1px solid #eee;
     box-shadow: 2px 8px 20px #ddd;
     overflow: hidden;
     padding: 80px 50px 30px 50px;
     position: relative;
     transform: scaleY(0.98);
-
+    background: white;
 }
+
 .details img{
     max-width: 500px;
     min-width: 290px;
-    height: 300px;
+    height: 350px;
     width: 100%;
     display: block;
     object-fit: cover;
@@ -50,7 +51,7 @@
     margin: 15px 0;
 }
 .box .cart{
-    background: #333;
+    background: #333 ;
     color: white;
     text-decoration: none;
     padding: 10px 25px;

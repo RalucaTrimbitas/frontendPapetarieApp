@@ -6,10 +6,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "../utils/footer";
-import {Modal, Nav} from "react-bootstrap";
-import { FaShoppingCart} from "react-icons/all";
-import NavBarClient from "../../Client/navBarClient";
-import NavBar from "../NavBars/navBar";
+import {Card, Modal} from "react-bootstrap";
+import {AiFillCheckCircle, FaShoppingCart} from "react-icons/all";
+import '../../css/Modal.css';
 
 
 export class ProduseList extends Component {
@@ -47,7 +46,7 @@ export class ProduseList extends Component {
     closeModal = e => {
         this.setState({
             show: false,
-            showModal2: false
+            showModal2: false,
         });
     };
 
@@ -56,8 +55,8 @@ export class ProduseList extends Component {
             this.setState({
                 showModal2: true
             });
-            return;
         }
+        else
         try {
             fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
                 method: "POST",
@@ -73,7 +72,7 @@ export class ProduseList extends Component {
                     if (res.status === 200) {
                         console.log("Produsul s-a adaugat")
                         this.setState({
-                            show: false,
+                            show: true,
                             sizeCart: Number(this.state.sizeCart) + 1
                         });
                         localStorage.setItem("cartLength", this.state.sizeCart)
@@ -93,6 +92,7 @@ export class ProduseList extends Component {
         }
     }
 
+
     renderProduse = (produs) => {
         const {codDeBare,denumire,pret,descriere,src} = produs;
         return (
@@ -108,7 +108,7 @@ export class ProduseList extends Component {
                         <p>{descriere}</p>
                         <button type="button" className="btn order" data-toggle="modal"
                                 data-target="#exampleModalCenter" onClick={() => this.addCart(codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
-                        <Modal show={this.state.showModal2} onHide={this.closeModal}>
+                        <Modal show={this.state.showModal2} onHide={this.closeModal}  className="modal-backdrop">
                             <Modal.Header closeButton>
                                 <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș</Modal.Title>
                             </Modal.Header>
@@ -129,23 +129,26 @@ export class ProduseList extends Component {
                                 </Link>
                             </Modal.Footer>
                         </Modal>
-                        {/*<Modal*/}
-                        {/*    // transparent={true}*/}
-                        {/*    size="md"*/}
-                        {/*    show={this.state.show}*/}
-                        {/*    onHide={this.closeModal}*/}
-                        {/*>*/}
-                        {/*    <Modal.Header closeButton>*/}
-                        {/*        <Modal.Title id="example-modal-sizes-title-lg">*/}
-                        {/*            Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color:"green"}}/>*/}
-                        {/*        </Modal.Title>*/}
-                        {/*    </Modal.Header>*/}
-                        {/*    <Modal.Body>*/}
-                        {/*        <Card>*/}
-                        {/*            <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>*/}
-                        {/*        </Card>*/}
-                        {/*    </Modal.Body>*/}
-                        {/*</Modal>*/}
+                        <Modal
+                            size="md"
+                            show={this.state.show}
+                            onHide={this.closeModal}
+                            className="modal-backdrop"
+                        >
+                            <Modal.Header>
+                                <Modal.Title id="example-modal-sizes-title-lg">
+                                    Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color:"green"}}/>
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Card>
+                                    <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>
+                                </Card>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Link type="button" className="btn btn-exit-modal" to= "/produse/accesorii-birou/agende-si-blocnotes-uri" onClick={this.closeModal}>Închide</Link>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                 </div>
         )
@@ -154,8 +157,7 @@ export class ProduseList extends Component {
     renderCategoriiProduse(text) {
         return (
             <React.Fragment>
-                {/*<NavBarClient length = {this.state.sizeCart}/>*/}
-                <NavBar/>
+                {/*<NavBar/>*/}
                 <Container fluid>
                     <Row>
                         <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
@@ -172,8 +174,6 @@ export class ProduseList extends Component {
                     <Footer/>
                 </Container>
             </React.Fragment>
-
-
         )
     }
 

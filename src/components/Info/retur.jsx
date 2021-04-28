@@ -1,13 +1,12 @@
 import React from "react";
 import Footer from '../utils/footer';
-import NavBar from "../NavBars/navBar";
 
 const Retur = () => {
   return (
     <React.Fragment>
-      <NavBar/>
-    <div class="card">
-      <div class="card-header text-center">Politica de Retur</div>
+      {/*<NavBar/>*/}
+    <div class="card card-info">
+      <div class="card-header text-center" id="card-client">Politica de Retur</div>
       <div class="card-body">
         <blockquote class="blockquote mb-0" id="card-text">
           <p class="mb-0 ">

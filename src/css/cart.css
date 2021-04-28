@@ -47,9 +47,21 @@
     margin-right: 40px;
 }
 
+.order:hover{
+    background-color: rgba(12, 2, 2, 0.96);
+}
+
 .btn-istoric {
     background: #333;
     color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.btn-exit-modal {
+    /*background: #333;*/
+    color: gray !important;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
