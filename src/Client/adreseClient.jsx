@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import {Card, Modal} from "react-bootstrap";
+import {AiFillCheckCircle} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 class AdreseClient extends Component {
     constructor() {
@@ -10,8 +13,11 @@ class AdreseClient extends Component {
             tip: "",
             email: "",
             numarTelefon: "",
-            adresa: ""
+            adresa: "",
+            showModal: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
 
         fetch('http://localhost:8080/client/' + localStorage.getItem("numeUtilizator"), {
             method: 'GET',
@@ -36,9 +42,15 @@ class AdreseClient extends Component {
         this.doSubmit = this.doSubmit.bind(this);
     }
 
+    closeModal = e => {
+        this.setState({
+            showModal: false,
+        });
+    };
+
     doSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.selectedOption)
+        // console.log(this.state.selectedOption)
         const payload = {
             numeUtilizator: this.state.numeUtilizator,
             parola: this.state.parola,
@@ -60,20 +72,19 @@ class AdreseClient extends Component {
         })
             .then(res => {
                 if (res.status === 200) {
-                    alert("Modificat")
                     this.setState({
-                        numeUtilizator: "",
+                        numeUtilizator: this.state.numeUtilizator,
                         parola: this.state.parola,
-                        nume: "",
-                        prenume: "",
-                        tip: "",
-                        email: "",
-                        numarTelefon: "",
-                        adresa: ""
+                        nume: this.state.nume,
+                        prenume: this.state.prenume,
+                        tip: this.state.tip,
+                        email: this.state.email,
+                        numarTelefon: this.state.numarTelefon,
+                        adresa: this.state.adresa,
+                        showModal: true
                     })
                 } else if (res.status === 417) {
                     res.text().then(text => {
-
                         console.log(text);
 
                     });
@@ -126,7 +137,6 @@ class AdreseClient extends Component {
                                     <input type="text" name="prenume" id="prenume" required className="form-control"
                                            value={this.state.prenume} onChange={this.handleChange}/>
                                 </div>
-
                                 <div className="form-group">
                                     <label className="text-label">Tip:</label>
                                     <div className="radio">
@@ -154,7 +164,6 @@ class AdreseClient extends Component {
                                         </label>
                                     </div>
                                 </div>
-
                                 <div className="form-group">
                                     <label className="text-label" htmlFor="numarTelefon">Numar telefon:</label>
                                     <textarea type="text" name="numarTelefon" id="numarTelefon" required
@@ -175,9 +184,26 @@ class AdreseClient extends Component {
                                 >
                                     Salvează
                                 </button>
-
+                                <Modal
+                                    size="md"
+                                    show={this.state.showModal}
+                                    onHide={this.closeModal}
+                                >
+                                    <Modal.Header>
+                                        <Modal.Title id="example-modal-sizes-title-lg">
+                                            Datele dumneavostră au fost actualizate cu succes! <AiFillCheckCircle style={{color:"green"}}/>
+                                        </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Card>
+                                            <Link to="/produse/accesorii-birou/agende-si-blocnotes-uri" type="button" className="btn btn-istoric">Continuă cumpărăturile</Link>
+                                        </Card>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Link type="button" className="btn btn-exit-modal" to= "/contul-meu/actualizare-date" onClick={this.closeModal}>Închide</Link>
+                                    </Modal.Footer>
+                                </Modal>
                             </form>
-                            {/*</div>*/}
                         </div>
                     </div>
                 </main>

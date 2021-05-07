@@ -105,10 +105,10 @@ class LoginForm extends React.Component {
                 </div>
 
                 <div className="form-check">
-                  <label className="form-check-label">
-                    <input type="checkbox" className="form-check-input"/>
-                    <p>Păstrează datele</p>
-                  </label>
+                  {/*<label className="form-check-label">*/}
+                  {/*  <input type="checkbox" className="form-check-input"/>*/}
+                  {/*  <p>Păstrează datele</p>*/}
+                  {/*</label>*/}
                   <button
                     type="submit"
                     className="btn btn-login float-right"
@@ -122,7 +122,7 @@ class LoginForm extends React.Component {
                     <br/>
                     <br/>
                     Nu ai cont încă?
-                    <NavLink className="nav-item-aut nav-link menu-item" to="/inregistrare"> Creaază-ți un cont</NavLink>
+                    <NavLink className="nav-item-aut nav-link menu-item"  to="/inregistrare"> Creaază-ți un cont</NavLink>
                   </span>
                   </p>
                 </div>

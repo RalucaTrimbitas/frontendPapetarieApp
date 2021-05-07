@@ -35,19 +35,14 @@
     align-items: center;
     justify-content: space-between;
 }
-.order{
-    text-decoration: none;
-    background: #333;
-    color: white !important;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 10px 25px;
-    cursor: pointer;
-    margin-bottom: 40px;
-    margin-right: 40px;
-}
 
+.order-admin:hover {
+    background-color: rgba(12, 2, 2, 0.96);
+}
 .order:hover{
+    background-color: rgba(12, 2, 2, 0.96);
+}
+.order-detalii:hover{
     background-color: rgba(12, 2, 2, 0.96);
 }
 
@@ -72,3 +67,49 @@
     color: crimson;
     margin-bottom: 40px;
 }
+
+
+
+.categories{
+    max-width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 30px auto;
+}
+.categories form{
+    width: 290px;
+    margin-bottom: 20px;
+}
+.categories label{
+    display: block;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.categories input, button{
+    height: 35px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #555;
+}
+.categories input{
+    width: 210px;
+}
+.categories button{
+    width: 70px;
+    background: #555;
+    color: white;
+    margin-left: 10px;
+}
+.categories .row{
+    min-width: 290px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+

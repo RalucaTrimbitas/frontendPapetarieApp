@@ -90,9 +90,15 @@
     margin-right: auto;
 }
 .btn-login {
-    background: #4b1515de;
-    color: #fff;
-    font-weight: 400;
+    text-decoration: none;
+    background: #333;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /*padding: 10px 25px;*/
+    cursor: pointer;
+    /*margin-bottom: 40px;*/
+    /*margin-right: 40px;*/
 }
 
 .form-check-input {

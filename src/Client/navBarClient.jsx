@@ -3,16 +3,20 @@ import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { FaSignOutAlt, FiShoppingCart } from "react-icons/all";
+import {BsFillExclamationTriangleFill, FaSignOutAlt, FiShoppingCart} from "react-icons/all";
 import { FiHeart } from "react-icons/all";
 import { FaRegUser, FiSettings } from "react-icons/all";
+import {Modal} from "react-bootstrap";
 
 class NavBarClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: []
+      cart: [],
+      show: false
+
     }
+    this.closeModal = this.closeModal.bind(this);
 
     fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
       method: 'GET',
@@ -31,8 +35,14 @@ class NavBarClient extends React.Component {
             console.log("error")
           }
         })
-
   }
+
+  closeModal = e => {
+    this.setState({
+      show: false,
+      showModal2: false,
+    });
+  };
   handleLogout = () => {
     localStorage.clear();
   };
@@ -124,6 +134,14 @@ class NavBarClient extends React.Component {
                   >
                     Caută
                   </button>
+                  <Modal show={this.state.show} onHide={this.closeModal} size="sm">
+                    <Modal.Header closeButton>
+                      <Modal.Title  > <BsFillExclamationTriangleFill style={{color: "red", marginLeft: "110px"}}/> </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Adăugați text pentru a căuta un produs!
+                    </Modal.Body>
+                  </Modal>
                 </form>
               </li>
             </ul>

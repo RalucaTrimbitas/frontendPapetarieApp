@@ -12,6 +12,8 @@ class NavBar extends React.Component {
 
   }
 
+  //try with useEffect()
+
   loadSize = () => {
     fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
       method: 'GET',

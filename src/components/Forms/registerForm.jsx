@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Footer from "../utils/footer";
+import {Card, Modal} from "react-bootstrap";
+import {AiFillCheckCircle} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 class RegisterForm extends Component {
   constructor() {
     super();
-
     this.state = {
       prenume: "",
       nume: "",
@@ -13,6 +15,8 @@ class RegisterForm extends Component {
       numeUtilizator: "",
       parola: "",
       confirmParola: "",
+      tip: "",
+      showModal: false
     };
 
     this.schema = {
@@ -23,9 +27,17 @@ class RegisterForm extends Component {
       parola: Joi.string().required().label("Parola"),
       confirmParola: Joi.string().required().label("ConfirmParola"),
     };
+
+    this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
   }
+
+  closeModal = e => {
+    this.setState({
+      showModal: false,
+    });
+  };
 
   doSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +49,7 @@ class RegisterForm extends Component {
       numeUtilizator: this.state.numeUtilizator,
       parola: this.state.parola,
       confirmParola: this.state.confirmParola,
+      tip:this.state.tip
     };
     fetch("http://localhost:8080/inregistrare", {
       method: "POST",
@@ -48,7 +61,8 @@ class RegisterForm extends Component {
     })
     .then(res => {
       if (res.status === 200) {
-          this.props.history.replace("/autentificare")
+          // this.props.history.replace("/autentificare")
+        this.setState({showModal: true})
       }
       else if (res.status === 409) {
           alert("Username-ul este deja existent pentru administrator!")
@@ -69,22 +83,24 @@ class RegisterForm extends Component {
           email: "",
           numeUtilizator: "",
           parola: "",
-          confirmParola: ""
+          confirmParola: "",
+          tip: ""
         })
       }
       else if (res.status === 401) {
         alert("Parolele nu sunt la fel!");
       }
   })
-
     console.log("Submitted");
   };
 
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      selectedOption: event.target.value,
     });
   }
+
   render() {
     document.body.classList = "";
     document.body.classList.add("background-register");
@@ -149,29 +165,75 @@ class RegisterForm extends Component {
                   <div className="form-group">
                     <label className="text-label">Confirmă parola</label>
                     <input
-                      type="text"
+                      type="password"
                       name="confirmParola"
                       className="form-control"
                       placeholder="Confirma parola"
                       onChange={this.handleChange}
                     />
                   </div>
-
+                  <div className="form-group">
+                    <label className="text-label">Tip:</label>
+                    <div className="radio">
+                      <label>
+                        <input
+                            type="radio"
+                            value="PERSOANA_FIZICA"
+                            name="tip"
+                            checked={this.state.selectedOption === "PERSOANA_FIZICA"}
+                            onChange={this.handleChange}
+                        />
+                        PERSOANĂ FIZICĂ
+                      </label>
+                    </div>
+                    <div className="radio">
+                      <label>
+                        <input
+                            type="radio"
+                            value="PERSOANA_JURIDICA"
+                            name="tip"
+                            checked={this.state.selectedOption === "PERSOANA_JURIDICA"}
+                            onChange={this.handleChange}
+                        />
+                        PERSOANĂ JURIDICĂ
+                      </label>
+                      {/*<div> Selectat: {this.state.selectedOption}</div>*/}
+                    </div>
+                  </div>
                   <div className="form-check">
-                    <label className="form-check-label"></label>
+                    <label className="form-check-label"/>
                     <button
                       type="submit"
-                      className="btn btn-register float-right"
+                      className="btn btn-login float-right"
                       onClick={this.doSubmit}
                     >
-                      Înregistrează-te
+                      Înregistrare
                     </button>
+                    <Modal
+                        size="md"
+                        show={this.state.showModal}
+                        onHide={this.closeModal}
+                    >
+                      <Modal.Header>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                          Înregistrarea s-a efectuat cu succes! <AiFillCheckCircle style={{color:"green"}}/>
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Card>
+                          <Link to="/autentificare" type="button" className="btn btn-istoric">Autentificare</Link>
+                        </Card>
+                      </Modal.Body>
+                      {/*<Modal.Footer>*/}
+                      {/*  <Link type="button" className="btn btn-exit-modal" to= "/contul-meu/actualizare-date" onClick={this.closeModal}>Închide</Link>*/}
+                      {/*</Modal.Footer>*/}
+                    </Modal>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-        <div id="foot">
+        <div id="foot" style={{marginTop: "1100px"}}>
           <Footer/>
         </div>
       </React.Fragment>

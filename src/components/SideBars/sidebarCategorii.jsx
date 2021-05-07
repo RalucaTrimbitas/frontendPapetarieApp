@@ -206,7 +206,7 @@ class SidebarCategorii extends Component {
                                 <span className="hidden-sm-down">Accesorii de birou  <span
                                     className="arrow"/></span>{" "}
                             </DropdownItem>
-                            <div className="collapse" id="menu1">
+                            <div className="collapse text-wrap" id="menu1">
                                 <Link
                                     to={`/produse/accesorii-birou/agende-si-blocnotes-uri`}
                                     action="replace"
@@ -229,36 +229,18 @@ class SidebarCategorii extends Component {
                                         style={{paddingLeft: "50px"}}>
                                     Calculatoare birou și științifice
                                 </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
+                                <Link className="list-group-item text-left text-wrap" data-parent="#menu1"
                                       to={`/produse/accesorii-birou/capsatoare-perforatoare`}
                                       action="replace"
                                         style={{paddingLeft: "50px"}}>
                                     Capsatoare/perforatoare
                                 </Link>
-                                <Link className="list-group-item text-left" data-parent="#menu1"
+                                <Link className="list-group-item text-left text-wrap" data-parent="#menu1"
                                       to={`/produse/accesorii-birou/dosare-mape-si-folii`}
                                       action="replace"
                                         style={{paddingLeft: "50px"}}>
                                     Dosare, mape și folii
                                 </Link>
-                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
-                                {/*      to={`/produse/accesorii-birou/foarfece-si-cuttere`}*/}
-                                {/*      action="replace"*/}
-                                {/*        style={{paddingLeft: "50px"}}>*/}
-                                {/*    Foarfece și cuttere*/}
-                                {/*</Link>*/}
-                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
-                                {/*      to={`/produse/accesorii-birou/plicuri`}*/}
-                                {/*      action="replace"*/}
-                                {/*        style={{paddingLeft: "50px"}}>*/}
-                                {/*    Plicuri*/}
-                                {/*</Link>*/}
-                                {/*<Link className="list-group-item text-left" data-parent="#menu1"*/}
-                                {/*      to={`/produse/accesorii-birou/lipici`}*/}
-                                {/*      action="replace"*/}
-                                {/*        style={{paddingLeft: "50px"}}>*/}
-                                {/*    Lipici*/}
-                                {/*</Link>*/}
                             </div>
 
                             <DropdownItem
@@ -319,7 +301,7 @@ class SidebarCategorii extends Component {
                                 <span className="hidden-sm-down">Rechizite școlare <span
                                     className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu3">
+                            <div className="collapse text-wrap" id="menu3">
                                 <Link className="list-group-item text-left" data-parent="#menu3"
                                       to={`/produse/rechizite-scolare/caiete`}
                                       action="replace"
@@ -375,7 +357,7 @@ class SidebarCategorii extends Component {
                                 <span className="hidden-sm-down">Articole creative<span
                                     className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu4">
+                            <div className="collapse text-wrap" id="menu4">
                                 <Link className="list-group-item text-left" data-parent="#menu4"
                                     to={`/produse/articole-creative/abtibilde-si-stampile-copii`}
                                     action="replace"
@@ -419,7 +401,7 @@ class SidebarCategorii extends Component {
                                 <FaListUl style={{marginRight: "10px"}}/>
                                 <span className="hidden-sm-down">Birotică <span className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu5">
+                            <div className="collapse text-wrap" id="menu5">
                                 <Link className="list-group-item text-left" data-parent="#menu5"
                                       to={`/produse/birotica/tipizate`}
                                       action="replace"
@@ -451,7 +433,7 @@ class SidebarCategorii extends Component {
                                 <BsPuzzleFill style={{marginRight: "10px"}}/>
                                 <span className="hidden-sm-down">Jocuri <span className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu6">
+                            <div className="collapse text-wrap" id="menu6">
                                 <Link className="list-group-item text-left" data-parent="#menu6"
                                       to={`/produse/jocuri/jocuri-educative`}
                                       action="replace"
@@ -500,7 +482,7 @@ class SidebarCategorii extends Component {
                                 <span className="hidden-sm-down">Arte plastice<span
                                     className="arrow"/></span>
                             </DropdownItem>
-                            <div className="collapse" id="menu8">
+                            <div className="collapse text-wrap" id="menu8">
                                 <Link className="list-group-item text-left" data-parent="#menu8"
                                       to={`/produse/arte-plastice/blocuri-pentru-desen`}
                                       action="replace"

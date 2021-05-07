@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Card, Modal} from "react-bootstrap";
-import {FaEye, FaRegEye} from "react-icons/all";
+import {FaEye} from "react-icons/all";
 
 class IstoricComenziClient extends Component {
     constructor(props) {
@@ -137,7 +137,7 @@ class IstoricComenziClient extends Component {
                                                                                     )
                                                                                 })}
                                                                                 <p>SUBTOTAL: {items.suma} lei</p>
-                                                                                <p>TVA: {items.tva}%</p>
+                                                                                <p>TVA: {items.tva} lei</p>
                                                                                 <p>TOTAL: {items.total} lei</p>
                                                                             </Card.Body>
                                                                         </Card>

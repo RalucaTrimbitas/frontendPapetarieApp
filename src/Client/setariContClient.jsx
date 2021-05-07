@@ -1,16 +1,22 @@
 import React, {Component} from "react";
+import {Card, Modal} from "react-bootstrap";
+import {AiFillCheckCircle} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 class SetariContClient extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             numeUtilizator: "",
             email:"",
             parola: "",
             parolaNoua: "",
-            confirmParolaNoua: ""
+            confirmParolaNoua: "",
+            showModal: false
         };
+
+        this.closeModal = this.closeModal.bind(this);
 
         fetch('http://localhost:8080/client/' + localStorage.getItem("numeUtilizator"), {
             method: 'GET',
@@ -21,14 +27,15 @@ class SetariContClient extends Component {
             body: JSON.stringify()
         })
             .then(res => res.json())
-            .then(data => this.setState({numeUtilizator: data.numeUtilizator,
-                parola: data.parola,
+            .then(data => this.setState({
+                numeUtilizator: data.numeUtilizator,
+                parola: "",
                 nume: data.nume,
                 prenume: data.prenume,
                 tip: data.tip,
                 email : data.email,
                 numarTelefon: data.numarTelefon,
-                adresa: data.adresa
+                adresa: data.adresa,
             }))
 
 
@@ -36,14 +43,20 @@ class SetariContClient extends Component {
         this.doSubmit = this.doSubmit.bind(this);
     }
 
+    closeModal = e => {
+        this.setState({
+            showModal: false,
+        });
+    };
+
     doSubmit = (event) => {
         event.preventDefault()
         const payload = {
             numeUtilizator: this.state.numeUtilizator,
-            parola: this.state.parola,
+            parola: this.state.parolaNoua,
             nume: this.state.nume,
             prenume: this.state.prenume,
-            tip: this.state.tip,
+            // tip: this.state.tip,
             email : this.state.email,
             numarTelefon: this.state.numarTelefon,
             adresa: this.state.adresa
@@ -59,38 +72,26 @@ class SetariContClient extends Component {
         })
             .then(res => {
                 if (res.status === 200) {
-                    alert("Modificat")
+                    // alert("Modificat")
+                    // alert(this.state.parolaNoua)
+                    this.setState({showModal: true})
                     this.setState({
                         numeUtilizator: "",
-                        parola: this.state.parola,
+                        parola: this.state.parolaNoua,
                         nume: "",
                         prenume: "",
-                        tip: "",
+                        // tip: "",
                         email : "",
                         numarTelefon: "",
-                        adresa: ""
+                        adresa: "",
+                        shwoModal: true
                     })
                 }
                 // else if (res.status === 401) {
                 //     alert("Username already exist!")
-                //     this.setState({
-                //         firstName: "",
-                //         lastName: "",
-                //         username: this.props.match.params.id,
-                //         password: "",
-                //         cnp: "",
-                //         grossSalary: "",
-                //         type: "",
-                //         hireDate: "",
-                //         duration: "",
-                //         expirationDate: ""
-                //     })
-                // }
                 else if(res.status === 417){
                     res.text().then(text =>{
-
                         console.log(text);
-
                     });
                 }
             })
@@ -151,20 +152,19 @@ class SetariContClient extends Component {
                                             className="form-control"
                                             placeholder="Parolă nouă"
                                             onChange={this.handleChange}
-                                            // value={this.state.parola}
+                                            value={this.state.parolaNoua}
                                         />
                                     </div>
-
                                     <div className="form-group">
-                                        <label className="text-label">Comfirmă parola nouă</label>
-                                        <input
-                                            type="password"
-                                            name="confirmParolaNoua"
-                                            className="form-control"
-                                            placeholder="Confirmă parola nouă"
-                                            onChange={this.handleChange}
-                                            // value={this.state.parola}
-                                        />
+                                        {/*<label className="text-label">Comfirmă parola nouă</label>*/}
+                                        {/*<input*/}
+                                        {/*    type="password"*/}
+                                        {/*    name="confirmParolaNoua"*/}
+                                        {/*    className="form-control"*/}
+                                        {/*    placeholder="Confirmă parola nouă"*/}
+                                        {/*    onChange={this.handleChange}*/}
+                                        {/*    value={this.state.confirmParolaNoua}*/}
+                                        {/*/>*/}
                                         <br/>
                                         <button
                                             type="submit"
@@ -173,6 +173,25 @@ class SetariContClient extends Component {
                                         >
                                             Salvează modificările
                                         </button>
+                                        <Modal
+                                            size="md"
+                                            show={this.state.showModal}
+                                            onHide={this.closeModal}
+                                        >
+                                            <Modal.Header>
+                                                <Modal.Title id="example-modal-sizes-title-lg">
+                                                    Datele dumneavostră au fost actualizate cu succes! <AiFillCheckCircle style={{color:"green"}}/>
+                                                </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <Card>
+                                                    <Link to="/produse/accesorii-birou/agende-si-blocnotes-uri" type="button" className="btn btn-istoric">Continuă cumpărăturile</Link>
+                                                </Card>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Link type="button" className="btn btn-exit-modal" to= "/contul-meu/setari-cont" onClick={this.closeModal}>Închide</Link>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </div>
                                 </form>
                             </div>

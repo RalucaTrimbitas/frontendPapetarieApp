@@ -6,10 +6,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "../utils/footer";
-import {Card, Modal} from "react-bootstrap";
+import {Card, Dropdown, Modal} from "react-bootstrap";
 import {AiFillCheckCircle, FaShoppingCart} from "react-icons/all";
 import '../../css/Modal.css';
-
+import DropdownItem from "react-bootstrap/DropdownItem";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
 
 export class ProduseList extends Component {
     constructor(props) {
@@ -19,11 +20,16 @@ export class ProduseList extends Component {
             cos_cumparaturi: [],
             sizeCart: localStorage.getItem("cartLength"),
             show: false,
-            showModal2: false
+            showModal2: false,
+            visible: 6,
+            outside: ""
         };
 
+        this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
+        this.sortByPriceDesc = this.sortByPriceDesc.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.renderProduse = this.renderProduse.bind(this);
+        this.loadMore = this.loadMore.bind(this);
 
         fetch('http://localhost:8080/produse', {
             method: 'GET',
@@ -32,6 +38,7 @@ export class ProduseList extends Component {
                 'Content-type': 'application/json'
             }
         })
+            // .then(resource => resource.blob())
             .then(res => {
                 if (res.status === 200) {
                     res.json().then(json => {
@@ -41,7 +48,25 @@ export class ProduseList extends Component {
                     console.log("error")
                 }
             })
+
+        // fetch('http://localhost:8080/download/' + "biblioraft-roz.png", {
+        //     method: 'GET',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-type': 'application/json'
+        //     }
+        // })
+        //     .then(response => response.blob())
+        //     .then(images => {
+        //         // Then create a local URL for that image and print it
+        //         this.setState({
+        //             outside : URL.createObjectURL(images)
+        //         })
+        //         console.log(this.state.outside)
+        //     })
+
     }
+
 
     closeModal = e => {
         this.setState({
@@ -92,10 +117,32 @@ export class ProduseList extends Component {
         }
     }
 
+    loadMore() {
+        this.setState((old) => {
+            return {visible: old.visible + 3}
+        })
+    }
+
 
     renderProduse = (produs) => {
-        const {codDeBare,denumire,pret,descriere,src} = produs;
+        const {codDeBare, denumire, pret, descriere, src} = produs;
+        // fetch('http://localhost:8080/download/' + "biblioraft-roz.png", {
+        //     method: 'GET',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-type': 'application/json'
+        //     }
+        // })
+        //     .then(response => response.blob())
+        //     .then(images => {
+        //         // Then create a local URL for that image and print it
+        //         this.setState({
+        //             outside : URL.createObjectURL(images)
+        //         })
+        //     })
+
         return (
+            <React.Fragment>
                 <div className="card card-produse" key={codDeBare}>
                     <Link to={`/produse/detalii/${codDeBare}`}>
                         <img src={src} alt="imagine-produs" />
@@ -151,14 +198,49 @@ export class ProduseList extends Component {
                         </Modal>
                     </div>
                 </div>
+                {/*<div className="clearfix"/>*/}
+                {/*<button className="btn-load-more">Load More</button>*/}
+                </React.Fragment>
         )
     }
 
+    sortByPriceAsc() {
+        this.setState(prevState => {
+            this.state.produse.sort((a, b) => (a.pret - b.pret))
+        });
+        this.forceUpdate()
+    }
+
+    sortByPriceDesc() {
+        this.setState(prevState => {
+            this.state.produse.sort((a, b) => (b.pret - a.pret))
+        });
+        this.forceUpdate()
+    }
+
+
     renderCategoriiProduse(text) {
+        { var filterProducts = this.state.produse
+                .filter(item => {
+                    return item.idCategorieProdus === text
+                })
+        }
         return (
             <React.Fragment>
-                {/*<NavBar/>*/}
                 <Container fluid>
+                    <Row>
+                        <Col className="col-md-12 text-right mr-3 mb-3">
+                            <Dropdown>
+                                <Dropdown.Toggle className="btn-cautare" id="dropdown-basic">
+                                    Sortează după preț
+                                </Dropdown.Toggle>
+                                <DropdownMenu>
+                            <DropdownItem onClick={this.sortByPriceAsc}>Preț: crescător</DropdownItem>
+                            <DropdownItem onClick={this.sortByPriceDesc}>Preț: descrescător</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
                             <SidebarCategorii show={this.show}/>
@@ -168,7 +250,15 @@ export class ProduseList extends Component {
                                 .filter(item => {
                                     return item.idCategorieProdus === text
                                 })
+                                .slice(0,this.state.visible)
                                 .map(produs => this.renderProduse(produs))}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="col-md-8 col-lg-9 p-l-2 p-t-2 col-xs-11 text-center mb-5 mt-5">
+                        {this.state.visible < filterProducts.length &&
+                        <button type="button" onClick={this.loadMore} className="btn btn-cautare">Vezi mai mult</button>
+                        }
                         </Col>
                     </Row>
                     <Footer/>
@@ -183,8 +273,7 @@ export class ProduseList extends Component {
             return this.renderCategoriiProduse("1")
         }
         if (this.props.match.params.id === "agende-si-blocnotes-uri") {
-            // this.props.history.replace("/produse/accesorii-birou/agende-si-blocnotes-uri");
-            return this.renderCategoriiProduse("1.1")
+            return (this.renderCategoriiProduse("1.1"))
         }
         if (this.props.match.params.id === "bibliorafturi") {
             return this.renderCategoriiProduse("1.2")

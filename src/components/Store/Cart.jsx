@@ -13,7 +13,8 @@ export class Cart extends Component {
             cart: [],
             sizeCart: localStorage.getItem("cartLength"),
             show: false,
-            showModal2: false
+            showModal2: false,
+            client: []
         }
 
         this.closeModal = this.closeModal.bind(this)
@@ -31,6 +32,24 @@ export class Cart extends Component {
                     res.json().then(json => {
                         this.setState({cart: json});
                         localStorage.setItem("cartLength", this.state.cart.length)
+                    });
+                } else {
+                    console.log("error")
+                }
+            })
+
+        fetch('http://localhost:8080/client/' + localStorage.getItem("numeUtilizator"), {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        this.setState({client: json});
+                        console.log(this.state.client)
                     });
                 } else {
                     console.log("error")
@@ -140,21 +159,18 @@ export class Cart extends Component {
     }
 
     render() {
-        var total = 0;
+        var total = 0, tva=0, sumaTotala=0
         document.body.classList = "";
         document.body.classList.add("background-general");
         if (this.state.cart.length === 0)
             return (
                 <React.Fragment>
-                    {/*<h3 style={{textAlign: "center", fontSize: "3rem"}}>Coșul de cumpărături este gol.</h3>*/}
                     <div className="alert alert-success" style={{marginBottom: "300px"}}>
                         <button type="button" className="close" title="Close" data-dismiss="alert">×
                         </button>
                         <p>Coșul de cumpărături este gol.</p>
 
                     </div>
-                    {/*<img src="/public/poze/cartEmpty.png" alt={"as"}> img</img>*/}
-                    {/*<a href="https://stackoverflow.com"> <img alt="stack overflow" src="../pictures/cartEmpty.png"/></a>*/}
                     <Footer/>
                 </React.Fragment>
             )
@@ -164,6 +180,8 @@ export class Cart extends Component {
                     {this.state.cart
                         .map(item => (
                             total = total + item.cantitate * item.pret,
+                                // tva = 10/100 * total,
+                                // sumaTotala = total,
                                 // <div className="details2">
                                 <div className="details" key={item.codDeBare}>
                                     <img src={item.src} alt="ImagineProdus"
@@ -182,7 +200,6 @@ export class Cart extends Component {
                                         </div>
                                         <div className="delete"
                                             onClick={() => this.removeProduct(item.codDeBare)}
-                                            //  onClick={() => this.openModal2()}
                                         >
                                             X
                                         </div>
@@ -192,9 +209,6 @@ export class Cart extends Component {
                                             </Modal.Header>
                                             <Modal.Footer>
                                                 <Link type="button" className="btn btn-istoric" to= "/cos-cumparaturi" onClick={this.closeModal}>Închide</Link>
-                                                {/*<Button variant="primary"*/}
-                                                {/*        // onClick={() => this.removeProduct(item.codDeBare)}*/}
-                                                {/*>Da</Button>*/}
                                             </Modal.Footer>
                                         </Modal>
                                     </div>
@@ -202,8 +216,19 @@ export class Cart extends Component {
                                 </div>
                         ))
                     }
-                    <div className="total">
-                        <h4>Total: {total} lei</h4>
+                    <div className="detailsCart">
+                        <h4>Subtotal: {total} lei</h4>
+                        {this.state.client === 'PERSOANA_FIZICA' ? (
+                                    tva = 10 / 100 * total,
+                                    sumaTotala = total
+                            ) :
+
+                            (   tva = 0,
+                                sumaTotala = total - (10 / 100 * total)
+                            )
+                        }
+                        <h4>TVA: {tva} lei</h4>
+                        <h4>Total: {sumaTotala} lei</h4>
                         <button type="button" className="btn order" data-toggle="modal"
                                 data-target="#exampleModalCenter" onClick={() => this.placeOrder()}>
                             Plasează comanda

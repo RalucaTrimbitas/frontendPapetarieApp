@@ -14,8 +14,24 @@
   background: #4b1515de;
   color: #fff;
   font-weight: 300;
-  width: 100px;
+  width: 180px;
+  border-color: #160404 !important;
 }
+
+.btn-cautare:focus {
+  background-color: #5e1515 !important;
+  border-color: #160404 !important;
+}
+
+.btn-cautare:hover {
+  background-color: #5e1515;
+  color: white;
+}
+
+
+/*.btn-cautare:hover {*/
+/*  background: #4b1515de !important;*/
+/*}*/
 
 #logoDianaFooter {
   width: 170px;

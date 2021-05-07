@@ -1,13 +1,31 @@
 import React, {Component} from "react";
-import { Link, NavLink } from "react-router-dom";
+import {Link, NavLink, withRouter} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {FaSignOutAlt, FiSettings, FiShoppingCart, RiShoppingBasket2Line} from "react-icons/all";
+import {BsFillExclamationTriangleFill, FaSignOutAlt, FiSettings, FiShoppingCart} from "react-icons/all";
 import { FiHeart } from "react-icons/all";
 import { FaRegUser } from "react-icons/all";
+import {Button, Form, FormControl, Modal} from "react-bootstrap";
 
 export class NavBarDefault extends Component {
+
+  constructor() {
+    super();
+    this.state= {
+      searchText: "",
+      show: false
+    }
+
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  closeModal = e => {
+    this.setState({
+      show: false,
+      showModal2: false,
+    });
+  };
 
   handleLogout = () => {
     localStorage.clear();
@@ -74,7 +92,6 @@ export class NavBarDefault extends Component {
                 <li className="nav-item active">
                   <NavLink
                       className="nav-item nav-link "
-                      // to="/produse/accesorii-birou(1.1)"
                       to="/produse/accesorii-birou/agende-si-blocnotes-uri"
                       style={{ color: "#492020" }}
                   >
@@ -82,29 +99,39 @@ export class NavBarDefault extends Component {
                   </NavLink>
                 </li>
 
-                <li className="nav-item active">
-                  <NavLink
-                      className="nav-item nav-link"
-                      to="/promotii"
-                      id="navItem"
-                      style={{ color: "#492020" }}
-                  >
-                    Promoții
-                  </NavLink>
-                </li>
+                {/*<li className="nav-item active">*/}
+                {/*  <NavLink*/}
+                {/*      className="nav-item nav-link"*/}
+                {/*      to="/promotii"*/}
+                {/*      id="navItem"*/}
+                {/*      style={{ color: "#492020" }}*/}
+                {/*  >*/}
+                {/*    Promoții*/}
+                {/*  </NavLink>*/}
+                {/*</li>*/}
                 <li className="nav-item d-inline">
-                  <form className="form-inline">
-                    <input
-                        className="form-control  mr-sm-2 "
+                  <Form inline>
+                    <FormControl
+                        onChange={this.handleSearchInput}
+                        value={this.state.searchText}
                         id="SearchInput"
-                        type="search"
+                        type="text"
                         placeholder="&#61442;"
+                        className="mr-sm-2"
                         style={{ borderColor: "#4b1515de" }}
                     />
-                    <button className="btn btn-cautare my-2 my-sm-0" type="submit">
+                    <Button onClick={this.handleSearchSubmit} className="btn btn-cautare my-2 my-sm-0" >
                       Caută
-                    </button>
-                  </form>
+                    </Button>
+                    <Modal show={this.state.show} onHide={this.closeModal} size="sm">
+                      <Modal.Header closeButton>
+                        <Modal.Title  > <BsFillExclamationTriangleFill style={{color: "red", marginLeft: "110px"}}/> </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Adăugați text pentru a căuta un produs!
+                      </Modal.Body>
+                    </Modal>
+                  </Form>
                 </li>
               </ul>
               <div className="nav-cart">
@@ -173,62 +200,35 @@ export class NavBarDefault extends Component {
                           </NavLink>
                         </div>
                       </div>
-
                   )}
               </div>
-              {/*<NavLink*/}
-              {/*    className="nav-item nav-link"*/}
-              {/*    to={this.props.userIcon}*/}
-              {/*    id="navItem"*/}
-              {/*>*/}
-              {/*  <FaRegUser*/}
-              {/*      className="icons-nav hvr-grow mr-4"*/}
-              {/*      style={{ cursor: "pointer" }}*/}
-              {/*  />*/}
-              {/*</NavLink>*/}
-
-
-              {/*<div className="nav-item dropdown navbar-nav">*/}
-              {/*  <p*/}
-              {/*      className="nav-link dropdown "*/}
-              {/*      id="dropdownMenu2"*/}
-              {/*      data-toggle="dropdown"*/}
-              {/*      aria-haspopup="true"*/}
-              {/*      aria-expanded="false"*/}
-              {/*  >*/}
-              {/*    <FaRegUser*/}
-              {/*        className="icons-nav hvr-grow mt-3 ml-2 mr-3"*/}
-              {/*        style={{ cursor: "pointer"}}*/}
-              {/*    />*/}
-              {/*  </p>*/}
-              {/*  <div*/}
-              {/*      className="dropdown-menu dropdown-menu-right"*/}
-              {/*      aria-labelledby="navbarDropdown1"*/}
-              {/*  >*/}
-              {/*    <NavLink*/}
-              {/*        className="dropdown-item"*/}
-              {/*        to="/contul-meu/acasa-client"*/}
-              {/*    >*/}
-              {/*      <FiSettings style={{marginRight:"6px"}}/>*/}
-              {/*      Panou control*/}
-              {/*    </NavLink>*/}
-              {/*    <div className="dropdown-divider"/>*/}
-              {/*    <NavLink*/}
-              {/*        className="dropdown-item"*/}
-              {/*        onClick={this.handleLogout.bind(this)}*/}
-              {/*        id="navItem" to="/autentificare">*/}
-              {/*      <FaSignOutAlt style={{marginRight:"6px"}}/>*/}
-              {/*      Deconectare*/}
-              {/*    </NavLink>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
             </div>
           </nav>
         </React.Fragment>
     );
 
   }
+  handleSearchInput = event => {
+    this.setState({
+      searchText: event.target.value
+    });
+  };
+
+  handleSearchSubmit = () => {
+    if (this.state.searchText) {
+      this.props.history.push({
+        pathname: "/results",
+        state: {
+          searchText: this.state.searchText
+        }
+      })
+    } else {
+      this.setState({
+        show: true
+      })
+    }
+  };
 
 };
 
-export default NavBarDefault;
+export default withRouter(NavBarDefault);

@@ -101,14 +101,9 @@ export class Detalii extends Component {
                                 <h2>{item.denumire}</h2>
                                 <span>{item.pret} lei</span>
                             </div>
-                            {/*<Colors colors={item.colors}/>*/}
                             <p>{item.descriere}</p>
                             <p>{item.detalii}</p>
-                            {/*<Link to="/cart" className="cart" onClick={() => addCart(item._id)}>*/}
-                            {/*<Link to="/cos-cumparaturi" className="cart" >*/}
-                            {/*    Adaugă în coș*/}
-                            {/*</Link>*/}
-                            <button type="button" className="btn order" data-toggle="modal"
+                            <button type="button" className="btn order-detalii" data-toggle="modal"
                                     data-target="#exampleModalCenter" onClick={() => this.addCart(item.codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
 
                         </div>

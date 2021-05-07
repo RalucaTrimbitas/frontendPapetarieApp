@@ -58,6 +58,20 @@
     display: inline-block;
 }
 
+.detailsCart{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 40px 25px;
+    border: 1px solid #eee;
+    box-shadow: 2px 8px 20px #ddd;
+    overflow: hidden;
+    padding: 60px 50px 30px 50px;
+    position: relative;
+    transform: scaleY(0.98);
+    background: white;
+}
+
 /*.box .cart{*/
 /*    position: relative;*/
 /*    border: 1px solid #ccc;*/

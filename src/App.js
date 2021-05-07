@@ -22,11 +22,19 @@ import './css/homePage.css';
 import './css/cart.css';
 import './css/history.css';
 import './css/createProduct.css';
+import './css/adminDashboard.css';
+import './css/tabel.css';
 import Detalii from "./components/Store/Detalii";
 import ProduseView from "./components/Store/ProduseList";
 import Informatii from "./components/Info/informatii";
 import Cart from "./components/Store/Cart";
 import NavBar from "./components/NavBars/navBar";
+import SearchResultsPage from "./components/HomePage/SearchResultsPage";
+import ProduseViewAdministrator from "./Administrator/ProduseListAdministrator";
+import AdaugareProdus from "./Administrator/AdaugareProdus";
+import DetaliiAdministrator from "./Administrator/DetaliiAdministrator";
+import SearchResultsPageAdmin from "./Administrator/SearchResultsPageAdmin";
+import {VizualizareComenzi} from "./Administrator/VizualizareComenzi";
 
 
 class App extends Component{
@@ -45,11 +53,24 @@ class App extends Component{
               <Route path="/cos-cumparaturi" component={Cart}/>
 
               <Route path="/produse/detalii/:id" component={Detalii} />
+
+              <Route path="/admin/produse/detalii/:id" component={DetaliiAdministrator} />
+
+
               <Route exact path="/produse/:id/:id" component={ProduseView} />
+
 
               <PrivateClientRoute path="/contul-meu/:id" component={ClientDashboard}/>
 
               <PrivateAdministratorRoute path="/administratordashboard" component={AdministratorDashboard}/>
+              <Route exact path="/admin/produse/:id/:id" component={ProduseViewAdministrator} />
+              <Route exact path="/adaugare-produse" component={AdaugareProdus}/>
+
+
+              <Route exact path="/results" component={SearchResultsPage}/>
+              <Route exact path="/admin/results" component={SearchResultsPageAdmin}/>
+              <Route exact path="/admin/vizualizare-comenzi" component={VizualizareComenzi}/>
+
 
               <Route path="/not-found" component={NotFound}/>
 
