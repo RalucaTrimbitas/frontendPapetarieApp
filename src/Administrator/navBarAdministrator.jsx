@@ -30,6 +30,11 @@ handleLogout = () => {
     });
   };
 
+  handleClearSearch = query => {
+    this.setState({ searchText: ""})
+  }
+
+
 links = () => {
   return (
     <React.Fragment>
@@ -61,7 +66,7 @@ links = () => {
       </div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light" >
         <Link className="navbar-brand" id="nav-brand" to="/administratordashboard">
-          <img className="hvr-grow ml-4" id="logoDiana" src="/poze/logoDiana.png" alt="logo"></img>
+          <img className="hvr-grow ml-4" id="logoDiana" src="/poze/logoDiana.png" alt="logo"/>
         </Link>
         <button
           className="navbar-toggler"
@@ -101,6 +106,7 @@ links = () => {
                 <Button onClick={this.handleSearchSubmit} className="btn btn-cautare my-2 my-sm-0" >
                   Caută
                 </Button>
+                {/*<Button className="my-btn btn-cautare-tabel ml-2" type="button" onClick={this.handleClearSearch}>Golește căutarea</Button>*/}
                 <Modal show={this.state.show} onHide={this.closeModal} size="sm">
                   <Modal.Header closeButton>
                     <Modal.Title  > <BsFillExclamationTriangleFill style={{color: "red", marginLeft: "110px"}}/> </Modal.Title>

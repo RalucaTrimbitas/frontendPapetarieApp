@@ -180,16 +180,13 @@ export class Cart extends Component {
                     {this.state.cart
                         .map(item => (
                             total = total + item.cantitate * item.pret,
-                                // tva = 10/100 * total,
-                                // sumaTotala = total,
-                                // <div className="details2">
                                 <div className="details" key={item.codDeBare}>
                                     <img src={item.src} alt="ImagineProdus"
                                          style={{backgroundImage: `url(${item.src})`}}/>
                                     <div className="box">
                                         <div className="row">
                                             <h2>{item.denumire}</h2>
-                                            <span>{item.pret * item.cantitate} lei</span>
+                                            <span>{item.pret.toFixed(2) * item.cantitate.toFixed(2)} lei</span>
                                         </div>
                                         <p>{item.descriere}</p>
                                         <p>{item.detalii}</p>
@@ -217,19 +214,22 @@ export class Cart extends Component {
                         ))
                     }
                     <div className="detailsCart">
-                        <h4>Subtotal: {total} lei</h4>
-                        {this.state.client === 'PERSOANA_FIZICA' ? (
-                                    tva = 10 / 100 * total,
+                        <h4>Subtotal: {total.toFixed(2)} lei</h4>
+                        <div style={{display: "none"}}>
+                        {this.state.client.tip === 'PERSOANA_FIZICA' ? (
+                                    tva = (19 / 100 * total),
                                     sumaTotala = total
                             ) :
-
-                            (   tva = 0,
-                                sumaTotala = total - (10 / 100 * total)
+                            (
+                                tva = (19 / 100 * total),
+                                sumaTotala = total
                             )
                         }
-                        <h4>TVA: {tva} lei</h4>
-                        <h4>Total: {sumaTotala} lei</h4>
-                        <button type="button" className="btn order" data-toggle="modal"
+                        </div>
+                        {/*(Math.round(num * 100) / 100).toFixed(2);*/}
+                        <h4>TVA: {tva.toFixed(2)} lei</h4>
+                        <h4>Total: {sumaTotala.toFixed(2)} lei</h4>
+                        <button type="button" className="btn btn-plasaeza" data-toggle="modal"
                                 data-target="#exampleModalCenter" onClick={() => this.placeOrder()}>
                             Plasează comanda
                         </button>

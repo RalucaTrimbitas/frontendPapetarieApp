@@ -1,19 +1,34 @@
 import React, {Component} from "react";
-import { Card, Modal} from "react-bootstrap";
-import {FaEye} from "react-icons/all";
+import {Button, Modal} from "react-bootstrap";
+import SearchBox from "../components/utils/searchBox";
+import ReactPaginate from "react-paginate";
+import {paginate} from "../components/utils/paginate";
 
 class IstoricComenziClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
             history: [],
+            tableData: [],
+            orgtableData: [],
             comanda: [],
-            show: false
+            show: false,
+            totalComanda: 0,
+            offset: 0,
+            perPage: 7,
+            searchQuery: "",
+            currentPage: 0,
+            pageCount:0
         }
 
+        this.handlePageClick = this.handlePageClick.bind(this)
+        this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
         this.viewIstoricComanda = this.viewIstoricComanda.bind(this)
 
+    }
+
+    getData() {
         fetch('http://localhost:8080/comenzi/' + localStorage.getItem("numeUtilizator"), {
             method: 'GET',
             headers: {
@@ -24,7 +39,10 @@ class IstoricComenziClient extends Component {
             .then(res => {
                 if (res.status === 200) {
                     res.json().then(json => {
-                        this.setState({history: json});
+                        this.setState({
+                            orgtableData: json,
+                            pageCount: json.length/this.state.perPage
+                        });
                     });
                 } else {
                     console.log("error")
@@ -32,9 +50,75 @@ class IstoricComenziClient extends Component {
             })
     }
 
-    viewIstoricComanda = (numarComanda) => {
+    componentDidMount() {
+        this.getData();
+    }
+
+    closeModal = e => {
+        this.setState({
+            show: false
+        });
+    };
+
+    openModal() {
         this.setState({
             show: true
+        });
+
+    };
+
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+
+        this.setState({
+            currentPage: selectedPage,
+            offset: offset
+        }, () => {
+            this.loadMoreData()
+        });
+    }
+
+    loadMoreData() {
+        const data = this.state.orgtableData;
+        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+        this.setState({
+            pageCount: Math.ceil(data.length / this.state.perPage),
+            tableData: slice
+        })
+    }
+
+    handleSearch = query => {
+        this.setState({searchQuery: query,
+            currentPage: 1});
+    }
+
+    getPagedData = () => {
+        const {
+            searchQuery: searchQuery,
+            orgtableData: allData,
+            currentPage,
+            perPage
+        } = this.state;
+
+        let filtered = allData;
+        // if (searchQuery)
+        //     filtered = allData.filter(account =>
+        //         account.numarComanda.startsWith(searchQuery)
+        //     );
+        const pagin = paginate(filtered, currentPage, perPage);
+
+        return {tableData: pagin};
+    }
+
+    refreshPage() {
+        window.location.reload(false);
+    }
+
+    viewIstoricComanda = (numarComanda, total) => {
+        this.setState({
+            show: true,
+            totalComanda: total
         });
         fetch('http://localhost:8080/comanda-istoric/' + numarComanda, {
             method: 'GET',
@@ -55,107 +139,131 @@ class IstoricComenziClient extends Component {
             })
     }
 
-
-    closeModal = e => {
-        this.setState({
-            show: false
-        });
-    };
+    handleClearSearch = query => {
+        this.setState({ searchQuery: ""})
+    }
 
     render() {
         document.body.classList = "";
         document.body.classList.add("background-general");
         console.log(this.state.comanda)
+
+        const{tableData} = this.getPagedData()
         return (
             <React.Fragment>
-                <main className="col-md-10 col-xs-12">
-                    <div className="card card-panou" style={{marginTop: "70px", marginBottom: "150px"}}>
-                        <div className="card-header text-center" id="card-client">Istoric comenzi</div>
-                        <div className="card-body">
-                            {/*<blockquote className="blockquote mb-0" id="card-text">*/}
-                            <div className="col-sm-12 col-xs-12">
-                                <div className="card">
-                                    <div className="modal-title">
-                                        <h4>Aveți {this.state.history.length} comenzi.</h4>
+                <div className="container-fluid">
+                    <div className="table-responsive" style={{ backgroundImage: "none" }}>
+                        <table className="table mt-5 ml-3">
+                            <div className="table-title">
+                                <div className="row">
+                                    <div className="col-sm-10">
+                                        <h2>Istoric <b>comenzi</b></h2>
                                     </div>
-                                    <div className="card-body">
-                                        <div className="col-sm-12 col-xs-12">
-                                            <table className="col-sm-12 col-xs-12">
-                                                <thead>
-                                                <tr>
-                                                    <th>Număr comandă</th>
-                                                    <th>Data plasării comenzii</th>
-                                                    <th/>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                    this.state.history.map(items => (
-                                                        <tr key={items.numarComanda}>
-                                                            <td>{items.numarComanda}</td>
-                                                            <td>{new Date(items.dataPlasare).toLocaleDateString()}</td>
-                                                            <td>
-                                                                <FaEye type="button"
-                                                                        data-toggle="modal"
-                                                                        data-target="#exampleModalCenter"
-                                                                        onClick={() => this.viewIstoricComanda(items.numarComanda)}
-                                                                        style={{size: "1.8em"}}
-                                                                />
-
-                                                                <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal} >
-                                                                    <Modal.Header closeButton>
-                                                                        <Modal.Title>Comanda dumneavoastră:</Modal.Title>
-                                                                    </Modal.Header>
-                                                                    <Modal.Body>
-                                                                        <Card >
-                                                                            <Card.Body>
-                                                                                {this.state.comanda.map(item => {
-                                                                                    return (
-                                                                                        <div className="card" key={item.codDeBare}>
-                                                                                            <div className="card-img">
-                                                                                                <img src={item.src} alt="ImagineProdus"
-                                                                                                     style={{backgroundImage: `url(${item.src})`}}/>
-                                                                                            </div>
-                                                                                            <div className="card-body">
-                                                                                                <div className="row">
-                                                                                                    <div className="col-sm-6">
-                                                                                                        <h4>{item.denumire}</h4>
-                                                                                                    </div>
-                                                                                                    <div className="col-sm-10">
-                                                                                                        <span>{item.pret} lei</span>
-                                                                                                    </div>
-                                                                                                    <div className="col-sm-10">
-                                                                                                        <span>{item.cantitate} buc</span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                {/*<Colors colors={item.colors}/>*/}
-                                                                                                <p>{item.descriere}</p>
-                                                                                                <p>{item.detalii}</p>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    )
-                                                                                })}
-                                                                                <p>SUBTOTAL: {items.suma} lei</p>
-                                                                                <p>TVA: {items.tva} lei</p>
-                                                                                <p>TOTAL: {items.total} lei</p>
-                                                                            </Card.Body>
-                                                                        </Card>
-                                                                </Modal.Body>
-                                                                </Modal>
-                                                            </td>
-                                                        </tr>
-                                                    ))
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                    <div className="col-sm-2">
+                                        <button onClick={this.refreshPage} className="btn" style={{color:"white"}}><i className="fa fa-refresh"/><span>Refresh</span></button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div className="table-filter">
+                                {/*<div className="row">*/}
+                                {/*    <div className="col-sm-12" style={{color: "gray"}}>*/}
+                                {/*    <span>Nume de utilizator client:*/}
+                                {/*        <SearchBox placeholder="Caută" value={this.state.searchQuery} onChange={this.handleSearch}/></span>*/}
+                                {/*        <Button className="my-btn btn-cautare-tabel ml-2" type="button" onClick={this.handleClearSearch}>Golește căutarea</Button>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                            </div>
+                            <table className="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Data plasare comandă</th>
+                                    <th>Număr comandă</th>
+                                    <th>Subtotal</th>
+                                    <th>TVA</th>
+                                    <th>Total</th>
+                                    <th>Detalii</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    tableData.map((item1, index) => (
+                                        <tr key={item1.numarComanda}>
+                                            <td>{(this.state.currentPage - 1) * this.state.perPage + index + 1 + this.state.perPage}</td>
+                                            <td>{new Date(item1.dataPlasare).toLocaleDateString()}</td>
+                                            <td>{item1.numarComanda}</td>
+                                            <td>{item1.suma} lei</td>
+                                            {/*<span className="status text-success">•</span>*/}
+                                            <td>{item1.tva} lei</td>
+                                            <td>{item1.total} lei</td>
+                                            <td onClick={() => this.viewIstoricComanda(item1.numarComanda, item1.total)} className="td-view">Vezi</td>
+                                            <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal} >
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Detalii comandă:</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    {this.state.comanda.map(item => {
+                                                        return (
+                                                            <div className="card mt-4 card-comanda" key={item.codDeBare}>
+                                                                <div className="card-img">
+                                                                    <img src={item.src} alt="ImagineProdus"
+                                                                         style={{backgroundImage: `url(${item.src})`}}/>
+                                                                </div>
+                                                                <div className="card-body">
+                                                                    <div className="row">
+                                                                        <div className="col-sm-6 d-inline">
+                                                                            <h4>{item.denumire}</h4>
+                                                                        </div>
+                                                                        <div className="col-sm-10">
+                                                                            <span>{item.pret} lei</span>
+                                                                        </div>
+                                                                        {/*<div className="col-sm-10">*/}
+                                                                        {/*    <span>{item1.cantitate} buc</span>*/}
+                                                                        {/*</div>*/}
+                                                                    </div>
+                                                                    <p>{item.descriere}</p>
+                                                                    <p>{item.detalii}</p>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    <div className="card-footer">
+                                                        <div className="jumbotron-fluid">
+                                                            <div className="row justify-content-between ">
+                                                                <div className="col-sm-auto col-auto my-auto">
+                                                                    <img className="hvr-grow ml-4" id="logoDiana" src="/poze/logoDiana.png" alt="logo"/>
+                                                                </div>
+                                                                <div className="col-auto my-auto ">
+                                                                    <h2 className="mb-0" style={{color: "#390c0c"}}>TOTAL PLATĂ:</h2>
+                                                                </div>
+                                                                <div className="col-auto my-auto ml-auto">
+                                                                    <h4 className="display-3 ">{this.state.totalComanda.toFixed(2)} lei</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Modal.Body>
+                                            </Modal>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <ReactPaginate
+                                previousLabel={"← Înapoi"}
+                                nextLabel={"Următor →"}
+                                pageCount={this.state.pageCount}
+                                onPageChange={this.handlePageClick}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}
+                            />
+                        </table>
                     </div>
-                </main>
+                </div>
+
+
             </React.Fragment>
         )
     }

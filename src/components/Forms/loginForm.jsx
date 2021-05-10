@@ -2,31 +2,46 @@ import React from "react";
 import Joi from "joi-browser";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../utils/footer";
-import {NavLink} from "react-router-dom" ;
+import {Link, NavLink} from "react-router-dom" ;
+import Form from "./form";
+import {Modal} from "react-bootstrap";
+import {FcCancel, GiCancel, IoIosWarning} from "react-icons/all";
 
-class LoginForm extends React.Component {
+class LoginForm extends Form {
   constructor() {
     super();
     this.state = {
-      numeUtilizator: "",
-      parola: "",
+      data: {
+        numeUtilizator: "",
+        parola: "",
+      },
+      showModal1: false,
+      showModal2: false,
       errors: {},
-    };
-
-    this.schema = {
-      numeUtilizator: Joi.string().required(),
-      parola: Joi.string().required(),
     };
     this.handleChange = this.handleChange.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
   }
 
+  closeModal = e => {
+    this.setState({
+      showModal1: false,
+      showModal2: false,
+    });
+  };
+
+  schema = {
+    numeUtilizator: Joi.string().required().error(() => {return {message: "Numele de utilizator este obligatoriu."}}),
+    parola: Joi.string().required().error(() => {return {message: "Parola este obligatorie."}}),
+  };
+
+
   doSubmit = (e) => {
     e.preventDefault();
     //Call the server
     const payload = {
-      numeUtilizator: this.state.numeUtilizator,
-      parola: this.state.parola,
+      numeUtilizator: this.state.data.numeUtilizator,
+      parola: this.state.data.parola,
     };
     fetch("http://localhost:8080/autentificare", {
       method: "POST",
@@ -37,7 +52,7 @@ class LoginForm extends React.Component {
       body: JSON.stringify(payload),
     }).then((res) => {
       if (res.status === 200) {
-        localStorage.setItem("numeUtilizator", this.state.numeUtilizator);
+        localStorage.setItem("numeUtilizator", this.state.data.numeUtilizator);
         res.json().then((json) => {
           const { result, name } = json;
           localStorage.setItem("name", name);
@@ -56,9 +71,15 @@ class LoginForm extends React.Component {
 
         // LOGIN PERSISTANCE
       } else if (res.status === 404) {
-        alert("Username doesn't exist!");
+        // alert("Nu există cont cu acest nume de utilizator!");
+        this.setState({
+          showModal1: true
+        })
       } else if (res.status === 401) {
-        alert("Password is wrong!");
+        // alert("Parola este greșită!");
+        this.setState({
+          showModal2: true
+        })
       }
     });
 
@@ -83,32 +104,18 @@ class LoginForm extends React.Component {
               <h2 className="text-center" >Autentificare</h2>
               <form className="login-form">
                 <div className="form-group">
-                  <label className="text-label">Nume utilizator</label>
-                  <input
-                    type="text"
-                    name="numeUtilizator"
-                    className="form-control"
-                    placeholder="Nume utilizator"
-                    onChange={this.handleChange}
-                  />
+                  <div className="form-group text-label">
+                    {this.renderInput('numeUtilizator', "Nume utilizator: ","text", "Nume utilizator")}
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="text-label">Parola</label>
-                  <input
-                    type="password"
-                    name="parola"
-                    className="form-control"
-                    placeholder="Parola"
-                    onChange={this.handleChange}
-                  />
+                  <div className="form-group text-label">
+                    {this.renderInput('parola', "Parola: ","password", "Parola")}
+                  </div>
                 </div>
 
                 <div className="form-check">
-                  {/*<label className="form-check-label">*/}
-                  {/*  <input type="checkbox" className="form-check-input"/>*/}
-                  {/*  <p>Păstrează datele</p>*/}
-                  {/*</label>*/}
                   <button
                     type="submit"
                     className="btn btn-login float-right"
@@ -130,6 +137,24 @@ class LoginForm extends React.Component {
             </div>
           </div>
         </div>
+        <Modal className="modal-confirm" show={this.state.showModal1} onHide={this.closeModal} >
+          <Modal.Header closeButton className="modal-header">
+            <div className="icon-box">
+            <IoIosWarning className="warning"/>
+            </div>
+            <Modal.Title className="modal-title">Nu există cont cu acest nume de utilizator!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="modal-body">Dacă nu aveți deja un cont creat, alegeți varianta de înregistrare.</Modal.Body>
+        </Modal>
+        <Modal className=" modal-confirm" show={this.state.showModal2} onHide={this.closeModal} >
+          <Modal.Header closeButton className="modal-header">
+            <div className="icon-box">
+              <IoIosWarning style={{fontSize:"25px"}}/>
+            </div>
+            <Modal.Title className="modal-title">Ați introdus o parolă greșită!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="modal-body">Încercați din nou.</Modal.Body>
+        </Modal>
         <br/>
         <Footer/>
       </React.Fragment>

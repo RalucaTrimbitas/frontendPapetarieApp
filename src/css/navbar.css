@@ -77,8 +77,19 @@
     font-size: 40px;
 }
 
+.nav-item-produse:hover {
+    color: #4b1515de !important;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .nav-item {
     font-size: 35px;
+    transition: font-size 0.8s;
+}
+
+.nav-item-produse {
+    font-size: 25px;
     transition: font-size 0.8s;
 
 }
@@ -148,8 +159,8 @@ nav .nav-cart {
 
 nav .nav-cart span {
     position: absolute;
-    top: -5px;
-    right: -7px;
+    /*top: -2px;*/
+    right: -5px;
     background: crimson;
     font-size: 12px;
     color: white;

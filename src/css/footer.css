@@ -18,6 +18,14 @@
   border-color: #160404 !important;
 }
 
+.btn-cautare-tabel {
+  background: rgba(75, 21, 21, 0.82);
+  color: #fff;
+  font-weight: 300;
+  width: 180px;
+  border-color: #160404 !important;
+}
+
 .btn-cautare:focus {
   background-color: #5e1515 !important;
   border-color: #160404 !important;

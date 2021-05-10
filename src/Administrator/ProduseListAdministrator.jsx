@@ -57,6 +57,25 @@ export class ProduseListAdministrator extends Component {
             })
     }
 
+    getData() {
+        fetch('http://localhost:8080/produse', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        this.setState({produse: json});
+                    });
+                } else {
+                    console.log("error")
+                }
+            })
+    }
+
     closeModal = e => {
         this.setState({
             show: false,
@@ -164,6 +183,7 @@ export class ProduseListAdministrator extends Component {
                     });
                 }
             })
+        this.getData()
         // this.props.history.goBack();
         console.log("Submitted");
     };

@@ -32,11 +32,10 @@ export class NavBarDefault extends Component {
   };
 
   render () {
-    console.log("NavbarDefault")
     return (
         <React.Fragment>
-          <div className="row al_center" id="rowHead">
-            <div className="col-md-12">
+          <div className="row al_center mt-0" id="rowHead">
+            <div className="col-md-12 mt-0">
               <div className="header-text-up">
                 <FontAwesomeIcon
                     className="icon-phone"
@@ -91,7 +90,7 @@ export class NavBarDefault extends Component {
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
                   <NavLink
-                      className="nav-item nav-link "
+                      className="nav-item-produse nav-link "
                       to="/produse/accesorii-birou/agende-si-blocnotes-uri"
                       style={{ color: "#492020" }}
                   >

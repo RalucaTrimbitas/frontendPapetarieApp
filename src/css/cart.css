@@ -54,6 +54,23 @@
     cursor: pointer;
 }
 
+.btn-cautare {
+    background: #4b1515de;
+    color: #fff;
+    font-weight: 300;
+    width: 180px;
+    border-color: #160404 !important;
+}
+
+.btn-plasaeza {
+    background: #440404;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    height:50px;
+}
+
 .btn-exit-modal {
     /*background: #333;*/
     color: gray !important;

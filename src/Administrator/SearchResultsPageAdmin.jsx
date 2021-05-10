@@ -341,9 +341,12 @@ export default class SearchResultsPageAdmin extends React.Component {
                         </Row>
                     </Container>
                 ) : (
-                    <p>NU AU FOST GĂSITE REZULTATE</p>
+                    <div className="alert alert-success" style={{marginBottom: "300px"}}>
+                        <button type="button" className="close" title="Close" data-dismiss="alert">×
+                        </button>
+                        <p>NU AU FOST GĂSITE REZULTATE.</p>
+                    </div>
                 )}
-                <Footer />
             </>
         );
 

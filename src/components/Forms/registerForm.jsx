@@ -1,56 +1,67 @@
-import React, { Component } from "react";
+import React from "react";
 import Joi from "joi-browser";
-import Footer from "../utils/footer";
+import Form from "./form";
 import {Card, Modal} from "react-bootstrap";
-import {AiFillCheckCircle} from "react-icons/all";
+import {AiFillCheckCircle, FaTimes, IoIosWarning} from "react-icons/all";
 import {Link} from "react-router-dom";
+import Footer from "../utils/footer";
 
-class RegisterForm extends Component {
+class RegisterForm extends Form {
   constructor() {
     super();
     this.state = {
-      prenume: "",
-      nume: "",
-      email: "",
-      numeUtilizator: "",
-      parola: "",
-      confirmParola: "",
-      tip: "",
-      showModal: false
+      data: {
+        prenume: "",
+        nume: "",
+        email: "",
+        numeUtilizator: "",
+        parola: "",
+        confirmParola: "",
+        tip: ""
+      },
+      showModal: false,
+      showModal1:false,
+      errors: {}
     };
-
-    this.schema = {
-      prenume: Joi.string().required().label("Prenume"),
-      nume: Joi.string().required().label("Nume"),
-      email: Joi.string().required().label("Email"),
-      numeUtilizator: Joi.string().required().label("NumeUtilizator"),
-      parola: Joi.string().required().label("Parola"),
-      confirmParola: Joi.string().required().label("ConfirmParola"),
-    };
-
-    this.closeModal = this.closeModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.doSubmit = this.doSubmit.bind(this);
   }
 
-  closeModal = e => {
+  schema = {
+      prenume: Joi.string().required().error(() => {return {message: "Prenumele este obligatoriu."}}),
+      nume: Joi.string().required().error(() => {return {message: "Numele este obligatoriu."}}),
+      email: Joi.string().required().error(() => {return {message: "Adresa de email este obligatorie."}}),
+      numeUtilizator: Joi.string().required().error(() => {return {message: "Numele de utilizator este obligatoriu."}}),
+      parola: Joi.string().required().error(() => {return {message: "Parola este obligatorie."}}),
+      confirmParola: Joi.string().required().error(() => {return {message: "Conforimă parola este obligatoriu."}}),
+      tip: Joi.string().label("Tip").error(() => {return {message: "Conforimă parola este obligatoriu."}})
+    };
+
+  handleChange(event){
+    this.setState({
+      [event.target.name]: event.target.value,
+      selectedOption: event.target.value,
+    });
+  }
+
+  closeModal = () => {
     this.setState({
       showModal: false,
+      showModal1: false
     });
   };
 
   doSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     //Call the server
     const payload = {
-      prenume: this.state.prenume,
-      nume: this.state.nume,
-      email: this.state.email,
-      numeUtilizator: this.state.numeUtilizator,
-      parola: this.state.parola,
-      confirmParola: this.state.confirmParola,
-      tip:this.state.tip
+        prenume: this.state.data.prenume,
+        nume: this.state.data.nume,
+        email: this.state.data.email,
+        numeUtilizator: this.state.data.numeUtilizator,
+        parola: this.state.data.parola,
+        confirmParola: this.state.data.confirmParola,
+        tip:this.state.data.tip
     };
+    console.log(payload)
     fetch("http://localhost:8080/inregistrare", {
       method: "POST",
       headers: {
@@ -61,7 +72,6 @@ class RegisterForm extends Component {
     })
     .then(res => {
       if (res.status === 200) {
-          // this.props.history.replace("/autentificare")
         this.setState({showModal: true})
       }
       else if (res.status === 409) {
@@ -88,117 +98,70 @@ class RegisterForm extends Component {
         })
       }
       else if (res.status === 401) {
-        alert("Parolele nu sunt la fel!");
+        this.setState({
+          showModal1: true
+        })
       }
   })
-    console.log("Submitted");
   };
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-      selectedOption: event.target.value,
-    });
-  }
 
   render() {
     document.body.classList = "";
     document.body.classList.add("background-register");
     return (
       <React.Fragment>
-        {/*<NavBar/>*/}
            <div className="container-reg">
             <div className="row row-form-reg" >
               <div className="col-md-6 reg-sec offset-md-3" id="register-form">
                 <h2 className="text-center" >Înregistrare</h2>
                 <form className="reg-form">
-                  <div className="form-group">
-                    <label className="text-label">Prenume</label>
-                    <input
-                      type="text"
-                      name="prenume"
-                      className="form-control"
-                      placeholder="Prenume"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('prenume', "Prenume: ","text","Prenume")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">Nume</label>
-                    <input
-                      type="text"
-                      name="nume"
-                      className="form-control"
-                      placeholder="Nume"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('nume', "Nume: ","text","Nume")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">E-mail</label>
-                    <input
-                      type="text"
-                      name="email"
-                      className="form-control"
-                      placeholder="Email"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('email', "Email: ","text","Email")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">Nume utilizator</label>
-                    <input
-                      type="text"
-                      name="numeUtilizator"
-                      className="form-control"
-                      placeholder="Nume utilizator"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('numeUtilizator', "Nume utilizator: ","text", "Nume utilizator")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">Parola</label>
-                    <input
-                      type="password"
-                      name="parola"
-                      className="form-control"
-                      placeholder="Parola"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('parola', "Parola: ","password", "Parola")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">Confirmă parola</label>
-                    <input
-                      type="password"
-                      name="confirmParola"
-                      className="form-control"
-                      placeholder="Confirma parola"
-                      onChange={this.handleChange}
-                    />
+                  <div className="form-group text-label">
+                    {this.renderInput('confirmParola', "Confirmă parola: ","password", "Confirmă parola")}
                   </div>
-                  <div className="form-group">
-                    <label className="text-label">Tip:</label>
-                    <div className="radio">
-                      <label>
-                        <input
-                            type="radio"
-                            value="PERSOANA_FIZICA"
-                            name="tip"
-                            checked={this.state.selectedOption === "PERSOANA_FIZICA"}
-                            onChange={this.handleChange}
-                        />
-                        PERSOANĂ FIZICĂ
-                      </label>
-                    </div>
-                    <div className="radio">
-                      <label>
-                        <input
-                            type="radio"
-                            value="PERSOANA_JURIDICA"
-                            name="tip"
-                            checked={this.state.selectedOption === "PERSOANA_JURIDICA"}
-                            onChange={this.handleChange}
-                        />
-                        PERSOANĂ JURIDICĂ
-                      </label>
-                      {/*<div> Selectat: {this.state.selectedOption}</div>*/}
-                    </div>
+                  <div className="form-group text-label">
+
+                    {this.renderSelect('tip','Tip:',['PERSOANA_FIZICA','PERSOANA_JURIDICA'])}
+                    {/*<label className="text-label">Tip:</label>*/}
+                    {/*<div className="radio">*/}
+                    {/*  <label>*/}
+                    {/*    <input*/}
+                    {/*        type="radio"*/}
+                    {/*        value="PERSOANA_FIZICA"*/}
+                    {/*        name="tip"*/}
+                    {/*        checked={this.state.selectedOption === "PERSOANA_FIZICA"}*/}
+                    {/*        onChange={this.handleChange}*/}
+                    {/*    />*/}
+                    {/*    PERSOANĂ FIZICĂ*/}
+                    {/*  </label>*/}
+                    {/*</div>*/}
+                    {/*<div className="radio">*/}
+                    {/*  <label>*/}
+                    {/*    <input*/}
+                    {/*        type="radio"*/}
+                    {/*        value="PERSOANA_JURIDICA"*/}
+                    {/*        name="tip"*/}
+                    {/*        checked={this.state.selectedOption === "PERSOANA_JURIDICA"}*/}
+                    {/*        onChange={this.handleChange}*/}
+                    {/*    />*/}
+                    {/*    PERSOANĂ JURIDICĂ*/}
+                    {/*  </label>*/}
+                    {/*  /!*<div> Selectat: {this.state.selectedOption}</div>*!/*/}
+                    {/*</div>*/}
                   </div>
                   <div className="form-check">
                     <label className="form-check-label"/>
@@ -209,6 +172,7 @@ class RegisterForm extends Component {
                     >
                       Înregistrare
                     </button>
+                    {/*{this.renderButton("Înregistrare")}*/}
                     <Modal
                         size="md"
                         show={this.state.showModal}
@@ -224,10 +188,30 @@ class RegisterForm extends Component {
                           <Link to="/autentificare" type="button" className="btn btn-istoric">Autentificare</Link>
                         </Card>
                       </Modal.Body>
-                      {/*<Modal.Footer>*/}
-                      {/*  <Link type="button" className="btn btn-exit-modal" to= "/contul-meu/actualizare-date" onClick={this.closeModal}>Închide</Link>*/}
-                      {/*</Modal.Footer>*/}
                     </Modal>
+                    <Modal
+                        size="md"
+                        show={this.state.showModal1}
+                        onHide={this.closeModal}
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                          Parolele nu corespund! <FaTimes style={{color:"red"}}/>
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Încercați din nou!
+                      </Modal.Body>
+                    </Modal>
+                    {/*<Modal size="md" className=" modal-confirm" show={this.state.showModal1} onHide={this.closeModal} >*/}
+                    {/*  <Modal.Header closeButton className=" modal-header">*/}
+                    {/*    <div className="icon-box">*/}
+                    {/*      <IoIosWarning style={{fontSize:"25px"}}/>*/}
+                    {/*    </div>*/}
+                    {/*    <Modal.Title className="modal-title">Parolele nu corespund! </Modal.Title>*/}
+                    {/*  </Modal.Header>*/}
+                    {/*  <Modal.Body className="modal-body"><p>Încercați din nou.</p></Modal.Body>*/}
+                    {/*</Modal>*/}
                   </div>
                 </form>
               </div>
