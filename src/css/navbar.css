@@ -168,3 +168,6 @@ nav .nav-cart span {
     border-radius: 50%;
     /*z-index: -1;*/
 }
+.navbar-brand:hover {
+    transform: scale(1.1);
+}

@@ -24,6 +24,7 @@ import './css/history.css';
 import './css/createProduct.css';
 import './css/adminDashboard.css';
 import './css/tabel.css';
+import './css/adaugareProdus.css';
 import Detalii from "./components/Store/Detalii";
 import ProduseView from "./components/Store/ProduseList";
 import Informatii from "./components/Info/informatii";

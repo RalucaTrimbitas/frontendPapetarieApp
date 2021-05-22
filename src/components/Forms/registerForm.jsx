@@ -17,10 +17,15 @@ class RegisterForm extends Form {
         numeUtilizator: "",
         parola: "",
         confirmParola: "",
-        tip: ""
+        tip: "",
+        companie: "",
+        codFiscal: "",
+        numarTelefon: ""
       },
       showModal: false,
       showModal1:false,
+      showModal2: false,
+      showModal3: false,
       errors: {}
     };
   }
@@ -32,7 +37,10 @@ class RegisterForm extends Form {
       numeUtilizator: Joi.string().required().error(() => {return {message: "Numele de utilizator este obligatoriu."}}),
       parola: Joi.string().required().error(() => {return {message: "Parola este obligatorie."}}),
       confirmParola: Joi.string().required().error(() => {return {message: "Conforimă parola este obligatoriu."}}),
-      tip: Joi.string().label("Tip").error(() => {return {message: "Conforimă parola este obligatoriu."}})
+      tip: Joi.string().label("Tip").error(() => {return {message: "Confirmă parola este obligatoriu."}}),
+      companie: Joi.string().label("Companie").error(() => {return {message: "Numele companiei este obligatoriu."}}),
+      codFiscal: Joi.string().label("Cod fiscal").error(() => {return {message: "Codul fiscal este obligatoriu."}}),
+      numarTelefon: Joi.string().label("Numar telefon").error(() => {return {message: "Numărul de telefon este obligatoriu."}})
     };
 
   handleChange(event){
@@ -45,7 +53,9 @@ class RegisterForm extends Form {
   closeModal = () => {
     this.setState({
       showModal: false,
-      showModal1: false
+      showModal1: false,
+      showModal2: false,
+      showModal3: false
     });
   };
 
@@ -59,7 +69,10 @@ class RegisterForm extends Form {
         numeUtilizator: this.state.data.numeUtilizator,
         parola: this.state.data.parola,
         confirmParola: this.state.data.confirmParola,
-        tip:this.state.data.tip
+        tip:this.state.data.tip,
+        companie:this.state.data.companie,
+        codFiscal:this.state.data.codFiscal,
+        numarTelefon:this.state.data.numarTelefon
     };
     console.log(payload)
     fetch("http://localhost:8080/inregistrare", {
@@ -75,18 +88,21 @@ class RegisterForm extends Form {
         this.setState({showModal: true})
       }
       else if (res.status === 409) {
-          alert("Username-ul este deja existent pentru administrator!")
           this.setState({
             prenume: "",
             nume: "",
             email: "",
             numeUtilizator: "",
             parola: "",
-            confirmParola: ""
+            confirmParola: "",
+            tip: "",
+            companie: "",
+            codFiscal: "",
+            numarTelefon: "",
+            showModal2: true
           })
       }
       else if (res.status === 417){
-        alert("Username already exist!")
         this.setState({
           prenume: "",
           nume: "",
@@ -94,7 +110,11 @@ class RegisterForm extends Form {
           numeUtilizator: "",
           parola: "",
           confirmParola: "",
-          tip: ""
+          tip: "",
+          companie: "",
+          codFiscal: "",
+          numarTelefon: "",
+          showModal2: true
         })
       }
       else if (res.status === 401) {
@@ -134,35 +154,23 @@ class RegisterForm extends Form {
                     {this.renderInput('confirmParola', "Confirmă parola: ","password", "Confirmă parola")}
                   </div>
                   <div className="form-group text-label">
-
                     {this.renderSelect('tip','Tip:',['PERSOANA_FIZICA','PERSOANA_JURIDICA'])}
-                    {/*<label className="text-label">Tip:</label>*/}
-                    {/*<div className="radio">*/}
-                    {/*  <label>*/}
-                    {/*    <input*/}
-                    {/*        type="radio"*/}
-                    {/*        value="PERSOANA_FIZICA"*/}
-                    {/*        name="tip"*/}
-                    {/*        checked={this.state.selectedOption === "PERSOANA_FIZICA"}*/}
-                    {/*        onChange={this.handleChange}*/}
-                    {/*    />*/}
-                    {/*    PERSOANĂ FIZICĂ*/}
-                    {/*  </label>*/}
-                    {/*</div>*/}
-                    {/*<div className="radio">*/}
-                    {/*  <label>*/}
-                    {/*    <input*/}
-                    {/*        type="radio"*/}
-                    {/*        value="PERSOANA_JURIDICA"*/}
-                    {/*        name="tip"*/}
-                    {/*        checked={this.state.selectedOption === "PERSOANA_JURIDICA"}*/}
-                    {/*        onChange={this.handleChange}*/}
-                    {/*    />*/}
-                    {/*    PERSOANĂ JURIDICĂ*/}
-                    {/*  </label>*/}
-                    {/*  /!*<div> Selectat: {this.state.selectedOption}</div>*!/*/}
-                    {/*</div>*/}
                   </div>
+                  {this.state.data.tip === "PERSOANA_JURIDICA" ?
+                      <div>
+                        <div className="form-group text-label">
+                          {this.renderInput('companie', "Companie: ","text", "Companie")}
+                        </div>
+                        <div className="form-group text-label">
+                          {this.renderInput('codFiscal', "Cod fiscal: ","text", "Cod fiscal")}
+                        </div>
+                        <div className="form-group text-label">
+                          {this.renderInput('numarTelefon', "Număr telefon: ","text", "Număr de telefon")}
+                        </div>
+                      </div>
+                  :
+                  ""
+                  }
                   <div className="form-check">
                     <label className="form-check-label"/>
                     <button
@@ -172,7 +180,6 @@ class RegisterForm extends Form {
                     >
                       Înregistrare
                     </button>
-                    {/*{this.renderButton("Înregistrare")}*/}
                     <Modal
                         size="md"
                         show={this.state.showModal}
@@ -203,21 +210,21 @@ class RegisterForm extends Form {
                         Încercați din nou!
                       </Modal.Body>
                     </Modal>
-                    {/*<Modal size="md" className=" modal-confirm" show={this.state.showModal1} onHide={this.closeModal} >*/}
-                    {/*  <Modal.Header closeButton className=" modal-header">*/}
-                    {/*    <div className="icon-box">*/}
-                    {/*      <IoIosWarning style={{fontSize:"25px"}}/>*/}
-                    {/*    </div>*/}
-                    {/*    <Modal.Title className="modal-title">Parolele nu corespund! </Modal.Title>*/}
-                    {/*  </Modal.Header>*/}
-                    {/*  <Modal.Body className="modal-body"><p>Încercați din nou.</p></Modal.Body>*/}
-                    {/*</Modal>*/}
+                    <Modal className="modal-confirm" show={this.state.showModal2} onHide={this.closeModal} >
+                      <Modal.Header closeButton className="modal-header">
+                        <div className="icon-box">
+                          <IoIosWarning className="warning"/>
+                        </div>
+                        <Modal.Title className="modal-title">Există deja un cont creat cu acest nume de utilizator!</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body className="modal-body">Încercați alt nume de utilizator!</Modal.Body>
+                    </Modal>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-        <div id="foot" style={{marginTop: "1100px"}}>
+        <div id="foot" style={{marginTop: "1300px"}}>
           <Footer/>
         </div>
       </React.Fragment>

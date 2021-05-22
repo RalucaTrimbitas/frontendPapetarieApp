@@ -1,0 +1,52 @@
+.img-holder{
+    margin: 0 auto;
+    width: 450px;
+    height: 450px;
+    border: 2px white solid;
+    border-radius: 5px;
+    background: rgba(167, 150, 139, 0.47);
+    color: rgb(85, 23, 7);
+    text-align: center;
+    cursor: pointer;
+}
+
+.image-upload{
+    margin: 50px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    top:0;
+    color: rgba(83, 19, 6, 0.78);
+    font-size: 15rem;
+}
+
+.image-upload:hover {
+    transform: scale(1.1);
+    color: rgba(54, 11, 2, 0.78);
+}
+
+.img-label {
+    cursor: pointer;
+    color: #f1e5e6;
+    background-color: rgba(19, 11, 2, 0.77);
+    max-width: 80%;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.325rem 1.25rem;
+}
+
+.img-label:hover {
+    background-color: #0c0000;
+}
+
+.img{
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+}
+#input[type="file"] {
+    display: none;
+}

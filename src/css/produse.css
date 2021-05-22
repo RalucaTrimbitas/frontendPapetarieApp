@@ -41,15 +41,34 @@
     outline: none;
     background: #333;
     color: white !important;
-    width: 45%;
-    height: 40px;
+    /*width: 45%;*/
+    /*height: 40px;*/
     display: block;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 35px 0 20px;
-    /*position: absolute;*/
     /*bottom:0;*/
+}
+
+.btn-reg:hover{
+    background-color: rgba(12, 2, 2, 0.96);
+}
+
+.order-admin-edit:hover{
+    background-color: rgba(12, 2, 2, 0.96);
+}
+
+.btn-reg{
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background: #333;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 25px;
+    cursor: pointer;
 }
 
 .order-admin-edit{
@@ -162,11 +181,16 @@ card h4 a{
 }
 
 .card span{
-    color:red;
+    color: #e20c0c;
 }
 
 .card p{
     margin: 10px 0;
+}
+
+.card h6{
+    margin: 10px 0;
+    color: #2a0202;
 }
 
 .categorii{

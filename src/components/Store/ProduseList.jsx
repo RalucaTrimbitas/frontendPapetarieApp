@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import SidebarCategorii from "../SideBars/sidebarCategorii";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "../utils/footer";
 import {Card, Dropdown, Modal} from "react-bootstrap";
-import {AiFillCheckCircle, FaShoppingCart} from "react-icons/all";
+import {AiFillCheckCircle, FaShoppingCart, FaUserAlt} from "react-icons/all";
 import '../../css/Modal.css';
 import DropdownItem from "react-bootstrap/DropdownItem";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
@@ -123,56 +123,42 @@ export class ProduseList extends Component {
         })
     }
 
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
 
     renderProduse = (produs) => {
         const {codDeBare, denumire, pret, descriere, src} = produs;
-        // fetch('http://localhost:8080/download/' + "biblioraft-roz.png", {
-        //     method: 'GET',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-type': 'application/json'
-        //     }
-        // })
-        //     .then(response => response.blob())
-        //     .then(images => {
-        //         // Then create a local URL for that image and print it
-        //         this.setState({
-        //             outside : URL.createObjectURL(images)
-        //         })
-        //     })
-
         return (
-            <React.Fragment>
+            <React.Fragment key={codDeBare}>
                 <div className="card card-produse" key={codDeBare}>
                     <Link to={`/produse/detalii/${codDeBare}`}>
-                        <img src={src} alt="imagine-produs" />
+                        <img src={'data:image/jpeg;base64,'+ src} alt="imagine-produs" />
                     </Link>
                     <div className="content">
                         <h4>
                             <Link to={`/produse/detalii/${codDeBare}`} style={{color:"#4b1515de"}}>{denumire}</Link>
                         </h4>
-                        <span>{pret} lei</span>
+                        <span>{pret.toFixed(2)} lei</span>
                         <p>{descriere}</p>
                         <button type="button" className="btn order" data-toggle="modal"
                                 data-target="#exampleModalCenter" onClick={() => this.addCart(codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
                         <Modal show={this.state.showModal2} onHide={this.closeModal}  className="modal-backdrop">
                             <Modal.Header closeButton>
-                                <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș</Modal.Title>
+                                <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș!</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>Dacă nu aveți deja un cont creat, alegeți varianta de înregistrare.</Modal.Body>
+                            <Modal.Body/>
                             <Modal.Footer>
                                 <Link type="button" className="btn order"
                                       data-toggle="modal"
                                       data-target="#exampleModalCenter"
                                       to="/autentificare">
+                                    <FaUserAlt className="mr-2 mb-1"/>
                                     Autentificare
-                                </Link>
-                                <Link
-                                    type="button" className="btn order"
-                                    data-toggle="modal"
-                                    data-target="#exampleModalCenter"
-                                    to="/inregistrare">
-                                    Înregistrare
                                 </Link>
                             </Modal.Footer>
                         </Modal>
@@ -193,13 +179,11 @@ export class ProduseList extends Component {
                                 </Card>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Link type="button" className="btn btn-exit-modal" to= "/produse/accesorii-birou/agende-si-blocnotes-uri" onClick={this.closeModal}>Închide</Link>
+                                <Link type="button" className="btn btn-exit-modal" to={window.location.pathname} onClick={this.closeModal}>Închide</Link>
                             </Modal.Footer>
                         </Modal>
                     </div>
                 </div>
-                {/*<div className="clearfix"/>*/}
-                {/*<button className="btn-load-more">Load More</button>*/}
                 </React.Fragment>
         )
     }
@@ -220,11 +204,10 @@ export class ProduseList extends Component {
 
 
     renderCategoriiProduse(text) {
-        { var filterProducts = this.state.produse
+         var filterProducts = this.state.produse
                 .filter(item => {
                     return item.idCategorieProdus === text
                 })
-        }
         return (
             <React.Fragment>
                 <Container fluid>
@@ -398,6 +381,7 @@ export class ProduseList extends Component {
             return this.renderCategoriiProduse("8.4")
         }
     }
+
 }
 
 const ProduseView = withRouter(ProduseList)

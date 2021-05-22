@@ -2,10 +2,10 @@ import React from "react";
 import Joi from "joi-browser";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../utils/footer";
-import {Link, NavLink} from "react-router-dom" ;
+import {NavLink} from "react-router-dom" ;
 import Form from "./form";
 import {Modal} from "react-bootstrap";
-import {FcCancel, GiCancel, IoIosWarning} from "react-icons/all";
+import { IoIosWarning} from "react-icons/all";
 
 class LoginForm extends Form {
   constructor() {
@@ -71,12 +71,10 @@ class LoginForm extends Form {
 
         // LOGIN PERSISTANCE
       } else if (res.status === 404) {
-        // alert("Nu există cont cu acest nume de utilizator!");
         this.setState({
           showModal1: true
         })
       } else if (res.status === 401) {
-        // alert("Parola este greșită!");
         this.setState({
           showModal2: true
         })

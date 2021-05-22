@@ -120,20 +120,14 @@ export default class SearchResultsPage extends React.Component {
             <h1>Loading...</h1>
         ) : (
             <>
-                {/*<ul>*/}
-                {/*    {this.handleSearch}*/}
-                {/*    <li>Search: "{this.state.searchText}"</li>*/}
-                {/*    <li>Au fost găsite: {this.state.searchResults.length} produse</li>*/}
-                {/*</ul>*/}
-                {/*<small>{JSON.stringify(this.state.searchResults, null, 2)}</small>*/}
                 {   this.state.searchResults.length > 0 ? (
                     <Container fluid className="container-search">
-                        <p>Rezultatele căutării sunt:</p>
+                        <h3>Rezultatele căutării sunt:</h3>
                         <Row>
                         {this.state.searchResults.map(item =>
                     <Col className="card card-produse-search" key={item.codDeBare}>
                         <Link to={`/produse/detalii/${item.codDeBare}`}>
-                            <img src={item.src} alt="imagine-produs" />
+                            <img src={'data:image/jpeg;base64,'+ item.src} alt="imagine-produs" />
                         </Link>
                         <div className="content">
                             <h4>

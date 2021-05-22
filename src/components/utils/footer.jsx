@@ -19,7 +19,7 @@ const Footer = () => {
         </Link>
               </h6>
               <br/>
-              <span id="paragrafPapetarie">
+              <span >
                 <FontAwesomeIcon
                   className="icon-mapLoc"
                   icon={faMapMarkerAlt}

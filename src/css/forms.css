@@ -23,9 +23,15 @@
 
 @media only screen and (max-width : 1768px) {
     .reg-form {
-
-        float:right;
+        /*float:right;*/
+        /*width: 100%;*/
+        align-content: center;
+        max-width: 600px;
+        min-width: 290px;
         width: 100%;
+        float: inside;
+        margin: 0 auto;
+        /*margin: 15px 60px;*/
     }
 
 }
@@ -127,6 +133,30 @@
     background-color: rgba(222, 61, 61, 0.18);
     font-size: 14px;
     color: #9c1a1a;
+}
+
+#card-client {
+    background: rgba(49, 29, 22, 0.57);
+    color: white;
+}
+
+.submit-form {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    color: white !important;
+    height: 40px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 5px 0 20px;
+    float: right;
+    bottom:0;
+    background-color: rgba(70, 59, 62, 0.55);
+}
+
+.submit-form:hover{
+    background-color: rgba(49, 29, 22, 0.71);
 }
 
 

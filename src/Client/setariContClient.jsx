@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, Modal} from "react-bootstrap";
+import {Alert, Card, Modal} from "react-bootstrap";
 import {AiFillCheckCircle} from "react-icons/all";
 import {Link} from "react-router-dom";
 
@@ -8,12 +8,21 @@ class SetariContClient extends Component {
     constructor() {
         super();
         this.state = {
-            numeUtilizator: "",
-            email:"",
-            parola: "",
-            parolaNoua: "",
-            confirmParolaNoua: "",
-            showModal: false
+            data: {
+                numeUtilizator: "",
+                parola: "",
+                nume: "",
+                prenume: "",
+                tip: "",
+                email: "",
+                numarTelefon: "",
+                adresa: "",
+                companie: "",
+                codFiscal: "",
+            },
+            showModal: false,
+            msg: "",
+            showAlert: false
         };
 
         this.closeModal = this.closeModal.bind(this);
@@ -29,13 +38,15 @@ class SetariContClient extends Component {
             .then(res => res.json())
             .then(data => this.setState({
                 numeUtilizator: data.numeUtilizator,
-                parola: "",
+                parola: data.parola,
                 nume: data.nume,
                 prenume: data.prenume,
                 tip: data.tip,
-                email : data.email,
+                email: data.email,
                 numarTelefon: data.numarTelefon,
                 adresa: data.adresa,
+                companie: data.companie,
+                codFiscal: data.codFiscal
             }))
 
 
@@ -48,6 +59,12 @@ class SetariContClient extends Component {
             showModal: false,
         });
     };
+
+    closeAlert = () => {
+        this.setState({
+            showAlert: false
+        })
+    }
 
     doSubmit = (event) => {
         event.preventDefault()
@@ -76,27 +93,32 @@ class SetariContClient extends Component {
                     // alert(this.state.parolaNoua)
                     this.setState({showModal: true})
                     this.setState({
-                        numeUtilizator: "",
-                        parola: this.state.parolaNoua,
-                        nume: "",
-                        prenume: "",
-                        // tip: "",
-                        email : "",
-                        numarTelefon: "",
-                        adresa: "",
+                        numeUtilizator: this.state.data.numeUtilizator,
+                        parola: this.state.data.parola,
+                        nume: this.state.data.nume,
+                        prenume: this.state.data.prenume,
+                        tip: this.state.data.tip,
+                        email: this.state.data.email,
+                        numarTelefon: this.state.data.numarTelefon,
+                        adresa: this.state.data.adresa,
+                        companie: this.state.data.companie,
+                        codFiscal: this.state.data.codFiscal,
                         shwoModal: true
                     })
                 }
                 // else if (res.status === 401) {
                 //     alert("Username already exist!")
                 else if(res.status === 417){
-                    res.text().then(text =>{
-                        console.log(text);
-                    });
+                    res.text().then(text => {
+                        console.log(text)
+                        this.setState({msg: text, showAlert: true}, () => {
+                            window.setTimeout(() => {
+                                this.setState({showAlert: false})
+                            }, 3000)
+                        })
+                    })
                 }
             })
-        // this.props.history.goBack();
-        console.log("Submitted");
     };
 
     handleChange(event) {
@@ -111,19 +133,28 @@ class SetariContClient extends Component {
     return (
         <React.Fragment>
                     <main className="col-md-10 col-xs-11">
-                        <div className="card card-panou" style={{marginTop: "80px",  marginBottom: "70px"}}>
+                        {this.state.msg.length > 0 ?
+                            <Alert className="sticky-top" variant='danger' show={this.state.showAlert} onClose={this.closeAlert} dismissible>
+                                <Alert.Heading> {this.state.msg} </Alert.Heading>
+                                {/*<p>*/}
+                                {/*    {this.state.msg}*/}
+                                {/*</p>*/}
+                            </Alert>
+                            : ""
+                        }
+                        <div className="card card-panou" style={{marginTop: "80px",  marginBottom: "70px", background: "none"}}>
                             <div className="card-header text-center" id="card-client" >Setări cont</div>
                             <div className="card-body">
                                 <blockquote className="blockquote mb-0" id="card-text">
-                                    <p className="mb-0 ">
-                                        <h4>Schimbare parolă</h4>
-                                    </p>
+                                    {/*<p className="mb-0 ">*/}
+                                        <h4 className=" mb-0 subtitle-circle">Schimbare parolă</h4>
+                                    {/*</p>*/}
                                     <br/>
                                 </blockquote>
                                 <form className="contact-form">
                                     <div className="form-group">
                                         <label className="text-label">Nume utilizator</label>
-                                        <input
+                                        <input readOnly
                                             type="text"
                                             name="numeUtilizator"
                                             className="form-control"
@@ -168,10 +199,10 @@ class SetariContClient extends Component {
                                         <br/>
                                         <button
                                             type="submit"
-                                            className="btn order float-right"
+                                            className="btn submit-form float-right"
                                             onClick={this.doSubmit}
                                         >
-                                            Salvează modificările
+                                            Salvează
                                         </button>
                                         <Modal
                                             size="md"

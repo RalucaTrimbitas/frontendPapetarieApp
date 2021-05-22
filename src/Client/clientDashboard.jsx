@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import SidebarClient from "./sidebarClient";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -27,7 +27,7 @@ class ClientDashboard extends Component {
             <Col className="col-md-2 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
               <SidebarClient show={this.show}/>
             </Col>
-            <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+            <Col id="produs">
               <SetariContClient/>
             </Col>
           </Row>
@@ -81,10 +81,10 @@ class ClientDashboard extends Component {
                 {/*<NavBar/>*/}
                 <Container fluid>
                     <Row>
-                        <Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >
-                            <SidebarClient show={this.show}/>
-                        </Col>
-                        <Col className="col-md-8 col-lg-9 col-xs-11 p-l-2 p-t-2" id="produs">
+                        {/*<Col className="col-md-4 col-lg-3 col-xs-1 p-l-0 p-r-0 in" >*/}
+                        {/*    <SidebarClient show={this.show}/>*/}
+                        {/*</Col>*/}
+                        <Col>
                             <ContulMeu/>
                         </Col>
                     </Row>

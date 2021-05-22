@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,8 +12,8 @@ import SidebarCategoriiAdministrator from "./sidebarCategoriiAdministrator";
 import Footer from "../components/utils/footer";
 
 export class ProduseListAdministrator extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             produse: [],
             show: false,
@@ -28,7 +28,10 @@ export class ProduseListAdministrator extends Component {
             disponibilitate: "",
             idCategorieProdus: "",
             numeUtilizatorAdministrator: "",
-            cantitate: ""
+            cantitate: "",
+            selectedFile: null,
+            imagePreviewUrl: "",
+            file: ""
         };
 
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
@@ -130,36 +133,33 @@ export class ProduseListAdministrator extends Component {
                 detalii: data.detalii,
                 idCategorieProdus: data.idCategorieProdus,
                 numeUtilizatorAdministrator: data.numeUtilizatorAdministrator,
-                cantitate: data.cantitate
+                cantitate: data.cantitate,
+                showModal2: true
             }))
-
-        this.setState({
-            showModal2: true
-        })
     }
 
     doSubmit = (event) => {
         event.preventDefault();
-        // console.log(this.state.selectedOption)
-        const payload = {
+
+        const produs= {
             denumire: this.state.denumire,
             codDeBare: this.state.codDeBare,
             pret: this.state.pret,
             descriere: this.state.descriere,
-            src: this.state.src,
+            src: "",
             detalii: this.state.detalii,
             idCategorieProdus: this.state.idCategorieProdus,
             numeUtilizatorAdministrator: this.state.numeUtilizatorAdministrator,
             cantitate: this.state.cantitate
         }
 
+        const fd = new FormData();
+        fd.append('image', this.state.selectedFile);
+        fd.append('produs', JSON.stringify(produs));
+
         fetch('http://localhost:8080/produse', {
             method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(payload)
+            body: fd
         })
             .then(res => {
                 if (res.status === 200) {
@@ -176,6 +176,7 @@ export class ProduseListAdministrator extends Component {
                         showModal: true
                     })
                     console.log("Produsul s-a modificat")
+                    this.getData()
                 } else if (res.status === 417) {
                     res.text().then(text => {
                         console.log(text);
@@ -183,11 +184,7 @@ export class ProduseListAdministrator extends Component {
                     });
                 }
             })
-        this.getData()
-        // this.props.history.goBack();
-        console.log("Submitted");
     };
-
 
     loadMore() {
         this.setState((old) => {
@@ -200,41 +197,47 @@ export class ProduseListAdministrator extends Component {
             [event.target.name]: event.target.value,
             selectedOption: event.target.value,
         });
+
     }
 
-    saveImage() {
-        fetch('http://localhost:8080/download/',  {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    res.json().then(json => {
-                        this.setState({cart: json});
-                    });
-                } else {
-                    console.log("error")
-                }
-            })
-    }
+    onFileChangeHandler = (event) => {
+        // event.preventDefault();
+        let reader = new FileReader();
+        let file = event.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                [event.target.name]: event.target.value,
+                selectedOption: event.target.value,
+                file: URL.createObjectURL(event.target.files[0]),
+                imagePreviewUrl: reader.result,
+                selectedFile: event.target.files[0]
+            });
+        }
+        reader.readAsDataURL(file)
+    };
+
 
 
     renderProduse = (produs) => {
+
+        let {imagePreviewUrl} = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img src={imagePreviewUrl} alt={"imagine-produs"}/>);
+        }
         const {codDeBare,denumire,pret,descriere,src} = produs;
         return (
-            <React.Fragment>
+            <React.Fragment key={codDeBare}>
                 <div className="card card-produse-admin" key={codDeBare}>
                     <Link to={`/admin/produse/detalii/${codDeBare}`}>
-                        <img src={src} alt="imagine-produs" />
+                        <img src={'data:image/jpeg;base64,'+ src} alt="imagine-produs" />
                     </Link>
                     <div className="content">
                         <h4>
                             <Link to={`/admin/produse/detalii/${codDeBare}`} style={{color:"#4b1515de"}}>{denumire}</Link>
                         </h4>
-                        <span>{pret} lei</span>
+                        <span>{pret.toFixed(2)} lei</span>
                         <p>{descriere}</p>
                         <div className="d-inline-flex">
                             <button type="button" className="btn order-admin-edit mr-3 " data-toggle="modal"
@@ -274,13 +277,23 @@ export class ProduseListAdministrator extends Component {
                                                 <input type="text" name="descriere" id="descriere" required className="form-control"
                                                        value={this.state.descriere} onChange={this.handleChange}/>
                                             </div>
-                                            <div className="form-group">
-                                                <img src={this.state.src} alt="imagine-produs" />
+                                            {/*<div className="form-group">*/}
+                                            {/*    <img src={'data:image/jpeg;base64,'+ src} alt="imagine-produs" />*/}
+                                            {/*    <br/>*/}
+                                            {/*    <label className="text-label" htmlFor="src">Src imagine:</label>*/}
+                                            {/*    <textarea type="text" name="src" id="src" required*/}
+                                            {/*              className="form-control"*/}
+                                            {/*              value={this.state.src} onChange={this.handleChange}/>*/}
+                                            {/*</div>*/}
+                                            <div className="form-group" encType="multipart/form-data">
                                                 <br/>
-                                                <label className="text-label" htmlFor="src">Src imagine:</label>
-                                                <textarea type="text" name="src" id="src" required
-                                                          className="form-control"
-                                                          value={this.state.src} onChange={this.handleChange}/>
+                                                <label className="text-label" htmlFor="src">Încărcați altă poză:</label>
+                                                {/*<label>Încărcați altă poză </label>*/}
+                                                <input type="file" className="form-control" name="file" onChange={this.onFileChangeHandler}/>
+                                                {/*<img src={this.state.file} alt={"picture"}/>*/}
+                                            </div>
+                                            <div className="imgPreview">
+                                                {$imagePreview}
                                             </div>
 
                                             <div className="form-group">
@@ -325,32 +338,12 @@ export class ProduseListAdministrator extends Component {
                                                         Datele produsului au fost actualizate cu succes! <AiFillCheckCircle style={{color:"green"}}/>
                                                     </Modal.Title>
                                                 </Modal.Header>
-                                                {/*<Modal.Body>*/}
-                                                {/*    <Card>*/}
-                                                {/*        <Link to="/produse/accesorii-birou/agende-si-blocnotes-uri" type="button" className="btn btn-istoric">Continuă cumpărăturile</Link>*/}
-                                                {/*    </Card>*/}
-                                                {/*</Modal.Body>*/}
                                                 <Modal.Footer>
                                                     <button type="button" className="btn btn-exit-modal" onClick={this.closeModal}>Închide</button>
                                                 </Modal.Footer>
                                             </Modal>
                                         </form>
                             </Modal.Body>
-                            {/*<Modal.Footer>*/}
-                            {/*    <Link type="button" className="btn order"*/}
-                            {/*          data-toggle="modal"*/}
-                            {/*          data-target="#exampleModalCenter"*/}
-                            {/*          to="/autentificare">*/}
-                            {/*        Autentificare*/}
-                            {/*    </Link>*/}
-                            {/*    <Link*/}
-                            {/*        type="button" className="btn order"*/}
-                            {/*        data-toggle="modal"*/}
-                            {/*        data-target="#exampleModalCenter"*/}
-                            {/*        to="/inregistrare">*/}
-                            {/*        Înregistrare*/}
-                            {/*    </Link>*/}
-                            {/*</Modal.Footer>*/}
                         </Modal>
                         <Modal
                             size="md"
@@ -363,19 +356,9 @@ export class ProduseListAdministrator extends Component {
                                     Produsul a fost șters! <AiFillCheckCircle style={{color:"green"}}/>
                                 </Modal.Title>
                             </Modal.Header>
-                            {/*<Modal.Body>*/}
-                            {/*    <Card>*/}
-                            {/*        <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>*/}
-                            {/*    </Card>*/}
-                            {/*</Modal.Body>*/}
-                            {/*<Modal.Footer>*/}
-                            {/*    <Link type="button" className="btn btn-exit-modal" to= "/produse/accesorii-birou/agende-si-blocnotes-uri" onClick={this.closeModal}>Închide</Link>*/}
-                            {/*</Modal.Footer>*/}
                         </Modal>
                     </div>
                 </div>
-                {/*<div className="clearfix"/>*/}
-                {/*<button className="btn-load-more">Load More</button>*/}
                 </React.Fragment>
         )
     }
@@ -396,11 +379,11 @@ export class ProduseListAdministrator extends Component {
 
 
     renderCategoriiProduse(text) {
-        { var filterProducts = this.state.produse
+         var filterProducts = this.state.produse
                 .filter(item => {
                     return item.idCategorieProdus === text
                 })
-        }
+
         return (
             <React.Fragment>
                 <Container fluid>

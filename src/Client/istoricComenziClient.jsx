@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import {Button, Modal} from "react-bootstrap";
-import SearchBox from "../components/utils/searchBox";
+import { Modal} from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import {paginate} from "../components/utils/paginate";
 
@@ -17,7 +16,7 @@ class IstoricComenziClient extends Component {
             offset: 0,
             perPage: 7,
             searchQuery: "",
-            currentPage: 0,
+            currentPage: 1,
             pageCount:0
         }
 
@@ -39,10 +38,14 @@ class IstoricComenziClient extends Component {
             .then(res => {
                 if (res.status === 200) {
                     res.json().then(json => {
+                        const data = json;
+                        let slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+
                         this.setState({
+                            pageCount: Math.ceil(data.length / this.state.perPage),
                             orgtableData: json,
-                            pageCount: json.length/this.state.perPage
-                        });
+                            tableData: slice
+                        })
                     });
                 } else {
                     console.log("error")
@@ -68,7 +71,7 @@ class IstoricComenziClient extends Component {
     };
 
     handlePageClick = (e) => {
-        const selectedPage = e.selected;
+        const selectedPage = e.selected + 1;
         const offset = selectedPage * this.state.perPage;
 
         this.setState({
@@ -95,7 +98,6 @@ class IstoricComenziClient extends Component {
 
     getPagedData = () => {
         const {
-            searchQuery: searchQuery,
             orgtableData: allData,
             currentPage,
             perPage
@@ -140,7 +142,7 @@ class IstoricComenziClient extends Component {
     }
 
     handleClearSearch = query => {
-        this.setState({ searchQuery: ""})
+        this.setState({ searchQuery: "", currentPage: 1})
     }
 
     render() {
@@ -164,7 +166,7 @@ class IstoricComenziClient extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="table-filter">
+                            {/*<div className="table-filter">*/}
                                 {/*<div className="row">*/}
                                 {/*    <div className="col-sm-12" style={{color: "gray"}}>*/}
                                 {/*    <span>Nume de utilizator client:*/}
@@ -172,7 +174,7 @@ class IstoricComenziClient extends Component {
                                 {/*        <Button className="my-btn btn-cautare-tabel ml-2" type="button" onClick={this.handleClearSearch}>Golește căutarea</Button>*/}
                                 {/*    </div>*/}
                                 {/*</div>*/}
-                            </div>
+                            {/*</div>*/}
                             <table className="table table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -189,13 +191,13 @@ class IstoricComenziClient extends Component {
                                 {
                                     tableData.map((item1, index) => (
                                         <tr key={item1.numarComanda}>
-                                            <td>{(this.state.currentPage - 1) * this.state.perPage + index + 1 + this.state.perPage}</td>
+                                            <td>{(this.state.currentPage - 1) * this.state.perPage + index + 1}</td>
                                             <td>{new Date(item1.dataPlasare).toLocaleDateString()}</td>
                                             <td>{item1.numarComanda}</td>
-                                            <td>{item1.suma} lei</td>
+                                            <td>{item1.suma.toFixed(2)} lei</td>
                                             {/*<span className="status text-success">•</span>*/}
-                                            <td>{item1.tva} lei</td>
-                                            <td>{item1.total} lei</td>
+                                            <td>{item1.tva.toFixed(2)} lei</td>
+                                            <td>{item1.total.toFixed(2)} lei</td>
                                             <td onClick={() => this.viewIstoricComanda(item1.numarComanda, item1.total)} className="td-view">Vezi</td>
                                             <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal} >
                                                 <Modal.Header closeButton>
@@ -206,7 +208,7 @@ class IstoricComenziClient extends Component {
                                                         return (
                                                             <div className="card mt-4 card-comanda" key={item.codDeBare}>
                                                                 <div className="card-img">
-                                                                    <img src={item.src} alt="ImagineProdus"
+                                                                    <img src={'data:image/jpeg;base64,' + item.src} alt="ImagineProdus"
                                                                          style={{backgroundImage: `url(${item.src})`}}/>
                                                                 </div>
                                                                 <div className="card-body">
@@ -217,9 +219,9 @@ class IstoricComenziClient extends Component {
                                                                         <div className="col-sm-10">
                                                                             <span>{item.pret} lei</span>
                                                                         </div>
-                                                                        {/*<div className="col-sm-10">*/}
-                                                                        {/*    <span>{item1.cantitate} buc</span>*/}
-                                                                        {/*</div>*/}
+                                                                        <div className="col-sm-10">
+                                                                            <h6>CANTITATE: {item.cantitate} bucăți</h6>
+                                                                        </div>
                                                                     </div>
                                                                     <p>{item.descriere}</p>
                                                                     <p>{item.detalii}</p>

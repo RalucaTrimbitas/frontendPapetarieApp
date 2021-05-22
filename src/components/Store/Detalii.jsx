@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import Footer from "../utils/footer";
-import {AiFillCheckCircle, FaShoppingCart} from "react-icons/all";
+import {AiFillCheckCircle, FaShoppingCart, FaUserAlt} from "react-icons/all";
 import {Card, Modal} from "react-bootstrap";
 
 export class Detalii extends Component {
@@ -35,6 +35,7 @@ export class Detalii extends Component {
             })
 
     }
+
     closeModal = e => {
         this.setState({
             show: false,
@@ -43,45 +44,41 @@ export class Detalii extends Component {
     };
 
     addCart = (id) => {
-        if (localStorage.getItem('numeUtilizator') == null){
+        if (localStorage.getItem('numeUtilizator') == null) {
             this.setState({
                 showModal2: true
             });
-        }
-        else
-        try {
-            fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
-                method: "POST",
-                body: JSON.stringify({
-                    idProdus: id,
-                }),
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/json",
-                },
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        console.log("Produsul s-a adaugat")
-                        this.setState({
-                            show: true,
-                            sizeCart: Number(this.state.sizeCart) + 1
-                        });
-                        localStorage.setItem("cartLength", this.state.sizeCart)
-                    }
-                    else if (res.status === 202) {
-                        this.setState({
-                            show: true
-                        });
-                    }
-                    else {
-                        console.log("error")
-                    }
+        } else
+            try {
+                fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
+                    method: "POST",
+                    body: JSON.stringify({
+                        idProdus: id,
+                    }),
+                    headers: {
+                        Accept: "application/json",
+                        "Content-type": "application/json",
+                    },
                 })
-        }
-        catch (err){
-            console.log(err)
-        }
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log("Produsul s-a adaugat")
+                            this.setState({
+                                show: true,
+                                sizeCart: Number(this.state.sizeCart) + 1
+                            });
+                            localStorage.setItem("cartLength", this.state.sizeCart)
+                        } else if (res.status === 202) {
+                            this.setState({
+                                show: true
+                            });
+                        } else {
+                            console.log("error")
+                        }
+                    })
+            } catch (err) {
+                console.log(err)
+            }
     }
 
     render() {
@@ -91,24 +88,27 @@ export class Detalii extends Component {
             <>
                 {this.state.getAllProduse
                     .filter(item => {
-                    return item.codDeBare === this.props.match.params.id
-                })
+                        return item.codDeBare === this.props.match.params.id
+                    })
                     .map(item => (
-                    <div className="details" key={item.codDeBare}>
-                        <img src={item.src} alt="ImagineProdus" style={{backgroundImage: `url(${item.src})`}}/>
-                        <div className="box">
-                            <div className="row">
-                                <h2>{item.denumire}</h2>
-                                <span>{item.pret} lei</span>
-                            </div>
-                            <p>{item.descriere}</p>
-                            <p>{item.detalii}</p>
-                            <button type="button" className="btn order-detalii" data-toggle="modal"
-                                    data-target="#exampleModalCenter" onClick={() => this.addCart(item.codDeBare)}><FaShoppingCart style={{marginTop:"-5px"}}/> Adaugă în coș</button>
+                        <div className="details" key={item.codDeBare}>
+                            <img src={'data:image/jpeg;base64,' + item.src} alt="ImagineProdus"
+                                 style={{backgroundImage: `url(${item.src})`}}/>
+                            <div className="box">
+                                <div className="row">
+                                    <h2>{item.denumire}</h2>
+                                    <span>{item.pret.toFixed(2)} lei</span>
+                                </div>
+                                <p>{item.descriere}</p>
+                                <p>{item.detalii}</p>
+                                <button type="button" className="btn order-detalii" data-toggle="modal"
+                                        data-target="#exampleModalCenter" onClick={() => this.addCart(item.codDeBare)}>
+                                    <FaShoppingCart style={{marginTop: "-5px"}}/> Adaugă în coș
+                                </button>
 
+                            </div>
                         </div>
-                    </div>
-                ))
+                    ))
                 }
                 <Modal
                     size="md"
@@ -117,36 +117,33 @@ export class Detalii extends Component {
                 >
                     <Modal.Header>
                         <Modal.Title id="example-modal-sizes-title-lg">
-                            Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color:"green"}}/>
+                            Produsul a fost adăugat în coș! <AiFillCheckCircle style={{color: "green"}}/>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Card>
-                            <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de cumpărături</Link>
+                            <Link to="/cos-cumparaturi" type="button" className="btn btn-istoric">Vezi coșul de
+                                cumpărături</Link>
                         </Card>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link type="button" className="btn btn-exit-modal" to= "/produse/accesorii-birou/agende-si-blocnotes-uri" onClick={this.closeModal}>Închide</Link>
+                        <Link type="button" className="btn btn-exit-modal"
+                              to={window.location.pathname}
+                              onClick={this.closeModal}>Închide</Link>
                     </Modal.Footer>
                 </Modal>
                 <Modal show={this.state.showModal2} onHide={this.closeModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Este necesară autentificarea pentru a adăuga un produs în coș</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Dacă nu aveți deja un cont creat, alegeți varianta de înregistrare.</Modal.Body>
+                    <Modal.Body> </Modal.Body>
                     <Modal.Footer>
                         <Link type="button" className="btn order"
                               data-toggle="modal"
                               data-target="#exampleModalCenter"
                               to="/autentificare">
+                            <FaUserAlt className="mr-2 mb-1"/>
                             Autentificare
-                        </Link>
-                        <Link
-                            type="button" className="btn order"
-                            data-toggle="modal"
-                            data-target="#exampleModalCenter"
-                            to="/inregistrare">
-                            Înregistrare
                         </Link>
                     </Modal.Footer>
                 </Modal>

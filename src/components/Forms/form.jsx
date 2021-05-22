@@ -8,8 +8,6 @@ class Form extends Component {
         data: {},
         errors: {}
      };
-    
-
 
     validate = () => {
 

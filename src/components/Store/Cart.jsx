@@ -14,7 +14,8 @@ export class Cart extends Component {
             sizeCart: localStorage.getItem("cartLength"),
             show: false,
             showModal2: false,
-            client: []
+            client: [],
+            cos: []
         }
 
         this.closeModal = this.closeModal.bind(this)
@@ -55,23 +56,85 @@ export class Cart extends Component {
                     console.log("error")
                 }
             })
+
+        fetch('http://localhost:8080/cos-cumparaturi/personal/' + localStorage.getItem("numeUtilizator"), {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        this.setState({cos: json});
+                    });
+                } else {
+                    console.log("error")
+                }
+            })
     }
+
 
     increment = id => {
         this.state.cart.forEach(item => {
             if (item.codDeBare === id) {
                 item.cantitate += 1
+                this.setState({cart: this.state.cart})
+                fetch("http://localhost:8080/cos-cumparaturi-produs", {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        // cart: this.state.cart,
+                        id_CosCumparaturi_Produs: item.idCosCumparaturiProdus,
+                        idCosCumparaturi: this.state.cos.idCosCumparaturi,
+                        idProdus: item.codDeBare,
+                        cantitate: item.cantitate
+                    }),
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log("Cosul s-a modificat")
+                            this.setState({cart: this.state.cart})
+                        } else {
+                            console.log("error")
+                        }
+                    })
             }
         })
-        this.setState({cart: this.state.cart})
-        // this.props.addCart(id)
-
+        // this.setState({cart: this.state.cart})
     }
 
     decrement = id => {
         this.state.cart.forEach(item => {
             if (item.codDeBare === id) {
-                item.cantitate === 1 ? item.cantitate = 1 : item.cantitate -= 1
+                item.cantitate === 1 ? item.cantitate = 1 :
+                    item.cantitate -= 1
+                    fetch("http://localhost:8080/cos-cumparaturi-produs", {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        // cart: this.state.cart,
+                        id_CosCumparaturi_Produs: item.idCosCumparaturiProdus,
+                        idCosCumparaturi: this.state.cos.idCosCumparaturi,
+                        idProdus: item.codDeBare,
+                        cantitate: item.cantitate
+                    }),
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log("Cosul s-a modificat")
+                            this.setState({cart: this.state.cart})
+                        } else {
+                            console.log("error")
+                        }
+                    })
             }
         })
         this.setState({cart: this.state.cart})
@@ -141,7 +204,7 @@ export class Cart extends Component {
         fetch("http://localhost:8080/comenzi/" + localStorage.getItem("numeUtilizator"), {
             method: "POST",
             body: JSON.stringify({
-                cart: this.state.cart
+                cart: this.state.cart,
             }),
             headers: {
                 Accept: "application/json",
@@ -156,6 +219,7 @@ export class Cart extends Component {
                     console.log("error")
                 }
             })
+
     }
 
     render() {
@@ -181,17 +245,18 @@ export class Cart extends Component {
                         .map(item => (
                             total = total + item.cantitate * item.pret,
                                 <div className="details" key={item.codDeBare}>
-                                    <img src={item.src} alt="ImagineProdus"
+                                    <img src={'data:image/jpeg;base64,' + item.src} alt="ImagineProdus"
                                          style={{backgroundImage: `url(${item.src})`}}/>
                                     <div className="box">
                                         <div className="row">
                                             <h2>{item.denumire}</h2>
-                                            <span>{item.pret.toFixed(2) * item.cantitate.toFixed(2)} lei</span>
+                                            {/*<span>{item.pret.toFixed(1) * item.cantitate.toFixed(1)} lei</span>*/}
+                                            <span>{item.pret} lei</span>
                                         </div>
                                         <p>{item.descriere}</p>
                                         <p>{item.detalii}</p>
                                         <div className="amount">
-                                            <button onClick={() => this.decrement(item.codDeBare)}> -</button>
+                                            <button onClick={() => this.decrement(item.codDeBare)}>-</button>
                                             <span>{item.cantitate}</span>
                                             <button onClick={() => this.increment(item.codDeBare)}> +</button>
                                         </div>

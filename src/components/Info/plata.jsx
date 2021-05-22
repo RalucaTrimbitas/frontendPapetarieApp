@@ -17,7 +17,7 @@ const Plata = () => {
             <br></br>
 
             <p className="mb-0">
-              <stron>Plata Ramburs</stron>
+              <strong>Plata Ramburs</strong>
             </p>
             <br></br>
             <p className="mb-0">

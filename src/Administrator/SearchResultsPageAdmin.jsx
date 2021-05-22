@@ -5,7 +5,6 @@ import {AiFillCheckCircle, AiFillEdit, RiDeleteBin6Fill} from "react-icons/all";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Footer from "../components/utils/footer";
 
 export default class SearchResultsPageAdmin extends React.Component {
 
@@ -214,7 +213,7 @@ export default class SearchResultsPageAdmin extends React.Component {
                             {this.state.searchResults.map(item =>
                                 <Col className="card card-produse-search" key={item.codDeBare}>
                                     <Link to={`/admin/produse/detalii/${item.codDeBare}`}>
-                                        <img src={item.src} alt="imagine-produs" />
+                                        <img src={'data:image/jpeg;base64,'+ item.src} alt="imagine-produs" />
                                     </Link>
                                     <div className="content">
                                         <h4>

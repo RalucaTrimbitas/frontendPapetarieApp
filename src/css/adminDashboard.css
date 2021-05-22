@@ -1,24 +1,39 @@
 
+/*.container-help {*/
+/*    padding-top: 20px;*/
+/*    padding-bottom: 50px;*/
+/*    background-size: cover;*/
+/*    background-color: rgba(80, 65, 43, 0.16);*/
+/*}*/
+
 .container-help {
     padding-top: 20px;
     padding-bottom: 50px;
     background-size: cover;
-    background-color: rgba(80, 65, 43, 0.16);
+    background-color: rgba(97, 72, 36, 0.22);
+}
+
+.subtitle-circle{
+    color: #4e0303;
+}
+
+.bs-example{
+    margin: 20px;
 }
 
 .services-circle {
     width: 120px;
     height: 120px;
     line-height: 130px;
-    border: solid 2px #4E5152;
+    border: solid 2px rgba(76, 25, 4, 0.82);
     border-radius: 50%;
-    color: #4E5152;
+    color: rgba(76, 25, 4, 0.71);
     vertical-align: middle;
     display: inline-block;
 }
 .services-circle:hover {
-    color: #5f2121;
-    border: solid 2px #5f2121;
+    color: #570303;
+    border: solid 3px #570303;
     cursor: pointer;
 }
 

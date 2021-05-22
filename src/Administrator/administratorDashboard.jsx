@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import {Link} from "react-router-dom";
 
 class AdministratorDashboard extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             clienti: [],
             administratori: [],
@@ -88,6 +88,13 @@ class AdministratorDashboard extends Component {
         localStorage.clear()
     }
 
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
 
     render() {
         document.body.classList = "";
@@ -103,22 +110,22 @@ class AdministratorDashboard extends Component {
                             <div className="col-md-3">
                                 <Link to="/adaugare-produse" className="services-circle text-center"><i className="fa fa-plus-square-o fa-3x mt-4"
                                                                                  aria-hidden="true"/></Link>
-                                <h4>Adăugă produs</h4>
+                                <h4 className="subtitle-circle">Adăugă produs</h4>
                             </div>
                             <div className="col-md-3">
                                 <Link to="/admin/produse/accesorii-birou/agende-si-blocnotes-uri" className="services-circle text-center"><i className="fa fa-wrench fa-3x mt-4"
                                                                                  aria-hidden="true"/></Link>
-                                <h4>Gestionare produse</h4>
+                                <h4 className="subtitle-circle">Gestionare produse</h4>
                             </div>
                             <div className="col-md-3">
                                 <Link to="/admin/vizualizare-comenzi" className="services-circle text-center"><i className="fa fa-eye fa-3x mt-4"
                                                                                  aria-hidden="true"/></Link>
-                                <h4>Vizualizare comenzi</h4>
+                                <h4 className="subtitle-circle">Vizualizare comenzi</h4>
                             </div>
                             <div className="col-md-3">
                                 <Link  to="/autentificare" onClick={this.handleLogout.bind(this)} className="services-circle text-center"><i className="fa fa-sign-out fa-3x mt-4"
                                                                                  aria-hidden="true"/></Link>
-                                <h4>Deconectare</h4>
+                                <h4 className="subtitle-circle">Deconectare</h4>
                             </div>
                         </div>
                 </div>

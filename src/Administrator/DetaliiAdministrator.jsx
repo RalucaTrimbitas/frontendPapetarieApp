@@ -41,7 +41,7 @@ export class DetaliiAdministrator extends Component {
                     })
                     .map(item => (
                         <div className="details" key={item.codDeBare}>
-                            <img src={item.src} alt="ImagineProdus" style={{backgroundImage: `url(${item.src})`}}/>
+                            <img src={'data:image/jpeg;base64,'+item.src} alt="ImagineProdus"/>
                             <div className="box">
                                 <div className="row">
                                     <h2>{item.denumire}</h2>
