@@ -12,6 +12,7 @@ class ContactForm extends Component {
       name: "",
       email: "",
       message: "",
+      showModal: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
@@ -29,13 +30,15 @@ class ContactForm extends Component {
   }
 
   render() {
+    document.body.classList = "";
+    document.body.classList.add("background-general");
     return (
       <React.Fragment>
         <div className="container-contact">
-          <div className="row">
+          <div className="row offset-2">
             <div className="col-md-5 contact-sec offset-md-4">
               <h2 className="text-center">Contactează-ne</h2>
-              <form className="contact-form">
+              <form className="contact-form" action="mailto:raluca_112000@yahoo.com" method="post" enctype="text/plain">
                 <div className="form-group">
                   <label className="text-label">Nume</label>
                   <input
@@ -68,7 +71,7 @@ class ContactForm extends Component {
                     placeholder="Mesaj"
                     onChange={this.handleChange}
                   />
-                  <br></br>
+                  <br/>
                   <button
                     type="submit"
                     className="btn btn order float-right"
@@ -81,32 +84,32 @@ class ContactForm extends Component {
             </div>
             <div className="col-md-4 contact-sec2">
               <h3>CONTACT</h3>
-              <br></br>
+              <br/>
               <p>
-                Pentru orice intrebari sau nelamuriri, puteti lua legatura cu
+                Pentru orice întrebări sau nelămuriri, puteți lua legătura cu
                 noi!
               </p>
-              <span id="paragrafPapetarie">
+              <span id="paragrafPapetarie" className="mt-4">
                 <FontAwesomeIcon className="icon-mapLoc-contact" icon={faMapMarkerAlt} />{" "}
               Strada Simion Barnutiu, bloc 5, scara A, Parter, Blaj, județul
               Alba
               </span>
-              <br></br>
+              <br/>
               <FontAwesomeIcon
-                className="icon-mail-contact"
+                className="icon-mail-contact mt-4"
                 icon={faEnvelope}
               />
               <a
                 className="cg"
-                href="mailto:comenzz@papetarie.ro"
+                href="mailto:papetariaDiana@yahoo.com"
                 id="headertext"
               >
-                comenzi@papetarie.ro
+                papetariaDiana@yahoo.com
               </a>
-              <br></br>
-              <br></br>
+              <br/>
+              <br/>
               <FontAwesomeIcon
-                className="icon-phone-contact"
+                className="icon-phone-contact ml-0 mt-0"
                 icon={faPhone}
                 style={{ cursor: "pointer" }}
               />

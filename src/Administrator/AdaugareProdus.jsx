@@ -1,45 +1,62 @@
-import React, {Component} from "react";
-import {Modal} from "react-bootstrap";
+import React from "react";
+import {Alert, Modal} from "react-bootstrap";
 import {AiFillCheckCircle, TiUpload} from "react-icons/all";
+import Form from "../components/Forms/form";
+import Joi from "joi-browser";
 
-class AdaugareProdus extends Component {
+class AdaugareProdus extends Form {
 
     constructor() {
         super();
         this.state = {
+            data: {
+                denumire: "",
+                codDeBare: "",
+                pret: "",
+                descriere: "",
+                src: "",
+                detalii: "",
+                idCategorieProdus: "",
+                numeUtilizatorAdministrator: "",
+                cantitate: "",
+            },
             produse: [],
-            denumire: "",
-            codDeBare: "",
-            pret: "",
-            descriere: "",
-            src: "",
-            detalii: "",
-            disponibilitate: "",
-            idCategorieProdus: "",
-            numeUtilizatorAdministrator: "",
-            cantitate: "",
             selectedFile: null,
             imagePreviewUrl: "",
-            file: ""
+            file: "",
+            msg: "",
+            errors: {}
         }
 
         this.doSubmit = this.doSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    schema = {
+        denumire: Joi.string().required().error(() => {return {message: "Denumirea este obligatorie."}}),
+        codDeBare: Joi.string().required().error(() => {return {message: "Codul de bare este obligatoriu."}}),
+        pret: Joi.string().required().error(() => {return {message: "Prețul este obligatoriu."}}),
+        descriere: Joi.string().required().error(() => {return {message: "Descrierea este obligatorie."}}),
+        src: Joi.string().required().error(() => {return {message: "Adăugarea unei fotografii este obligatorie."}}),
+        detalii: Joi.string().required().error(() => {return {message: "Completați detaliile."}}),
+        idCategorieProdus: Joi.string().error(() => {return {message: "Categoria produsului este obligatorie."}}),
+        numeUtilizatorAdministrator: Joi.string().error(() => {return {message: "Numele de utilizator al administratorului este obligatoriu."}}),
+        cantitate: Joi.string().error(() => {return {message: "Cantitatea este obligatorie."}}),
+    };
+
 
     doSubmit = (event) => {
         event.preventDefault();
         const produs = {
-            denumire: this.state.denumire,
-            codDeBare: this.state.codDeBare,
-            pret: this.state.pret,
-            descriere: this.state.descriere,
+            denumire: this.state.data.denumire,
+            codDeBare: this.state.data.codDeBare,
+            pret: this.state.data.pret,
+            descriere: this.state.data.descriere,
             src: "",
-            detalii: this.state.detalii,
-            idCategorieProdus: this.state.idCategorieProdus,
-            numeUtilizatorAdministrator: this.state.numeUtilizatorAdministrator,
-            cantitate: this.state.cantitate
+            detalii: this.state.data.detalii,
+            idCategorieProdus: this.state.data.idCategorieProdus,
+            numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
+            cantitate: this.state.data.cantitate
         }
 
         const fd = new FormData();
@@ -53,29 +70,42 @@ class AdaugareProdus extends Component {
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        denumire: this.state.denumire,
-                        codDeBare: this.state.codDeBare,
-                        pret: this.state.pret,
-                        descriere: this.state.descriere,
-                        src: this.state.src,
-                        detalii: this.state.detalii,
-                        idCategorieProdus: this.state.idCategorieProdus,
-                        numeUtilizatorAdministrator: this.state.numeUtilizatorAdministrator,
-                        cantitate: this.state.cantitate,
+                        denumire: this.state.data.denumire,
+                        codDeBare: this.state.data.codDeBare,
+                        pret: this.state.data.pret,
+                        descriere: this.state.data.descriere,
+                        src: this.state.data.src,
+                        detalii: this.state.data.detalii,
+                        idCategorieProdus: this.state.data.idCategorieProdus,
+                        numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
+                        cantitate: this.state.data.cantitate,
                         showModal: true
                     })
                     console.log("Produsul s-a adaugat")
                 } else if (res.status === 417) {
                     res.text().then(text => {
-                        console.log(text);
-
-                    });
+                        console.log(text)
+                        this.setState({msg: text, showAlert: true}, () =>{
+                            window.setTimeout(()=>{
+                                this.setState({showAlert:false})
+                            },3000)
+                        })
+                    })
+                } else if (res.status === 409) {
+                    res.text().then(text => {
+                        console.log(text)
+                        this.setState({msg: text, showAlert: true}, () =>{
+                            window.setTimeout(()=>{
+                                this.setState({showAlert:false})
+                            },3000)
+                        })
+                    })
                 }
+
             })
     };
 
     handleChange(event) {
-
         event.preventDefault();
         this.setState({
             [event.target.name]: event.target.value,
@@ -140,7 +170,6 @@ class AdaugareProdus extends Component {
 
         return (
             <React.Fragment>
-
                 {/*<div className="page">*/}
                 {/*    <div className="container">*/}
                 {/*        <h1 className="heading">Add your Image</h1>*/}
@@ -160,8 +189,13 @@ class AdaugareProdus extends Component {
 
             <div className="table-title text-center mt-5">
                 <h3>Adăugare produs</h3>
-
             </div>
+            {this.state.msg.length > 0 ?
+                <Alert className="sticky-top" variant='danger' show={this.state.showAlert} onClose={this.closeAlert} dismissible>
+                    <Alert.Heading> {this.state.msg} </Alert.Heading>
+                </Alert>
+                : ""
+            }
             <div className="create_product">
                 <div className="upload" encType="multipart/form-data">
                 <br/>
@@ -183,84 +217,37 @@ class AdaugareProdus extends Component {
                         </div>
                     }
                 </div>
-
-                {/*<div className="imgPreview">*/}
-                {/*    {$imagePreview}*/}
-                {/*</div>*/}
-
-                {/*<div className="upload" encType="multipart/form-data">*/}
-                {/*    /!*<label className="text-label" htmlFor="src">Src imagine:</label>*!/*/}
-                {/*    /!*<label>Upload Your File </label>*!/*/}
-                {/*    <input type="file" name="file" id="file_up" onChange={this.onFileChangeHandler}/>*/}
-                {/*    {*/}
-                {/*    //     this.state.selectedFile ? <div id="file_img"/>*/}
-                {/*    //         :*/}
-                {/*    //         <div id="file_img"  style={styleUpload}>*/}
-                {/*    //             /!*{$imagePreview}*!/*/}
-                {/*    //             <img src={imagePreviewUrl} alt={"imagine-produs"}/>*/}
-                {/*    //         </div>*/}
-                {/*    }*/}
-                {/*</div>*/}
-
                 <form onSubmit={this.doSubmit} className="contact-form">
-                    <div className="row">
-                        <label className="text-label" htmlFor="denumire">Denumire:</label>
-                        <input className="form-control"
-                               type="text" name="denumire" id="denumire" required
-                               value={this.state.denumire} onChange={this.handleChange}/>
-                    </div>
-                    <div className="row">
-                        <label className="text-label" htmlFor="codDeBare">Cod de bare:</label>
-                        <input className="form-control"
-                               type="text" name="codDeBare" id="codDeBare" required
-                               value={this.state.codDeBare} onChange={this.handleChange}/>
+                    <div className="form-group text-label">
+                        {this.renderInput('denumire', "Denumire: ","text","Denumire")}
                     </div>
 
-                    <div className="row">
-                        <label className="text-label" htmlFor="pret">Preț:</label>
-                        <input type="text" name="pret" id="pret" required className="form-control"
-                               value={this.state.pret} onChange={this.handleChange}/>
+                    <div className="form-group text-label">
+                        {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}
                     </div>
 
-                    <div className="row">
-                        <label className="text-label" htmlFor="descriere">Descriere:</label>
-                        <input type="text" name="descriere" id="descriere" required className="form-control"
-                               value={this.state.descriere} onChange={this.handleChange}/>
+                    <div className="form-group text-label">
+                        {this.renderInput('pret', "Preț:","text","Preț")}
                     </div>
-                    {/*<div className="form-group" encType="multipart/form-data">*/}
-                    {/*    <br/>*/}
-                    {/*    <label className="text-label" htmlFor="src">Src imagine:</label>*/}
-                    {/*    <label>Upload Your File </label>*/}
-                    {/*    <input type="file" className="form-control" name="file" onChange={this.onFileChangeHandler}/>*/}
-                    {/*    /!*<img src={'data:image/jpeg;base64,'+ this.state.selectedFile}/>*!/*/}
-                    {/*</div>*/}
-                    {/*<div className="imgPreview">*/}
-                    {/*    {$imagePreview}*/}
-                    {/*</div>*/}
 
-                    <div className="row">
-                        <label className="text-label" htmlFor="adresa">Detalii: </label>
-                        <textarea name="detalii" value={this.state.detalii} onChange={this.handleChange}
-                                  className="form-control">
-                                                </textarea>
+                    <div className="form-group text-label">
+                        {this.renderInput('descriere', "Descriere:","text","Descriere")}
                     </div>
-                    <div className="row">
-                        <label className="text-label" htmlFor="idCategorieProdus">Categorie produs: </label>
-                        <textarea name="idCategorieProdus" value={this.state.idCategorieProdus} onChange={this.handleChange}
-                                  className="form-control">
-                                                </textarea>
+
+                    <div className="form-group text-label">
+                        {this.renderInput('detalii', "Detalii:","text","Detalii")}
                     </div>
-                    <div className="row">
-                        <label className="text-label" htmlFor="numeUtilizatorAdministrator">Nume utilizator administrator: </label>
-                        <textarea name="numeUtilizatorAdministrator" value={this.state.numeUtilizatorAdministrator} onChange={this.handleChange}
-                                  className="form-control">
-                                                </textarea>
+
+                    <div className="form-group text-label">
+                        {this.renderInput('idCategorieProdus', "ID Categorie Produs:","text","ID Categorie Produs")}
                     </div>
-                    <div className="row">
-                        <label className="text-label" htmlFor="cantitate">Cantitate în stoc: </label>
-                        <textarea name="cantitate" value={this.state.cantitate} onChange={this.handleChange}
-                                  className="form-control">
-                                                </textarea>
+
+                    <div className="form-group text-label">
+                        {this.renderInput('numeUtilizatorAdministrator', "Nume utilizator administrator:","text","Nume utilizator administrator")}
+                    </div>
+
+                    <div className="form-group text-label">
+                        {this.renderInput('cantitate', "Cantitate:","text","Cantitate în stoc")}
                     </div>
                     <button
                         type="submit"
@@ -286,7 +273,6 @@ class AdaugareProdus extends Component {
                     </Modal>
                 </form>
             </div>
-
 
 
 

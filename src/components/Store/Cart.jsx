@@ -11,7 +11,7 @@ export class Cart extends Component {
         this.state = {
             total: 0,
             cart: [],
-            sizeCart: localStorage.getItem("cartLength"),
+            // sizeCart: localStorage.getItem("cartLength"),
             show: false,
             showModal2: false,
             client: [],
@@ -32,7 +32,7 @@ export class Cart extends Component {
                 if (res.status === 200) {
                     res.json().then(json => {
                         this.setState({cart: json});
-                        localStorage.setItem("cartLength", this.state.cart.length)
+                        // localStorage.setItem("cartLength", this.state.cart.length)
                     });
                 } else {
                     console.log("error")

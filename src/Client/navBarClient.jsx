@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {BsFillExclamationTriangleFill, FaSignOutAlt, FiShoppingCart} from "react-icons/all";
-import { FiHeart } from "react-icons/all";
 import { FaRegUser, FiSettings } from "react-icons/all";
 import {Modal} from "react-bootstrap";
 
@@ -18,23 +17,23 @@ class NavBarClient extends React.Component {
     }
     this.closeModal = this.closeModal.bind(this);
 
-    fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
-      }
-    })
-        .then(res => {
-          if (res.status === 200) {
-            res.json().then(json => {
-              this.setState({cart: json});
-            });
-            // LOGIN PERSISTANCE
-          } else {
-            console.log("error")
-          }
-        })
+    // fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
+    //   method: 'GET',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-type': 'application/json'
+    //   }
+    // })
+    //     .then(res => {
+    //       if (res.status === 200) {
+    //         res.json().then(json => {
+    //           this.setState({cart: json});
+    //         });
+    //         // LOGIN PERSISTANCE
+    //       } else {
+    //         console.log("error")
+    //       }
+    //     })
   }
 
   closeModal = e => {
@@ -145,17 +144,17 @@ class NavBarClient extends React.Component {
                 </form>
               </li>
             </ul>
+            {/*<div className="nav-cart">*/}
+            {/*  <span>0</span>*/}
+            {/*<NavLink className="nav-item nav-link" to="/produse-favorite">*/}
+            {/*  <FiHeart*/}
+            {/*    className="icons-nav hvr-grow"*/}
+            {/*    style={{ cursor: "pointer" }}*/}
+            {/*  />*/}
+            {/*</NavLink>*/}
+            {/*</div>*/}
             <div className="nav-cart">
-              <span>0</span>
-            <NavLink className="nav-item nav-link" to="/produse-favorite">
-              <FiHeart
-                className="icons-nav hvr-grow"
-                style={{ cursor: "pointer" }}
-              />
-            </NavLink>
-            </div>
-            <div className="nav-cart">
-              <span>{this.props.length}</span>
+              {/*<span>{this.props.length}</span>*/}
               <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
                 <FiShoppingCart
                     className="icons-nav hvr-grow"

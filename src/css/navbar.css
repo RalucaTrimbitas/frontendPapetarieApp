@@ -74,7 +74,7 @@
 .nav-item:hover {
     color: #4b1515de !important;
     font-weight: bold;
-    font-size: 40px;
+    /*font-size: 40px;*/
 }
 
 .nav-item-produse:hover {
@@ -102,12 +102,13 @@
 
 /* icons din navBar */
 .icons-nav {
-    font-size: 1.7rem;
-    color: black;
+    font-size: 1.9rem;
+    color: #240101;
 }
 
 .icons-nav:hover {
     color: #4b1515de;
+    transition: font-size 1.9s;
 }
 
 

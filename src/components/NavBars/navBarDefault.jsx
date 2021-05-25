@@ -3,8 +3,7 @@ import {Link, NavLink, withRouter} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {BsFillExclamationTriangleFill, FaSignOutAlt, FiSettings, FiShoppingCart} from "react-icons/all";
-import { FiHeart } from "react-icons/all";
+import {BsFillExclamationTriangleFill, FaShoppingCart, FaSignOutAlt, FiSettings, FiShoppingCart} from "react-icons/all";
 import { FaRegUser } from "react-icons/all";
 import {Button, Form, FormControl, Modal} from "react-bootstrap";
 
@@ -56,11 +55,11 @@ export class NavBarDefault extends Component {
                 />{" "}
                 <a
                     className="cg"
-                    href="mailto:comenzz@papetarie.ro"
+                    href="mailto:papetariaDiana@yahoo.com"
                     id="headertext"
                     style={{ color: "black" }}
                 >
-                  comenzi@papetarie.ro
+                  papetariaDiana@yahoo.com
                 </a>
               </div>
             </div>
@@ -133,19 +132,19 @@ export class NavBarDefault extends Component {
                   </Form>
                 </li>
               </ul>
+              {/*<div className="nav-cart">*/}
+              {/*  <span className={this.props.counter ? "invisible" : "visible"}>0</span>*/}
+              {/*  <NavLink className="nav-item nav-link" to="/produse-favorite">*/}
+              {/*    <FiHeart*/}
+              {/*        className="icons-nav hvr-grow"*/}
+              {/*        style={{ cursor: "pointer" }}*/}
+              {/*    />*/}
+              {/*  </NavLink>*/}
+              {/*</div>*/}
               <div className="nav-cart">
-                <span className={this.props.counter ? "invisible" : "visible"}>0</span>
-                <NavLink className="nav-item nav-link" to="/produse-favorite">
-                  <FiHeart
-                      className="icons-nav hvr-grow"
-                      style={{ cursor: "pointer" }}
-                  />
-                </NavLink>
-              </div>
-              <div className="nav-cart">
-                <span className={this.props.counter ? "invisible" : "visible"}>{localStorage.getItem("cartLength")}</span>
+                {/*<span className={this.props.counter ? "invisible" : "visible"}>{localStorage.getItem("cartLength")}</span>*/}
                 <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
-                  <FiShoppingCart
+                  <FaShoppingCart
                       className="icons-nav hvr-grow"
                       style={{ cursor: "pointer" }}
                   />

@@ -8,31 +8,31 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.loadSize()
+    // this.loadSize()
 
   }
 
   //try with useEffect()
 
-  loadSize = () => {
-    fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
-      }
-    })
-        .then(res => {
-          if (res.status === 200) {
-            res.json().then(json => {
-              this.setState({cart: json});
-              localStorage.setItem("cartLength", this.state.cart.length)
-            });
-          } else {
-            console.log("error")
-          }
-        })
-  }
+  // loadSize = () => {
+  //   fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-type': 'application/json'
+  //     }
+  //   })
+  //       .then(res => {
+  //         if (res.status === 200) {
+  //           res.json().then(json => {
+  //             this.setState({cart: json});
+  //             localStorage.setItem("cartLength", this.state.cart.length)
+  //           });
+  //         } else {
+  //           console.log("error")
+  //         }
+  //       })
+  // }
 
   render() {
     const authStatus = authentication();

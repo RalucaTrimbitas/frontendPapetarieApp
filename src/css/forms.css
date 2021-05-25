@@ -136,8 +136,8 @@
 }
 
 #card-client {
-    background: rgba(49, 29, 22, 0.57);
-    color: white;
+    color: #fff;
+    background: rgba(29, 1, 1, 0.72);
 }
 
 .submit-form {

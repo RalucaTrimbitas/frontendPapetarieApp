@@ -122,7 +122,7 @@ export default class SearchResultsPage extends React.Component {
             <>
                 {   this.state.searchResults.length > 0 ? (
                     <Container fluid className="container-search">
-                        <h3>Rezultatele căutării sunt:</h3>
+                        <h3>Rezultatele căutării:</h3>
                         <Row>
                         {this.state.searchResults.map(item =>
                     <Col className="card card-produse-search" key={item.codDeBare}>
@@ -175,7 +175,7 @@ export default class SearchResultsPage extends React.Component {
                                     </Card>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Link type="button" className="btn btn-exit-modal" to= "/produse/accesorii-birou/agende-si-blocnotes-uri" onClick={this.closeModal}>Închide</Link>
+                                    <Link type="button" className="btn btn-exit-modal" to={window.location.pathname} onClick={this.closeModal}>Închide</Link>
                                 </Modal.Footer>
                             </Modal>
                         </div>

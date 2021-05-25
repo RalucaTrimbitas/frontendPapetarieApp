@@ -154,7 +154,7 @@ class AdreseClient extends Form {
                         </Alert>
                         : ""
                     }
-                    <div className="card card-panou" style={{marginTop: "80px", marginBottom: "60px", background: "none"}}>
+                    <div className="card card-panou" style={{marginTop: "80px", marginBottom: "60px"}}>
                         <div className="card-header text-center" id="card-client">Actualizare date personale</div>
                         <div className="card-body">
                             <blockquote className="blockquote mb-0" id="card-text">

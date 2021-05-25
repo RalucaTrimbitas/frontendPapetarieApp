@@ -142,7 +142,7 @@ class SetariContClient extends Component {
                             </Alert>
                             : ""
                         }
-                        <div className="card card-panou" style={{marginTop: "80px",  marginBottom: "70px", background: "none"}}>
+                        <div className="card card-panou" style={{marginTop: "80px",  marginBottom: "70px"}}>
                             <div className="card-header text-center" id="card-client" >Setări cont</div>
                             <div className="card-body">
                                 <blockquote className="blockquote mb-0" id="card-text">
