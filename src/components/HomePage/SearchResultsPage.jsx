@@ -117,12 +117,12 @@ export default class SearchResultsPage extends React.Component {
         document.body.classList = "";
         document.body.classList.add("background-general");
         let toRender = this.state.isLoading ? (
-            <h1>Loading...</h1>
+            <h1>Se încarcă...</h1>
         ) : (
             <>
                 {   this.state.searchResults.length > 0 ? (
                     <Container fluid className="container-search">
-                        <h3>Rezultatele căutării:</h3>
+                        <h3>Rezultatele căutării :</h3>
                         <Row>
                         {this.state.searchResults.map(item =>
                     <Col className="card card-produse-search" key={item.codDeBare}>
@@ -148,13 +148,6 @@ export default class SearchResultsPage extends React.Component {
                                           data-target="#exampleModalCenter"
                                           to="/autentificare">
                                         Autentificare
-                                    </Link>
-                                    <Link
-                                        type="button" className="btn order"
-                                        data-toggle="modal"
-                                        data-target="#exampleModalCenter"
-                                        to="/inregistrare">
-                                        Înregistrare
                                     </Link>
                                 </Modal.Footer>
                             </Modal>

@@ -12,14 +12,12 @@ class ContactForm extends Component {
       name: "",
       email: "",
       message: "",
-      showModal: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.doSubmit = this.doSubmit.bind(this);
   }
 
   doSubmit = () => {
-    //Call the server
     console.log("Submitted");
   };
 
@@ -35,10 +33,10 @@ class ContactForm extends Component {
     return (
       <React.Fragment>
         <div className="container-contact">
-          <div className="row offset-2">
+          <div className="row ">
             <div className="col-md-5 contact-sec offset-md-4">
               <h2 className="text-center">Contactează-ne</h2>
-              <form className="contact-form" action="mailto:raluca_112000@yahoo.com" method="post" enctype="text/plain">
+              <form className="contact-form" action="mailto:papetariadiana@yahoo.com" method="post" encType="text/plain">
                 <div className="form-group">
                   <label className="text-label">Nume</label>
                   <input
@@ -59,7 +57,6 @@ class ContactForm extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-
                 <div className="form-group">
                   <label className="text-label">Mesaj</label>
                   <textarea
@@ -101,10 +98,10 @@ class ContactForm extends Component {
               />
               <a
                 className="cg"
-                href="mailto:papetariaDiana@yahoo.com"
+                href="mailto:papetariadiana@yahoo.com"
                 id="headertext"
               >
-                papetariaDiana@yahoo.com
+                papetariadiana@yahoo.com
               </a>
               <br/>
               <br/>
@@ -138,8 +135,8 @@ class ContactForm extends Component {
             </div>
           </div>
         </div>
-        <br></br>
-        <Footer></Footer>
+        <br/>
+        <Footer/>
       </React.Fragment>
     );
   }

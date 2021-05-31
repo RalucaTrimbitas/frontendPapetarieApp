@@ -147,7 +147,7 @@ export class Detalii extends Component {
                         </Link>
                     </Modal.Footer>
                 </Modal>
-                <Footer/>
+                <Footer style={{marginBottom: "0"}}/>
             </>
         )
     }

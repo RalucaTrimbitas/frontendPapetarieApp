@@ -32,11 +32,11 @@ const Footer = () => {
               <FontAwesomeIcon className="icon-mail1" icon={faEnvelope} />
               <a
                 className="cg"
-                href="mailto:comenzz@papetarie.ro"
+                href="mailto:papetariadiana.ro"
                 id="headertext"
                 style={{color: "#4b1515de"}}
               >
-                comenzi@papetarie.ro
+               papetariadiana@yahoo.com
               </a>
               <br/>
               <br/>

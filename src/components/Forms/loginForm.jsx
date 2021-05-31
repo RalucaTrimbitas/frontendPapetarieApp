@@ -54,19 +54,14 @@ class LoginForm extends Form {
       if (res.status === 200) {
         localStorage.setItem("numeUtilizator", this.state.data.numeUtilizator);
         res.json().then((json) => {
-          const { result, name } = json;
+          const { jwt, userType, name } = json;
+          localStorage.setItem("jwt", jwt);
           localStorage.setItem("name", name);
-          if (result === "administrator") {
-            localStorage.setItem("userType", result);
-            this.props.history.replace("/administratordashboard");
-            console.log("administrator dashboard");
-          }
-          else 
-          if (result === "client") {
-            localStorage.setItem("userType", result);
+          localStorage.setItem("userType", userType);
+          if (userType === "administrator")
+            this.props.history.replace("/administratordashboard")
+          else if (userType === "client")
             this.props.history.replace("/contul-meu/acasa-client");
-            console.log("client dashboard");
-          }
         });
 
         // LOGIN PERSISTANCE
@@ -80,8 +75,6 @@ class LoginForm extends Form {
         })
       }
     });
-
-    console.log("Submitted");
   };
 
   handleChange(event) {
@@ -96,7 +89,7 @@ class LoginForm extends Form {
     return (
       <React.Fragment>
         {/*<NavBar/>*/}
-        <div className="container-log">
+        <div className="container-log ">
           <div className="row">
             <div className="col-md-4 login-sec offset-md-4" id="login-form" style={{marginTop: "20px"}}>
               <h2 className="text-center" >Autentificare</h2>
@@ -125,10 +118,13 @@ class LoginForm extends Form {
                   <span style={{float : "inline"}}>
                     <br/>
                     <br/>
-                    <br/>
+                    {/*<br/>*/}
                     Nu ai cont încă?
-                    <NavLink className="nav-item-aut nav-link menu-item"  to="/inregistrare"> Creaază-ți un cont</NavLink>
+                    <NavLink className="link-login" to="/inregistrare"> Creaază-ți un cont</NavLink>
+                    <br/>
                   </span>
+                    Ai uitat parola?
+                    <NavLink className="link-login" to="/parola-uitata"> Schimbă parola</NavLink>
                   </p>
                 </div>
               </form>

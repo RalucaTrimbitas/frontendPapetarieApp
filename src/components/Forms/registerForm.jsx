@@ -142,7 +142,7 @@ class RegisterForm extends Form {
                     {this.renderInput('nume', "Nume: ","text","Nume")}
                   </div>
                   <div className="form-group text-label">
-                    {this.renderInput('email', "Email: ","text","Email")}
+                    {this.renderInput('email', "E-mail: ","text","E-mail")}
                   </div>
                   <div className="form-group text-label">
                     {this.renderInput('numeUtilizator', "Nume utilizator: ","text", "Nume utilizator")}

@@ -36,6 +36,7 @@ export class ProduseList extends Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
+                // 'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
             }
         })
             // .then(resource => resource.blob())
@@ -48,22 +49,6 @@ export class ProduseList extends Component {
                     console.log("error")
                 }
             })
-
-        // fetch('http://localhost:8080/download/' + "biblioraft-roz.png", {
-        //     method: 'GET',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-type': 'application/json'
-        //     }
-        // })
-        //     .then(response => response.blob())
-        //     .then(images => {
-        //         // Then create a local URL for that image and print it
-        //         this.setState({
-        //             outside : URL.createObjectURL(images)
-        //         })
-        //         console.log(this.state.outside)
-        //     })
 
     }
 

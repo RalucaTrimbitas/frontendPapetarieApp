@@ -36,6 +36,8 @@ import AdaugareProdus from "./Administrator/AdaugareProdus";
 import DetaliiAdministrator from "./Administrator/DetaliiAdministrator";
 import SearchResultsPageAdmin from "./Administrator/SearchResultsPageAdmin";
 import {VizualizareComenzi} from "./Administrator/VizualizareComenzi";
+import ResetPasswordPage from "./components/Forms/resetPasswordPage";
+import ForgotPasswordPage from "./components/Forms/forgotPasswordPage";
 
 
 class App extends Component{
@@ -49,6 +51,9 @@ class App extends Component{
               <Route path="/home" exact component={HomePage} />
               <Route path="/autentificare" component={LoginForm}/>
               <Route path="/inregistrare" component={RegisterForm} />
+              <Route path="/resetare-parola" component={ResetPasswordPage}> </Route>
+              <Route path="/parola-uitata" component={ForgotPasswordPage}> </Route>
+
               <Route path="/informatii/:id" component={Informatii}/>
 
               <Route path="/cos-cumparaturi" component={Cart}/>

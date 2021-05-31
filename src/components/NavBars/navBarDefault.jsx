@@ -3,7 +3,7 @@ import {Link, NavLink, withRouter} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {BsFillExclamationTriangleFill, FaShoppingCart, FaSignOutAlt, FiSettings, FiShoppingCart} from "react-icons/all";
+import {BsFillExclamationTriangleFill, FaShoppingCart, FaSignOutAlt, FiSettings} from "react-icons/all";
 import { FaRegUser } from "react-icons/all";
 import {Button, Form, FormControl, Modal} from "react-bootstrap";
 
@@ -55,11 +55,11 @@ export class NavBarDefault extends Component {
                 />{" "}
                 <a
                     className="cg"
-                    href="mailto:papetariaDiana@yahoo.com"
+                    href="mailto:papetariadiana@yahoo.com"
                     id="headertext"
                     style={{ color: "black" }}
                 >
-                  papetariaDiana@yahoo.com
+                  papetariadiana@yahoo.com
                 </a>
               </div>
             </div>
@@ -118,7 +118,7 @@ export class NavBarDefault extends Component {
                         className="mr-sm-2"
                         style={{ borderColor: "#4b1515de" }}
                     />
-                    <Button onClick={this.handleSearchSubmit} className="btn btn-cautare my-2 my-sm-0" >
+                    <Button onClick={this.handleSearchSubmit} type="reset" className="btn btn-cautare my-2 my-sm-0" >
                       Caută
                     </Button>
                     <Modal show={this.state.show} onHide={this.closeModal} size="sm">
@@ -219,6 +219,9 @@ export class NavBarDefault extends Component {
         state: {
           searchText: this.state.searchText
         }
+      })
+      this.setState({
+        searchText: ""
       })
     } else {
       this.setState({

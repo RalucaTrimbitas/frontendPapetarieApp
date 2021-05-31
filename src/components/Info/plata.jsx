@@ -21,7 +21,7 @@ const Plata = () => {
             </p>
             <br></br>
             <p className="mb-0">
-              PapetariaDiana.ro acceptă plata ramburs (clientul plătește cash în momentul ridicării comenzii).
+              PapetariaDiana.ro acceptă plata ramburs sau cu cardul (clientul plătește cash sau card în momentul ridicării comenzii).
             </p>
             <br></br>
 
