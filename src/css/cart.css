@@ -63,12 +63,16 @@
 }
 
 .btn-plasaeza {
-    background: #440404;
+    background: rgba(31, 2, 2, 0.79);
     color: white !important;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
     height:50px;
+}
+
+.btn-plasaeza:hover {
+    background: rgba(31, 2, 2, 0.91);
 }
 
 .btn-exit-modal {

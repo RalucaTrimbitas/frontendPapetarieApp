@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Footer from "../utils/footer";
 import {Link} from "react-router-dom";
 import {AiFillCheckCircle} from "react-icons/all";
-import {Card, Modal} from "react-bootstrap";
+import {Button, Card, Modal} from "react-bootstrap";
 
 export class Cart extends Component {
 
@@ -11,39 +11,27 @@ export class Cart extends Component {
         this.state = {
             total: 0,
             cart: [],
-            // sizeCart: localStorage.getItem("cartLength"),
+            // sizeCart: sessionStorage.getItem("cartLength"),
             show: false,
             showModal2: false,
             client: [],
-            cos: []
+            cos: [],
+            showDeleteModal: false,
+            cod: "",
+            produsDetails: []
         }
+
+        this.loadData()
 
         this.closeModal = this.closeModal.bind(this)
         this.openModal = this.openModal.bind(this)
 
-        fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
+        fetch('http://localhost:8080/client/' + sessionStorage.getItem("numeUtilizator"), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    res.json().then(json => {
-                        this.setState({cart: json});
-                        // localStorage.setItem("cartLength", this.state.cart.length)
-                    });
-                } else {
-                    console.log("error")
-                }
-            })
-
-        fetch('http://localhost:8080/client/' + localStorage.getItem("numeUtilizator"), {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -57,17 +45,39 @@ export class Cart extends Component {
                 }
             })
 
-        fetch('http://localhost:8080/cos-cumparaturi/personal/' + localStorage.getItem("numeUtilizator"), {
+        fetch('http://localhost:8080/cos-cumparaturi/personal/' + sessionStorage.getItem("numeUtilizator"), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
                 if (res.status === 200) {
                     res.json().then(json => {
                         this.setState({cos: json});
+                    });
+                } else {
+                    console.log("error")
+                }
+            })
+    }
+
+    loadData = () => {
+        fetch('http://localhost:8080/cos-cumparaturi-produs/' + sessionStorage.getItem("numeUtilizator"), {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
+            }
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        this.setState({cart: json});
+                        // sessionStorage.setItem("cartLength", this.state.cart.length)
                     });
                 } else {
                     console.log("error")
@@ -85,7 +95,8 @@ export class Cart extends Component {
                     method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
-                        'Content-type': 'application/json'
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
                     },
                     body: JSON.stringify({
                         // cart: this.state.cart,
@@ -113,11 +124,12 @@ export class Cart extends Component {
             if (item.codDeBare === id) {
                 item.cantitate === 1 ? item.cantitate = 1 :
                     item.cantitate -= 1
-                    fetch("http://localhost:8080/cos-cumparaturi-produs", {
+                fetch("http://localhost:8080/cos-cumparaturi-produs", {
                     method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
-                        'Content-type': 'application/json'
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
                     },
                     body: JSON.stringify({
                         // cart: this.state.cart,
@@ -141,19 +153,25 @@ export class Cart extends Component {
 
     }
 
+    openDeleteModal = (item) => {
+        this.setState({
+            produsDetails: item,
+            showDeleteModal: true
+        });
+    }
+
     closeModal = e => {
         this.setState({
             show: false,
-            showModal2: false
+            showModal2: false,
+            showDeleteModal: false
         });
-
     };
 
     openModal() {
         this.setState({
             show: true
         });
-
     };
 
     openModal2() {
@@ -162,46 +180,37 @@ export class Cart extends Component {
         });
     }
 
-    removeProduct = id => {
-        // window.location.reload(true);
-        console.log(id)
-        this.openModal2()
-        // this.setState({showModal2: false})
-        this.state.cart.forEach((item, index) => {
-            if (item.codDeBare === id) {
-                this.state.cart.splice(index, 1)
-                fetch("http://localhost:8080/cos-cumparaturi-produs/" + item.idCosCumparaturiProdus, {
-                    method: "DELETE",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-type": "application/json",
-                    },
-                })
-                    .then(res => {
-                        if (res.status === 200) {
-                            console.log("Produsul a fost sters")
-                            this.setState({
-                                show: false,
-                                sizeCart: Number(this.state.sizeCart) - 1
-                            });
-                            localStorage.setItem("cartLength", this.state.sizeCart)
-
-                        } else {
-                            console.log("error")
-                        }
-                    })
-            }
+    removeProduct = () => {
+        fetch("http://localhost:8080/cos-cumparaturi-produs/" + this.state.produsDetails.idCosCumparaturiProdus, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
+            },
         })
-         this.setState({cart: this.state.cart})
-        // addToCart(cart)
-        // }
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("Produsul a fost sters")
+                    this.setState({
+                        show: false,
+                        // sizeCart: Number(this.state.sizeCart) - 1
+                    });
+                    this.closeModal()
+                    this.loadData()
+
+                } else {
+                    console.log("error")
+                }
+            })
+        this.setState({cart: this.state.cart})
     }
 
     placeOrder = () => {
         this.setState({
             show: true
         });
-        fetch("http://localhost:8080/comenzi/" + localStorage.getItem("numeUtilizator"), {
+        fetch("http://localhost:8080/comenzi/" + sessionStorage.getItem("numeUtilizator"), {
             method: "POST",
             body: JSON.stringify({
                 cart: this.state.cart,
@@ -209,12 +218,13 @@ export class Cart extends Component {
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
+                'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
             },
         })
             .then(res => {
                 if (res.status === 200) {
                     console.log("Comanda s-a adaugat")
-                    localStorage.setItem("cartLength", 0)
+                    sessionStorage.setItem("cartLength", 0)
                 } else {
                     console.log("error")
                 }
@@ -223,9 +233,11 @@ export class Cart extends Component {
     }
 
     render() {
-        var total = 0, tva=0, sumaTotala=0
+        // const {denumire} = this.state.produsDetails;
+        var total = 0, tva = 0, sumaTotala = 0
         document.body.classList = "";
         document.body.classList.add("background-general");
+        console.log(this.state.cart.length)
         if (this.state.cart.length === 0)
             return (
                 <React.Fragment>
@@ -233,7 +245,6 @@ export class Cart extends Component {
                         <button type="button" className="close" title="Close" data-dismiss="alert">×
                         </button>
                         <p>Coșul de cumpărături este gol.</p>
-
                     </div>
                     <Footer/>
                 </React.Fragment>
@@ -250,7 +261,6 @@ export class Cart extends Component {
                                     <div className="box">
                                         <div className="row">
                                             <h2>{item.denumire}</h2>
-                                            {/*<span>{item.pret.toFixed(1) * item.cantitate.toFixed(1)} lei</span>*/}
                                             <span>{item.pret} lei</span>
                                         </div>
                                         <p>{item.descriere}</p>
@@ -261,35 +271,44 @@ export class Cart extends Component {
                                             <button onClick={() => this.increment(item.codDeBare)}> +</button>
                                         </div>
                                         <div className="delete"
-                                            onClick={() => this.removeProduct(item.codDeBare)}
+                                             onClick={(e) => this.openDeleteModal(item, e)}
                                         >
                                             X
                                         </div>
-                                        <Modal size="md" show={this.state.showModal2} onHide={this.closeModal} >
+                                        <Modal backdrop="static" keyboard={false} show={this.state.showDeleteModal}
+                                               onHide={this.closeModal} centered>
                                             <Modal.Header>
-                                                <Modal.Title>Produsul a fost șters din coșul de cumpărături! <AiFillCheckCircle style={{color: "green"}}/></Modal.Title>
+                                                <Modal.Title>
+                                                    Ștergere produs
+                                                </Modal.Title>
                                             </Modal.Header>
+                                            <Modal.Body>
+                                                {/*Denumire produs: {denumire}*/}
+                                                {/*<br/>*/}
+                                                Sunteți sigur că doriți ștergerea produsului din coș?
+                                            </Modal.Body>
                                             <Modal.Footer>
-                                                <Link type="button" className="btn btn-istoric" to= "/cos-cumparaturi" onClick={this.closeModal}>Închide</Link>
+                                                <Button className="btn-success" onClick={this.removeProduct}>Da</Button>
+                                                <Button className="btn-danger" onClick={this.closeModal}>Nu</Button>
                                             </Modal.Footer>
                                         </Modal>
                                     </div>
-                                {/*</div>*/}
+                                    {/*</div>*/}
                                 </div>
                         ))
                     }
                     <div className="detailsCart">
                         <h4>Subtotal: {total.toFixed(2)} lei</h4>
                         <div style={{display: "none"}}>
-                        {this.state.client.tip === 'PERSOANA_FIZICA' ? (
+                            {this.state.client.tip === 'PERSOANA_FIZICA' ? (
                                     tva = (19 / 100 * total),
-                                    sumaTotala = total
-                            ) :
-                            (
-                                tva = (19 / 100 * total),
-                                sumaTotala = total
-                            )
-                        }
+                                        sumaTotala = total
+                                ) :
+                                (
+                                    tva = (19 / 100 * total),
+                                        sumaTotala = total
+                                )
+                            }
                         </div>
                         {/*(Math.round(num * 100) / 100).toFixed(2);*/}
                         <h4>TVA: {tva.toFixed(2)} lei</h4>
@@ -310,11 +329,12 @@ export class Cart extends Component {
                                         <p> Pentru ridicarea comenzii vă așteptăm la magazinul nostru în Blaj, strada
                                             Simion Bărnuțiu, bloc 5, scara A, Parter.</p>
                                         <p> Program de funcționare: 8:00 - 16:00 (L-V).</p>
-                                        <p> Suma totală a comenzii: {total} lei </p>
+                                        <p> Suma totală a comenzii: {total.toFixed(2)} lei </p>
                                         <p> Vă mulțumim!</p>
                                     </Card.Body>
                                     <Link to="contul-meu/istoric-comenzi" type="button" className="btn btn-istoric">Vezi
                                         istoric comenzi</Link>
+                                    {/*<Link type="button" className="btn btn-exit-modal" to={window.location.pathname} onClick={this.closeModal}>Închide</Link>*/}
                                 </Card>
                             </Modal.Body>
                         </Modal>

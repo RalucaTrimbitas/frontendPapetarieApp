@@ -5,13 +5,6 @@ import authentication from "../utils/auth.jsx";
 
 class NavBar extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    // this.loadSize()
-
-  }
-
   //try with useEffect()
 
   // loadSize = () => {

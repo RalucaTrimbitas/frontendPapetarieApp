@@ -25,7 +25,7 @@ class SidebarClient extends Component {
     }
 
     logout(){
-        localStorage.clear();
+        sessionStorage.clear();
         this.history.replace('/autentificare');
     }
 

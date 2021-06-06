@@ -42,17 +42,17 @@ class Form extends Component {
             this.doSubmit();
         }
 
-        handleChange = ({currentTarget: input }) => {
-            const errors = { ...this.state.errors};
-            const errorMessage = this.validateProperty(input);
-            if(errorMessage) errors[input.name]=errorMessage;
-            else delete errors[input.name];
-    
-            const data = {...this.state.data};
-           //data.username = e.currentTarget.value;
-           data[input.name] = input.value;
-            this.setState({data, errors});
-        }
+    handleChange = ({currentTarget: input }) => {
+        const errors = { ...this.state.errors};
+        const errorMessage = this.validateProperty(input);
+        if(errorMessage) errors[input.name]=errorMessage;
+        else delete errors[input.name];
+
+        const data = {...this.state.data};
+       //data.username = e.currentTarget.value;
+       data[input.name] = input.value;
+        this.setState({data, errors});
+    }
 
     renderButton(label) {
         return  (

@@ -17,7 +17,8 @@ class AdministratorDashboard extends Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -34,7 +35,8 @@ class AdministratorDashboard extends Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -51,7 +53,8 @@ class AdministratorDashboard extends Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -68,7 +71,8 @@ class AdministratorDashboard extends Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             // .then(resource => resource.blob())
@@ -85,7 +89,7 @@ class AdministratorDashboard extends Component {
     }
 
     handleLogout = () => {
-        localStorage.clear()
+        sessionStorage.clear()
     }
 
     componentWillUnmount() {
@@ -101,7 +105,7 @@ class AdministratorDashboard extends Component {
         document.body.classList.add("background-general");
         return ( 
             <React.Fragment>
-            {/*<h2>Salutare, {localStorage.getItem("name")}!</h2>*/}
+            {/*<h2>Salutare, {sessionStorage.getItem("name")}!</h2>*/}
                 <div className="container-help mt-5">
                         <div className="page-header" id="help">
                             {/*<h1>Just In Case You Need Any Help</h1>*/}

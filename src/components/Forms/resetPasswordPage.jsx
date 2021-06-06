@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import Joi from "joi-browser";
-import {Button, Form, Modal} from "react-bootstrap";
+import {Button, Card, Form, Modal} from "react-bootstrap";
 import Footer from "../utils/footer";
+import {AiFillCheckCircle, IoIosWarning} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 export default class ResetPasswordPage extends Component{
     constructor(props) {
@@ -14,6 +16,8 @@ export default class ResetPasswordPage extends Component{
             },
             errors: {},
             showAlert: false,
+            showModal: false,
+            showDeleteModal: false,
             message: ""
         };
 
@@ -28,6 +32,12 @@ export default class ResetPasswordPage extends Component{
     closeAlert = () => {
         this.setState({
             showAlert: false
+        })
+    }
+
+    closeModal = () => {
+        this.setState({
+            showModal: false
         })
     }
 
@@ -47,10 +57,8 @@ export default class ResetPasswordPage extends Component{
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        showAlert: true,
-                        message: "Parola a fost schimbată cu succes!"
+                        showModal: true
                     })
-                    this.props.history.replace("/autentificare")
                 }
                 else if (res.status === 417) {
                     this.setState({
@@ -134,11 +142,16 @@ export default class ResetPasswordPage extends Component{
             <React.Fragment>
                 <div className="align-content-center">
                     <div className="d-flex justify-content-center align-items-center my-5">
-                        <Modal show={this.state.showAlert} onHide={this.closeAlert} centered>
-                            <Modal.Header className="font-weight-bold">
-                                <Modal.Title>
-                                    Notificare resetare parolă
-                                </Modal.Title>
+                        <Modal className="modal-confirm mt-0" show={this.state.showAlert} onHide={this.closeAlert} centered>
+                            {/*<Modal.Header className="font-weight-bold">*/}
+                            {/*    <Modal.Title>*/}
+                            {/*        Notificare resetare parolă*/}
+                            {/*    </Modal.Title>*/}
+                            {/*</Modal.Header>*/}
+                            <Modal.Header closeButton className="modal-header">
+                                <div className="icon-box">
+                                    <IoIosWarning className="warning"/>
+                                </div>
                             </Modal.Header>
                             <Modal.Body>
                                 {this.state.message}
@@ -147,6 +160,40 @@ export default class ResetPasswordPage extends Component{
                                 <Button variant="primary" onClick={this.closeAlert}>
                                     Ok
                                 </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <Modal
+                            size="md"
+                            show={this.state.showModal}
+                            onHide={this.closeModal}
+                        >
+                            <Modal.Header>
+                                <Modal.Title id="example-modal-sizes-title-lg">
+                                    Parola a fost schimbată cu succes! <AiFillCheckCircle style={{color:"green"}}/>
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Card>
+                                    <Link to="/autentificare" type="button" className="btn btn-istoric">Autentificare</Link>
+                                </Card>
+                                {/*{this.state.message}*/}
+                            </Modal.Body>
+                        </Modal>
+                        <Modal backdrop="static" keyboard={false} show={this.state.showDeleteModal}
+                               onHide={this.closeModal} centered>
+                            <Modal.Header>
+                                <Modal.Title>
+                                    Ștergere produs
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                {/*Denumire produs: {denumire}*/}
+                                {/*<br/>*/}
+                                Sunteți sigur că doriți ștergerea produsului din coș?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button className="btn-success" onClick={this.removeProduct}>Da</Button>
+                                <Button className="btn-danger" onClick={this.closeModal}>Nu</Button>
                             </Modal.Footer>
                         </Modal>
                         <Form className="d-flex flex-column my-border-form w-50 login-sec" id="login-form" >

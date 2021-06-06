@@ -73,9 +73,9 @@
     padding: 60px 50px 30px 50px;
     position: relative;
     transform: scaleY(0.98);
-    background: rgba(144, 100, 72, 0.62);
+    background: rgba(144, 100, 72, 0.21);
 
-    color: white;
+    color: #361212;
 }
 
 

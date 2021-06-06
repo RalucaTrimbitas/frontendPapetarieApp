@@ -14,7 +14,7 @@ class ClientDashboard extends Component {
   constructor(){
       super();
       this.state = {
-          sizeCart: localStorage.getItem("cartLength")
+          sizeCart: sessionStorage.getItem("cartLength")
       }
   }
 

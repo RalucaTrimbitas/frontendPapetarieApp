@@ -14,7 +14,7 @@ class HomePage extends React.Component {
   constructor(){
     super();
     this.state = {
-      sizeCart: localStorage.getItem("cartLength")
+      sizeCart: sessionStorage.getItem("cartLength")
     }
   }
   render() {

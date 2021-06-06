@@ -11,7 +11,7 @@ const ContulMeu = () => {
             {/*    <div className="card-body">*/}
             {/*        <blockquote className="blockquote mb-0" id="card-text">*/}
             {/*            <p className="mb-lg-5 ">*/}
-            {/*                <strong><h4>Bună, {localStorage.getItem("name")}!</h4></strong>*/}
+            {/*                <strong><h4>Bună, {sessionStorage.getItem("name")}!</h4></strong>*/}
             {/*            </p>*/}
             {/*            <p className="mb-0">*/}
             {/*                În panoul de control al contului tău poți să-ți vezi comenzile recente, să-ți administrezi adresele de livrare și de facturare și să-ți editezi parola și detaliile contului.*/}
@@ -23,7 +23,7 @@ const ContulMeu = () => {
             {/*</div>*/}
 
             {/*<p className="mb-lg-5">*/}
-                <strong><h4 className="subtitle-circle mb-lg-5">Bună, {localStorage.getItem("name")}!</h4></strong>
+                <strong><h4 className="subtitle-circle mb-lg-5">Bună, {sessionStorage.getItem("name")}!</h4></strong>
             {/*</p>*/}
             <h5 className="text-center subtitle-circle">
                 În panoul de control al contului tău poți să-ți vezi comenzile recente, să-ți administrezi datele personale și să-ți editezi parola și detaliile contului.

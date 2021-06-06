@@ -2,9 +2,9 @@
 
 const authentication = () => {
 
-    if(localStorage.getItem('userType') === 'administrator')
+    if(sessionStorage.getItem('userType') === 'administrator')
         return 'administrator';
-    else if (localStorage.getItem('userType') === 'client')
+    else if (sessionStorage.getItem('userType') === 'client')
         return 'client';
     
     return 'NOT_AUTHENTICATED';

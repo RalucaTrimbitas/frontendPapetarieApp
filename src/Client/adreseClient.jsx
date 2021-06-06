@@ -28,11 +28,12 @@ class AdreseClient extends Form {
         };
         this.closeModal = this.closeModal.bind(this);
 
-        fetch('http://localhost:8080/client/' + localStorage.getItem("numeUtilizator"), {
+        fetch('http://localhost:8080/client/' + sessionStorage.getItem("numeUtilizator"), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             },
             body: JSON.stringify()
         })
@@ -62,14 +63,12 @@ class AdreseClient extends Form {
         email: Joi.string().required().error(() => {return {message: "Adresa de email este obligatorie."}}),
         numeUtilizator: Joi.string().required().error(() => {return {message: "Numele de utilizator este obligatoriu."}}),
         parola: Joi.string().required().error(() => {return {message: "Parola este obligatorie."}}),
-        adresa: Joi.string().required().error(() => {return {message: "Adresa este obligatorie."}}),
+        adresa: Joi.string().optional().allow(""),
         tip: Joi.string().label("Tip").error(() => {return {message: "Tipul este obligatoriu."}}),
         companie: Joi.string().label("Companie").error(() => {return {message: "Numele companiei este obligatoriu."}}),
         codFiscal: Joi.string().label("Cod fiscal").error(() => {return {message: "Codul fiscal este obligatoriu."}}),
         numarTelefon: Joi.string().label("Numar telefon").error(() => {return {message: "Numărul de telefon este obligatoriu."}})
-
     };
-
 
     closeModal = e => {
         this.setState({
@@ -102,7 +101,8 @@ class AdreseClient extends Form {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             },
             body: JSON.stringify(payload)
         })
@@ -200,7 +200,7 @@ class AdreseClient extends Form {
                                 <div className="text-center">
                                 <button
                                     type="submit"
-                                    className="btn submit-form mt-5 float-right"
+                                    className="btn btn-login mt-5 float-right"
                                     onClick={this.doSubmit}
                                 >
                                     Salvează

@@ -18,7 +18,7 @@ export class ProduseList extends Component {
         this.state = {
             produse: [],
             cos_cumparaturi: [],
-            sizeCart: localStorage.getItem("cartLength"),
+            sizeCart: sessionStorage.getItem("cartLength"),
             show: false,
             showModal2: false,
             visible: 6,
@@ -36,7 +36,7 @@ export class ProduseList extends Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
-                // 'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+                // 'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             // .then(resource => resource.blob())
@@ -61,14 +61,14 @@ export class ProduseList extends Component {
     };
 
     addCart = (id) => {
-        if (localStorage.getItem('numeUtilizator') == null){
+        if (sessionStorage.getItem('numeUtilizator') == null){
             this.setState({
                 showModal2: true
             });
         }
         else
         try {
-            fetch("http://localhost:8080/cos-cumparaturi-produs/" + localStorage.getItem("numeUtilizator"), {
+            fetch("http://localhost:8080/cos-cumparaturi-produs/" + sessionStorage.getItem("numeUtilizator"), {
                 method: "POST",
                 body: JSON.stringify({
                     idProdus: id,
@@ -76,6 +76,7 @@ export class ProduseList extends Component {
                 headers: {
                     Accept: "application/json",
                     "Content-type": "application/json",
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
                 },
             })
                 .then(res => {
@@ -85,7 +86,7 @@ export class ProduseList extends Component {
                             show: true,
                             sizeCart: Number(this.state.sizeCart) + 1
                         });
-                        localStorage.setItem("cartLength", this.state.sizeCart)
+                        sessionStorage.setItem("cartLength", this.state.sizeCart)
                     }
                     else if (res.status === 202) {
                         this.setState({

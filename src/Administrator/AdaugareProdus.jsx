@@ -246,9 +246,9 @@ class AdaugareProdus extends Form {
                         {this.renderInput('numeUtilizatorAdministrator', "Nume utilizator administrator:","text","Nume utilizator administrator")}
                     </div>
 
-                    <div className="form-group text-label">
-                        {this.renderInput('cantitate', "Cantitate:","text","Cantitate în stoc")}
-                    </div>
+                    {/*<div className="form-group text-label">*/}
+                    {/*    {this.renderInput('cantitate', "Cantitate:","text","Cantitate în stoc")}*/}
+                    {/*</div>*/}
                     <button
                         type="submit"
                         className="btn order-detalii float-right pb-3"

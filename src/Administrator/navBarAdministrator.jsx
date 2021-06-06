@@ -20,7 +20,7 @@ class NavBarAdministrator extends React.Component{
 
 
 handleLogout = () => {
-  localStorage.clear()
+  sessionStorage.clear()
 }
 
   closeModal = e => {

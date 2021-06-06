@@ -1,5 +1,6 @@
 .card-footer {
-  background-color: #cfb5a2;
+  /*background-color: #cfb5a2;*/
+  background-color: #decbb5 !important;
   /* background-image: url("./pictures/texture5.jpg"); */
 }
 

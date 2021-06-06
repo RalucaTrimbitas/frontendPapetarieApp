@@ -4,8 +4,8 @@ import { withRouter } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {Alert, Dropdown, Modal} from "react-bootstrap";
-import {AiFillCheckCircle, AiFillEdit, RiDeleteBin6Fill} from "react-icons/all";
+import {Alert, Button, Dropdown, Modal} from "react-bootstrap";
+import {AiFillCheckCircle, AiFillEdit, RiDeleteBin6Fill, TiUpload} from "react-icons/all";
 import DropdownItem from "react-bootstrap/DropdownItem";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import SidebarCategoriiAdministrator from "./sidebarCategoriiAdministrator";
@@ -36,7 +36,8 @@ export class ProduseListAdministrator extends Form {
             imagePreviewUrl: "",
             file: "",
             errors: {},
-            msg: ""
+            msg: "",
+            produsDetails: ""
         };
 
         this.sortByPriceAsc = this.sortByPriceAsc.bind(this);
@@ -96,37 +97,58 @@ export class ProduseListAdministrator extends Form {
             })
     }
 
+    openDeleteModal = (item) => {
+        this.setState({
+            produsDetails: item,
+            showDeleteModal: true
+        });
+    }
+
     closeModal = e => {
         this.setState({
-            show: false,
-            showModal2: false,
+            showModal2: false
         });
-
     };
 
-    deleteProduct = id => {
-        console.log(id)
-        this.state.produse.forEach((item, index) => {
-            if (item.codDeBare === id) {
-                this.state.produse.splice(index, 1)
-                fetch("http://localhost:8080/produse/" + item.codDeBare, {
+    closeConfirmModal = e =>{
+        this.setState({
+            show:false
+        })
+    }
+
+    closeDeleteModal = e => {
+        this.setState({
+            showDeleteModal: false
+        });
+    };
+
+    deleteProduct = () => {
+        // console.log(id)
+        // this.state.produse.forEach((item, index) => {
+        //     if (item.codDeBare === id) {
+        //         this.state.produse.splice(index, 1)
+                fetch("http://localhost:8080/produse/" + this.state.produsDetails.codDeBare, {
                     method: "DELETE",
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
+                        'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
                     },
                 })
                     .then(res => {
                         if (res.status === 200) {
-                            this.setState({
-                                show: true,
-                            });
+                            console.log("Produsul a fost sters")
+                            // this.setState({
+                            //     show: true,
+                            // });
+                            this.closeDeleteModal()
+                            this.getData()
                         } else {
                             console.log("error")
                         }
                     })
-            }
-        })
+            // }
+        // })
         this.setState({produse: this.state.produse})
     }
 
@@ -136,7 +158,8 @@ export class ProduseListAdministrator extends Form {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             },
             body: JSON.stringify()
         })
@@ -157,8 +180,13 @@ export class ProduseListAdministrator extends Form {
                     data: payload,
                     showModal2: true
                 })
-
             })
+    }
+
+    openConfirmModal = () => {
+        this.setState({
+            showModal: true
+        })
     }
 
     doSubmit = (event) => {
@@ -169,7 +197,7 @@ export class ProduseListAdministrator extends Form {
             codDeBare: this.state.data.codDeBare,
             pret: this.state.data.pret,
             descriere: this.state.data.descriere,
-            src: "",
+            src: this.state.data.src,
             detalii: this.state.data.detalii,
             idCategorieProdus: this.state.data.idCategorieProdus,
             numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
@@ -196,9 +224,11 @@ export class ProduseListAdministrator extends Form {
                         idCategorieProdus: this.state.data.idCategorieProdus,
                         numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
                         cantitate: this.state.data.cantitate,
-                        showModal: true
+                        imagePreviewUrl: "",
+                        show: true
                     })
                     console.log("Produsul s-a modificat")
+                    // this.openConfirmModal();
                     this.getData()
                 } else if (res.status === 417) {
                     res.text().then(text => {
@@ -238,29 +268,24 @@ export class ProduseListAdministrator extends Form {
     }
 
     onFileChangeHandler = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         let reader = new FileReader();
-        let file = event.target.files[0];
-
-        reader.onloadend = () => {
-            this.setState({
-                [event.target.name]: event.target.value,
-                selectedOption: event.target.value,
-                file: URL.createObjectURL(event.target.files[0]),
-                imagePreviewUrl: reader.result,
-                selectedFile: event.target.files[0]
-            });
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                this.setState({
+                    [event.target.name]: event.target.value,
+                    selectedOption: event.target.value,
+                    selectedFile: event.target.files[0],
+                    imagePreviewUrl: reader.result},
+                )
+            }
         }
-        reader.readAsDataURL(file)
+        if(event.target.files[0]){
+            reader.readAsDataURL(event.target.files[0]);
+        }
     };
 
-
     renderProduse = (produs) => {
-        let {imagePreviewUrl} = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} alt={"imagine-produs"}/>);
-        }
         const {codDeBare,denumire,pret,descriere,src} = produs;
         return (
             <React.Fragment key={codDeBare}>
@@ -278,7 +303,7 @@ export class ProduseListAdministrator extends Form {
                             <button type="button" className="btn order-admin-edit mr-3 " data-toggle="modal"
                                     data-target="#exampleModalCenter" onClick={() => this.updateProduct(codDeBare)}><AiFillEdit style={{marginTop:"-5px"}}/> Modifică</button>
                             <button type="button" className="btn order-admin-delete" data-toggle="modal"
-                                    data-target="#exampleModalCenter" onClick={() => this.deleteProduct(codDeBare)}><RiDeleteBin6Fill style={{marginTop:"-5px"}}/> Șterge</button>
+                                    data-target="#exampleModalCenter" onClick={() => this.openDeleteModal(produs)}><RiDeleteBin6Fill style={{marginTop:"-5px"}}/> Șterge</button>
                         </div>
                         <Modal show={this.state.showModal2} onHide={this.closeModal} size="xl" scrollable={true}
                                aria-labelledby="contained-modal-title-vcenter"
@@ -293,8 +318,29 @@ export class ProduseListAdministrator extends Form {
                                 : ""
                             }
                             <Modal.Body>
-                            <form onSubmit={this.doSubmit} className="contact-form">
-                                <div className="form-group text-label">
+                            <form onSubmit={this.doSubmit} className="edit-form">
+                                <div className="upload ml-0" encType="multipart/form-data">
+                                    <br/>
+                                    <input type="file" accept="image/*" id="input" name="file" className="inputfile inputfile-1" onChange={this.onFileChangeHandler}/>
+                                    {this.state.imagePreviewUrl ?
+                                        <div className="img-holder">
+                                            <img src={this.state.imagePreviewUrl} alt={"imagine-produs"} id="img" className="img"/>
+                                            <label htmlFor="input" className="img-label">
+                                                <TiUpload className="mb-1 mr-1"/>
+                                                Încărcați altă fotografie...
+                                            </label>
+                                        </div>
+                                        :
+                                        <div className="img-holder">
+                                            <img src={'data:image/jpeg;base64,'+ this.state.data.src} alt={"imagine-produs"} id="img" className="img"/>
+                                            <label htmlFor="input" className="img-label">
+                                                <TiUpload className="mb-1 mr-1"/>
+                                                Încărcați altă fotografie...
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <div className="form-group text-label mt-5">
                                     {this.renderInput('denumire', "Denumire: ","text","Denumire")}
                                 </div>
 
@@ -309,17 +355,6 @@ export class ProduseListAdministrator extends Form {
                                 <div className="form-group text-label">
                                     {this.renderInput('descriere', "Descriere:","text","Descriere")}
                                 </div>
-                                <div className="form-group" encType="multipart/form-data">
-                                    <br/>
-                                    <label className="text-label" htmlFor="src">Încărcați altă poză:</label>
-                                    {/*<label>Încărcați altă poză </label>*/}
-                                    <input type="file" className="form-control" name="file" onChange={this.onFileChangeHandler}/>
-                                    {/*<img src={this.state.file} alt={"picture"}/>*/}
-                                </div>
-                                <div className="imgPreview">
-                                    {$imagePreview}
-                                </div>
-
                                 <div className="form-group text-label">
                                     {this.renderInput('detalii', "Detalii: ","text","Detalii")}
                                 </div>
@@ -345,8 +380,8 @@ export class ProduseListAdministrator extends Form {
                                 <br/>
                                 <Modal
                                     size="md"
-                                    show={this.state.showModal}
-                                    onHide={this.closeModal}
+                                    show={this.state.show}
+                                    onHide={this.closeConfirmModal}
                                 >
                                     <Modal.Header closeButton>
                                         <Modal.Title id="example-modal-sizes-title-lg">
@@ -354,23 +389,28 @@ export class ProduseListAdministrator extends Form {
                                         </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Footer>
-                                        <button type="button" className="btn btn-exit-modal" onClick={this.closeModal}>Închide</button>
+                                        <button type="button" className="btn btn-exit-modal" onClick={this.closeConfirmModal}>Închide</button>
                                     </Modal.Footer>
                                 </Modal>
                             </form>
                             </Modal.Body>
                         </Modal>
-                        <Modal
-                            size="md"
-                            show={this.state.show}
-                            onHide={this.closeModal}
-                            className="modal-backdrop"
-                        >
-                            <Modal.Header closeButton>
-                                <Modal.Title id="example-modal-sizes-title-lg">
-                                    Produsul a fost șters! <AiFillCheckCircle style={{color:"green"}}/>
+                        <Modal backdrop="static" keyboard={false} show={this.state.showDeleteModal}
+                               onHide={this.closeDeleteModal} centered>
+                            <Modal.Header>
+                                <Modal.Title>
+                                    Ștergere produs
                                 </Modal.Title>
                             </Modal.Header>
+                            <Modal.Body>
+                                {/*Denumire produs: {this.state.produsDetails.denumire}*/}
+                                {/*<br/>*/}
+                                Sunteți sigur că doriți ștergerea produsului?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button className="btn-success" onClick={this.deleteProduct}>Da</Button>
+                                <Button className="btn-danger" onClick={this.closeDeleteModal}>Nu</Button>
+                            </Modal.Footer>
                         </Modal>
                     </div>
                 </div>

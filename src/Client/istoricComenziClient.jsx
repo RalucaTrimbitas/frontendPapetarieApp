@@ -28,11 +28,12 @@ class IstoricComenziClient extends Component {
     }
 
     getData() {
-        fetch('http://localhost:8080/comenzi/' + localStorage.getItem("numeUtilizator"), {
+        fetch('http://localhost:8080/comenzi/' + sessionStorage.getItem("numeUtilizator"), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -47,10 +48,10 @@ class IstoricComenziClient extends Component {
                             tableData: slice
                         })
                     });
-                } else {
-                    console.log("error")
                 }
+                else console.log(res)
             })
+            .catch(error => console.log(error))
     }
 
     componentDidMount() {
@@ -126,7 +127,8 @@ class IstoricComenziClient extends Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             }
         })
             .then(res => {
@@ -135,10 +137,8 @@ class IstoricComenziClient extends Component {
                         this.setState({comanda: json});
                     });
                     // LOGIN PERSISTANCE
-                } else {
-                    console.log("error")
                 }
-            })
+            }).catch(error => console.log(error))
     }
 
     handleClearSearch = query => {
@@ -148,12 +148,11 @@ class IstoricComenziClient extends Component {
     render() {
         document.body.classList = "";
         document.body.classList.add("background-general");
-        console.log(this.state.comanda)
 
         const{tableData} = this.getPagedData()
         return (
             <React.Fragment>
-                <div className="container-fluid">
+                <div className="container-fluid mt-5">
                     <Table responsive hover striped borderless className="text-nowrap">
                         <thead className="table-title text-white">
                         <tr className="text-center">
@@ -163,6 +162,7 @@ class IstoricComenziClient extends Component {
                             <th>Subtotal</th>
                             <th>TVA</th>
                             <th>Total</th>
+                            <th>Status</th>
                             <th>Detalii</th>
                         </tr>
                         </thead>
@@ -189,6 +189,19 @@ class IstoricComenziClient extends Component {
                                                         {/*<span className="status text-success">•</span>*/}
                                                         <td>{item1.tva.toFixed(2)} lei</td>
                                                         <td>{item1.total.toFixed(2)} lei</td>
+                                                        {/*<td className="text-success">{item1.status}</td>*/}
+                                {item1.status === "IN_PREGATIRE" ?
+                                <td className="text-danger">{item1.status}</td>
+                                : ""}
+                                {item1.status === "FINALIZATA" ?
+                                    <td className="text-primary">{item1.status}</td>
+                                    : ""}
+                                {item1.status === "RIDICATA" ?
+                                    <td className="text-success">{item1.status}</td>
+                                    : ""}
+                                {/*:*/}
+                                {/*    <td className="text-success">{item1.status}</td>*/}
+                                {/*    ? <td className="text-secondary">{item1.status}</td>*/}
                                                         <td onClick={() => this.viewIstoricComanda(item1.numarComanda, item1.total)} className="td-view">Vezi</td>
                                                         <Modal size="xl" scrollable={true} show={this.state.show} onHide={this.closeModal} >
                                                             <Modal.Header closeButton>

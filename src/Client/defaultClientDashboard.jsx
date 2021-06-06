@@ -7,7 +7,7 @@ export default class DefaultClientDashboard extends React.Component{
         // <div>
             <div className="card text-center w-75" style={{opacity: ".75", margin: "auto", float: "none", marginTop: "100px", marginBottom: "200px"}}>
             {/* <div className="card-header">
-                Salutare, {localStorage.getItem("name")}!
+                Salutare, {sessionStorage.getItem("name")}!
             </div>
             <div className="card-body">
                 <h5 className="card-title">Asistentul este aici pentru a te ajuta.</h5>

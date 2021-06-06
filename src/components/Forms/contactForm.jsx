@@ -36,7 +36,7 @@ class ContactForm extends Component {
           <div className="row ">
             <div className="col-md-5 contact-sec offset-md-4">
               <h2 className="text-center">Contactează-ne</h2>
-              <form className="contact-form" action="mailto:papetariadiana@yahoo.com" method="post" encType="text/plain">
+              <form className="contact-form" action="mailto:papetariadiana@gmail.com" method="post" encType="text/plain">
                 <div className="form-group">
                   <label className="text-label">Nume</label>
                   <input
@@ -47,16 +47,16 @@ class ContactForm extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div className="form-group">
-                  <label className="text-label">E-mail</label>
-                  <input
-                    type="text"
-                    name="email"
-                    className="form-control"
-                    placeholder="Email"
-                    onChange={this.handleChange}
-                  />
-                </div>
+                {/*<div className="form-group">*/}
+                {/*  <label className="text-label">E-mail</label>*/}
+                {/*  <input*/}
+                {/*    type="text"*/}
+                {/*    name="email"*/}
+                {/*    className="form-control"*/}
+                {/*    placeholder="Email"*/}
+                {/*    onChange={this.handleChange}*/}
+                {/*  />*/}
+                {/*</div>*/}
                 <div className="form-group">
                   <label className="text-label">Mesaj</label>
                   <textarea
@@ -98,10 +98,10 @@ class ContactForm extends Component {
               />
               <a
                 className="cg"
-                href="mailto:papetariadiana@yahoo.com"
+                href="mailto:papetariadiana@gmail.com"
                 id="headertext"
               >
-                papetariadiana@yahoo.com
+                papetariadiana@gmail.com
               </a>
               <br/>
               <br/>

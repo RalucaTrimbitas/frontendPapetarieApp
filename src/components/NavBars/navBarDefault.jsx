@@ -27,7 +27,7 @@ export class NavBarDefault extends Component {
   };
 
   handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
   };
 
   render () {
@@ -55,11 +55,11 @@ export class NavBarDefault extends Component {
                 />{" "}
                 <a
                     className="cg"
-                    href="mailto:papetariadiana@yahoo.com"
+                    href="mailto:papetariadiana@gmail.com"
                     id="headertext"
                     style={{ color: "black" }}
                 >
-                  papetariadiana@yahoo.com
+                  papetariadiana@gmail.com
                 </a>
               </div>
             </div>
@@ -142,7 +142,7 @@ export class NavBarDefault extends Component {
               {/*  </NavLink>*/}
               {/*</div>*/}
               <div className="nav-cart">
-                {/*<span className={this.props.counter ? "invisible" : "visible"}>{localStorage.getItem("cartLength")}</span>*/}
+                {/*<span className={this.props.counter ? "invisible" : "visible"}>{sessionStorage.getItem("cartLength")}</span>*/}
                 <NavLink className="nav-item nav-link" to="/cos-cumparaturi">
                   <FaShoppingCart
                       className="icons-nav hvr-grow"

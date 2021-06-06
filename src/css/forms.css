@@ -133,7 +133,7 @@
 }
 
 .alert-invalid {
-    background-color: rgba(222, 61, 61, 0.18);
+    background-color: rgb(246, 215, 215);
     font-size: 14px;
     color: #9c1a1a;
 }
@@ -168,6 +168,11 @@
 
 .link-login:hover{
     color: #310101;
+}
+
+.edit-form {
+    max-width: 90%;
+    margin: auto;
 }
 
 

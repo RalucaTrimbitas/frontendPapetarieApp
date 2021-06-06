@@ -17,7 +17,7 @@ class NavBarClient extends React.Component {
     }
     this.closeModal = this.closeModal.bind(this);
 
-    // fetch('http://localhost:8080/cos-cumparaturi-produs/' + localStorage.getItem("numeUtilizator"), {
+    // fetch('http://localhost:8080/cos-cumparaturi-produs/' + sessionStorage.getItem("numeUtilizator"), {
     //   method: 'GET',
     //   headers: {
     //     'Accept': 'application/json',
@@ -43,7 +43,7 @@ class NavBarClient extends React.Component {
     });
   };
   handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
   };
 
   links = () => {

@@ -1,5 +1,5 @@
 .navbar-light {
-    box-shadow: 0px 14px 80px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 14px 80px rgba(243, 238, 238, 0.42);
 }
 
 /*NAVBAR DROPDOWNS*/
@@ -67,7 +67,7 @@
     padding-left: -30px !important;
     padding-right: -20px;
     /*background-image: url("./pictures/texture5.jpg");*/
-    background-color: #cfb5a2 !important;
+    background-color: #decbb5 !important;
 }
 
 
