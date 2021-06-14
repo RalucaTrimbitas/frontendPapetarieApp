@@ -39,7 +39,7 @@ export default class SearchResultsPage extends React.Component {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
             }
         })
             .then(res => {
@@ -87,6 +87,7 @@ export default class SearchResultsPage extends React.Component {
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
+                        'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
                     },
                 })
                     .then(res => {

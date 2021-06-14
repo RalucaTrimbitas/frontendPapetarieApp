@@ -14,19 +14,16 @@ const Plata = () => {
             <p className="mb-0 ">
               <strong>Modalități de plată</strong>
             </p>
-            <br></br>
-
+            <br/>
             <p className="mb-0">
-              <strong>Plata Ramburs</strong>
+              <strong>Plata Cash sau cu cardul</strong>
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
-              PapetariaDiana.ro acceptă plata ramburs sau cu cardul (clientul plătește cash sau card în momentul ridicării comenzii).
+              PapetariaDiana.ro acceptă plata cash sau cu cardul (clientul plătește cash sau card în momentul ridicării comenzii).
             </p>
-            <br></br>
-
-            <br></br>
-
+            <br/>
+            <br/>
           </blockquote>
         </div>
       </div>

@@ -3,7 +3,7 @@ import Termeni from "./termeni";
 import ContactForm from "../Forms/contactForm";
 import Retur from "./retur";
 import Plata from "./plata";
-import Livrare from "./livrare";
+import ProtectiaDatelor from "./protectiaDatelor";
 
 class Informatii extends Component {
 
@@ -21,8 +21,8 @@ class Informatii extends Component {
         if (this.props.match.params.id === "plata") {
             return <Plata/>
         }
-        if (this.props.match.params.id === "informatii-livrare") {
-            return <Livrare/>
+        if (this.props.match.params.id === "protectia-datelor") {
+            return <ProtectiaDatelor/>
         }
     }
 }

@@ -26,7 +26,6 @@ export class ProduseListAdministrator extends Form {
                 detalii: "",
                 idCategorieProdus: "",
                 numeUtilizatorAdministrator: "",
-                cantitate: "",
             },
             produse: [],
             show: false,
@@ -75,7 +74,6 @@ export class ProduseListAdministrator extends Form {
         detalii: Joi.string().required().error(() => {return {message: "Completați detaliile."}}),
         idCategorieProdus: Joi.string().error(() => {return {message: "Categoria produsului este obligatorie."}}),
         numeUtilizatorAdministrator: Joi.string().error(() => {return {message: "Numele de utilizator al administratorului este obligatoriu."}}),
-        cantitate: Joi.string().error(() => {return {message: "Cantitatea este obligatorie."}}),
     };
 
     getData() {
@@ -123,10 +121,6 @@ export class ProduseListAdministrator extends Form {
     };
 
     deleteProduct = () => {
-        // console.log(id)
-        // this.state.produse.forEach((item, index) => {
-        //     if (item.codDeBare === id) {
-        //         this.state.produse.splice(index, 1)
                 fetch("http://localhost:8080/produse/" + this.state.produsDetails.codDeBare, {
                     method: "DELETE",
                     headers: {
@@ -138,9 +132,6 @@ export class ProduseListAdministrator extends Form {
                     .then(res => {
                         if (res.status === 200) {
                             console.log("Produsul a fost sters")
-                            // this.setState({
-                            //     show: true,
-                            // });
                             this.closeDeleteModal()
                             this.getData()
                         } else {
@@ -153,7 +144,6 @@ export class ProduseListAdministrator extends Form {
     }
 
     updateProduct = id => {
-        // console.log(id)
         fetch('http://localhost:8080/produse/' + id, {
             method: 'GET',
             headers: {
@@ -174,12 +164,12 @@ export class ProduseListAdministrator extends Form {
                     detalii: data.detalii,
                     idCategorieProdus: data.idCategorieProdus,
                     numeUtilizatorAdministrator: data.numeUtilizatorAdministrator,
-                    cantitate: data.cantitate
                 }
                 this.setState({
                     data: payload,
                     showModal2: true
                 })
+                // console.log(this.state.data.src)
             })
     }
 
@@ -201,7 +191,6 @@ export class ProduseListAdministrator extends Form {
             detalii: this.state.data.detalii,
             idCategorieProdus: this.state.data.idCategorieProdus,
             numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-            cantitate: this.state.data.cantitate
         }
 
         const fd = new FormData();
@@ -223,12 +212,12 @@ export class ProduseListAdministrator extends Form {
                         detalii: this.state.data.detalii,
                         idCategorieProdus: this.state.data.idCategorieProdus,
                         numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-                        cantitate: this.state.data.cantitate,
                         imagePreviewUrl: "",
                         show: true
                     })
                     console.log("Produsul s-a modificat")
-                    // this.openConfirmModal();
+                    // console.log(this.state.data.src)
+
                     this.getData()
                 } else if (res.status === 417) {
                     res.text().then(text => {
@@ -344,10 +333,21 @@ export class ProduseListAdministrator extends Form {
                                     {this.renderInput('denumire', "Denumire: ","text","Denumire")}
                                 </div>
 
-                                <div className="form-group text-label">
-                                    {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}
-                                </div>
+                                {/*<div className="form-group text-label">*/}
+                                {/*    {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}*/}
+                                {/*</div>*/}
 
+                                {/*<Form.Group className="form-group text-label">*/}
+                                {/*    <Form.Label className="my-label">Cod de bare:</Form.Label>*/}
+                                {/*    <InputGroup className="mb-4">*/}
+                                {/*        <InputGroup.Text className="bg-white readonly"><FaEnvelope/></InputGroup.Text>*/}
+                                {/*        <Form.Control className="align-self-center bg-white" name="codDeBare" type="text" placeholder="Cod de bare" onChange={this.handleChange}/>*/}
+                                {/*    </InputGroup>*/}
+                                {/*</Form.Group>*/}
+                                <div className="form-group text-label">
+                                    <label className="text-label">Cod de bare:</label>
+                                    <input type="text" value={this.state.data.codDeBare} className="form-control" readOnly/>
+                                </div>
                                 <div className="form-group text-label">
                                     {this.renderInput('pret', "Preț:","text","Preț")}
                                 </div>
@@ -365,10 +365,6 @@ export class ProduseListAdministrator extends Form {
 
                                 <div className="form-group text-label">
                                     {this.renderInput('numeUtilizatorAdministrator', "Nume utilizator administrator:","text","Nume utilizator administrator")}
-                                </div>
-
-                                <div className="form-group text-label">
-                                    {this.renderInput('cantitate', "Cantitate:","text","Cantitate în stoc")}
                                 </div>
                                 <button
                                     type="submit"

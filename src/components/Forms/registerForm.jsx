@@ -164,7 +164,7 @@ class RegisterForm extends Form {
                 <div className="container-reg">
                     <div className="row row-form-reg">
                         <div className="col-md-6 reg-sec offset-md-3" id="register-form">
-                            <h2 className="text-center">Înregistrare</h2>
+                            <h3 className="text-center">Înregistrare</h3>
                             <form className="reg-form">
                                 <div className="form-group text-label">
                                     {this.renderInput('prenume', "Prenume: ", "text", "Prenume")}

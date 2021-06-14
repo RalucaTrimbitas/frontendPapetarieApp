@@ -18,7 +18,7 @@ class AdaugareProdus extends Form {
                 detalii: "",
                 idCategorieProdus: "",
                 numeUtilizatorAdministrator: "",
-                cantitate: "",
+                // cantitate: "",
             },
             produse: [],
             selectedFile: null,
@@ -41,12 +41,15 @@ class AdaugareProdus extends Form {
         detalii: Joi.string().required().error(() => {return {message: "Completați detaliile."}}),
         idCategorieProdus: Joi.string().error(() => {return {message: "Categoria produsului este obligatorie."}}),
         numeUtilizatorAdministrator: Joi.string().error(() => {return {message: "Numele de utilizator al administratorului este obligatoriu."}}),
-        cantitate: Joi.string().error(() => {return {message: "Cantitatea este obligatorie."}}),
+        // cantitate: Joi.string().error(() => {return {message: "Cantitatea este obligatorie."}}),
     };
 
 
     doSubmit = (event) => {
-        event.preventDefault();
+         event.preventDefault();
+        // const errors = this.validate();
+        // this.setState({errors: errors || {}});
+        // if (errors) return;
         const produs = {
             denumire: this.state.data.denumire,
             codDeBare: this.state.data.codDeBare,
@@ -56,12 +59,14 @@ class AdaugareProdus extends Form {
             detalii: this.state.data.detalii,
             idCategorieProdus: this.state.data.idCategorieProdus,
             numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-            cantitate: this.state.data.cantitate
+            // cantitate: this.state.data.cantitate
         }
 
         const fd = new FormData();
         fd.append('image', this.state.selectedFile);
         fd.append('produs', JSON.stringify(produs));
+
+        console.log(this.state.selectedFile)
 
         fetch('http://localhost:8080/produse', {
             method: 'POST',
@@ -78,7 +83,7 @@ class AdaugareProdus extends Form {
                         detalii: this.state.data.detalii,
                         idCategorieProdus: this.state.data.idCategorieProdus,
                         numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-                        cantitate: this.state.data.cantitate,
+                        // cantitate: this.state.data.cantitate,
                         showModal: true
                     })
                     console.log("Produsul s-a adaugat")
@@ -221,11 +226,9 @@ class AdaugareProdus extends Form {
                     <div className="form-group text-label">
                         {this.renderInput('denumire', "Denumire: ","text","Denumire")}
                     </div>
-
                     <div className="form-group text-label">
                         {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}
                     </div>
-
                     <div className="form-group text-label">
                         {this.renderInput('pret', "Preț:","text","Preț")}
                     </div>

@@ -35,15 +35,15 @@
     }
 
 }
-.reg-sec h2 {
-    font-family:  "\f15a";
+.reg-sec h3 {
+    /*font-family:  "\f15a";*/
     margin-bottom: 30px;
-    font-weight: 800;
+    /*font-weight: 800;*/
     font-size: 40px;
     color: #160404;
 }
 
-.reg-sec h2:after {
+.reg-sec h3:after {
     content: " ";
     width: 100px;
     height: 5px;
@@ -140,7 +140,7 @@
 
 #card-client {
     color: #fff;
-    background: rgba(29, 1, 1, 0.72);
+    background: rgba(78, 32, 11, 0.55);
 }
 
 .submit-form {

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Alert, Modal} from "react-bootstrap";
-import {AiFillCheckCircle, AiFillEdit, RiDeleteBin6Fill} from "react-icons/all";
+import {Alert, Button, Modal} from "react-bootstrap";
+import {AiFillCheckCircle, AiFillEdit, RiDeleteBin6Fill, TiUpload} from "react-icons/all";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -22,7 +22,6 @@ export default class SearchResultsPageAdmin extends Form {
                 detalii: "",
                 idCategorieProdus: "",
                 numeUtilizatorAdministrator: "",
-                cantitate: "",
             },
             produse: [],
             show: false,
@@ -33,7 +32,9 @@ export default class SearchResultsPageAdmin extends Form {
             imagePreviewUrl: "",
             file: "",
             errors: {},
-            msg: ""
+            msg: "",
+            produsDetails: "",
+            showDeleteModal: false
         }
 
         this.closeModal = this.closeModal.bind(this);
@@ -74,12 +75,17 @@ export default class SearchResultsPageAdmin extends Form {
         detalii: Joi.string().required().error(() => {return {message: "Completați detaliile."}}),
         idCategorieProdus: Joi.string().error(() => {return {message: "Categoria produsului este obligatorie."}}),
         numeUtilizatorAdministrator: Joi.string().error(() => {return {message: "Numele de utilizator al administratorului este obligatoriu."}}),
-        cantitate: Joi.string().error(() => {return {message: "Cantitatea este obligatorie."}}),
     };
 
     closeModal = e => {
         this.setState({
             show: false,
+            showModal: false
+        });
+    };
+
+    closeModal2 = e => {
+        this.setState({
             showModal2: false,
         });
     };
@@ -121,30 +127,24 @@ export default class SearchResultsPageAdmin extends Form {
         }
     }
 
-    deleteProduct = id => {
-        console.log(id)
-        // this.openModal2()
-        this.state.produse.forEach((item, index) => {
-            if (item.codDeBare === id) {
-                this.state.produse.splice(index, 1)
-                fetch("http://localhost:8080/produse/" + item.codDeBare, {
-                    method: "DELETE",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-type": "application/json",
-                    },
-                })
-                    .then(res => {
-                        if (res.status === 200) {
-                            this.setState({
-                                show: true,
-                            });
-                        } else {
-                            console.log("error")
-                        }
-                    })
-            }
+    deleteProduct = () => {
+        fetch("http://localhost:8080/produse/" + this.state.produsDetails.codDeBare, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
+            },
         })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("Produsul a fost sters")
+                    this.closeDeleteModal()
+                    this.handleSearch()
+                } else {
+                    console.log("error")
+                }
+            })
         this.setState({produse: this.state.produse})
     }
 
@@ -154,7 +154,8 @@ export default class SearchResultsPageAdmin extends Form {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization' : 'Bearer ' + sessionStorage.getItem("jwt")
             },
             body: JSON.stringify()
         })
@@ -169,7 +170,6 @@ export default class SearchResultsPageAdmin extends Form {
                     detalii: data.detalii,
                     idCategorieProdus: data.idCategorieProdus,
                     numeUtilizatorAdministrator: data.numeUtilizatorAdministrator,
-                    cantitate: data.cantitate
                 }
                 this.setState({
                     data: payload,
@@ -186,11 +186,10 @@ export default class SearchResultsPageAdmin extends Form {
             codDeBare: this.state.data.codDeBare,
             pret: this.state.data.pret,
             descriere: this.state.data.descriere,
-            src: "",
+            src: this.state.data.src,
             detalii: this.state.data.detalii,
             idCategorieProdus: this.state.data.idCategorieProdus,
             numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-            cantitate: this.state.data.cantitate
         }
 
         const fd = new FormData();
@@ -212,11 +211,11 @@ export default class SearchResultsPageAdmin extends Form {
                         detalii: this.state.data.detalii,
                         idCategorieProdus: this.state.data.idCategorieProdus,
                         numeUtilizatorAdministrator: this.state.data.numeUtilizatorAdministrator,
-                        cantitate: this.state.data.cantitate,
+                        imagePreviewUrl: "",
                         showModal: true
                     })
                     console.log("Produsul s-a modificat")
-                    this.getData()
+                    this.handleSearch()
                 } else if (res.status === 417) {
                     res.text().then(text => {
                         console.log(text);
@@ -248,40 +247,44 @@ export default class SearchResultsPageAdmin extends Form {
     }
 
     onFileChangeHandler = (event) => {
-        // event.preventDefault();
-        let reader = new FileReader();
-        let file = event.target.files[0];
 
-        reader.onloadend = () => {
-            this.setState({
-                [event.target.name]: event.target.value,
-                selectedOption: event.target.value,
-                file: URL.createObjectURL(event.target.files[0]),
-                imagePreviewUrl: reader.result,
-                selectedFile: event.target.files[0]
-            });
+        event.preventDefault();
+        let reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                this.setState({
+                    [event.target.name]: event.target.value,
+                    selectedOption: event.target.value,
+                    selectedFile: event.target.files[0],
+                    imagePreviewUrl: reader.result},
+                )
+            }
         }
-        reader.readAsDataURL(file)
+        if(event.target.files[0]){
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    };
+
+    openDeleteModal = (item) => {
+        this.setState({
+            produsDetails: item,
+            showDeleteModal: true
+        });
+    }
+
+    closeDeleteModal = e => {
+        this.setState({
+            showDeleteModal: false
+        });
     };
 
     render() {
         document.body.classList = "";
         document.body.classList.add("background-general");
-        let {imagePreviewUrl} = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} alt={"imagine-produs"}/>);
-        }
         let toRender = this.state.isLoading ? (
-            <h1>Loading...</h1>
+            <h1>Se încarcă...</h1>
         ) : (
             <>
-                {/*<ul>*/}
-                {/*    {this.handleSearch}*/}
-                {/*    <li>Search: "{this.state.searchText}"</li>*/}
-                {/*    <li>Au fost găsite: {this.state.searchResults.length} produse</li>*/}
-                {/*</ul>*/}
-                {/*<small>{JSON.stringify(this.state.searchResults, null, 2)}</small>*/}
                 {   this.state.searchResults.length > 0 ? (
                     <Container fluid className="container-search">
                         <h3>Rezultatele căutării sunt:</h3>
@@ -301,104 +304,9 @@ export default class SearchResultsPageAdmin extends Form {
                                             <button type="button" className="btn order-admin-edit mr-3 " data-toggle="modal"
                                                     data-target="#exampleModalCenter" onClick={() => this.updateProduct(item.codDeBare)}><AiFillEdit style={{marginTop:"-5px"}}/> Modifică</button>
                                             <button type="button" className="btn order-admin-delete" data-toggle="modal"
-                                                    data-target="#exampleModalCenter" onClick={() => this.deleteProduct(item.codDeBare)}><RiDeleteBin6Fill style={{marginTop:"-5px"}}/> Șterge</button>
+                                                    data-target="#exampleModalCenter" onClick={() => this.openDeleteModal(item)}><RiDeleteBin6Fill style={{marginTop:"-5px"}}/> Șterge</button>
                                         </div>
-                                        {/*<Modal show={this.state.showModal2} onHide={this.closeModal} size="xl" scrollable={true}*/}
-                                        {/*       aria-labelledby="contained-modal-title-vcenter"*/}
-                                        {/*       centered>*/}
-                                        {/*    <Modal.Header closeButton>*/}
-                                        {/*        <Modal.Title id="contained-modal-title-vcenter">Modificare produs</Modal.Title>*/}
-                                        {/*    </Modal.Header>*/}
-                                        {/*    <Modal.Body>*/}
-                                        {/*        <form onSubmit={this.doSubmit} className="contact-form">*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="denumire">Denumire:</label>*/}
-                                        {/*                <input className="form-control"*/}
-                                        {/*                       type="text" name="denumire" id="denumire" required*/}
-                                        {/*                       value={this.state.denumire} onChange={this.handleChange}/>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="codDeBare">Cod de bare:</label>*/}
-                                        {/*                <input className="form-control"*/}
-                                        {/*                       type="text" name="codDeBare" id="codDeBare" required*/}
-                                        {/*                       value={this.state.codDeBare} onChange={this.handleChange}/>*/}
-                                        {/*            </div>*/}
-
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="pret">Preț:</label>*/}
-                                        {/*                <input type="text" name="pret" id="pret" required className="form-control"*/}
-                                        {/*                       value={this.state.pret} onChange={this.handleChange}/>*/}
-                                        {/*            </div>*/}
-
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="descriere">Descriere:</label>*/}
-                                        {/*                <input type="text" name="descriere" id="descriere" required className="form-control"*/}
-                                        {/*                       value={this.state.descriere} onChange={this.handleChange}/>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <img src={this.state.src} alt="imagine-produs" />*/}
-                                        {/*                <br/>*/}
-                                        {/*                <label className="text-label" htmlFor="src">Src imagine:</label>*/}
-                                        {/*                <textarea type="text" name="src" id="src" required*/}
-                                        {/*                          className="form-control"*/}
-                                        {/*                          value={this.state.src} onChange={this.handleChange}/>*/}
-                                        {/*            </div>*/}
-
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="adresa">Detalii: </label>*/}
-                                        {/*                <textarea name="detalii" value={this.state.detalii} onChange={this.handleChange}*/}
-                                        {/*                          className="form-control">*/}
-                                        {/*        </textarea>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="idCategorieProdus">Categorie produs: </label>*/}
-                                        {/*                <textarea name="idCategorieProdus" value={this.state.idCategorieProdus} onChange={this.handleChange}*/}
-                                        {/*                          className="form-control">*/}
-                                        {/*        </textarea>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="numeUtilizatorAdministrator">Nume utilizator administrator: </label>*/}
-                                        {/*                <textarea name="numeUtilizatorAdministrator" value={this.state.numeUtilizatorAdministrator} onChange={this.handleChange}*/}
-                                        {/*                          className="form-control">*/}
-                                        {/*        </textarea>*/}
-                                        {/*            </div>*/}
-                                        {/*            <div className="form-group">*/}
-                                        {/*                <label className="text-label" htmlFor="cantitate">Cantitate în stoc: </label>*/}
-                                        {/*                <textarea name="cantitate" value={this.state.cantitate} onChange={this.handleChange}*/}
-                                        {/*                          className="form-control">*/}
-                                        {/*        </textarea>*/}
-                                        {/*            </div>*/}
-                                        {/*            <button*/}
-                                        {/*                type="submit"*/}
-                                        {/*                className="btn order-detalii float-right pb-3"*/}
-                                        {/*                onClick={this.doSubmit}*/}
-                                        {/*            >*/}
-                                        {/*                Salvează*/}
-                                        {/*            </button>*/}
-                                        {/*            <br/>*/}
-                                        {/*            <Modal*/}
-                                        {/*                size="md"*/}
-                                        {/*                show={this.state.showModal}*/}
-                                        {/*                onHide={this.closeModal}*/}
-                                        {/*            >*/}
-                                        {/*                <Modal.Header closeButton>*/}
-                                        {/*                    <Modal.Title id="example-modal-sizes-title-lg">*/}
-                                        {/*                        Datele produsului au fost actualizate cu succes! <AiFillCheckCircle style={{color:"green"}}/>*/}
-                                        {/*                    </Modal.Title>*/}
-                                        {/*                </Modal.Header>*/}
-                                        {/*                /!*<Modal.Body>*!/*/}
-                                        {/*                /!*    <Card>*!/*/}
-                                        {/*                /!*        <Link to="/produse/accesorii-birou/agende-si-blocnotes-uri" type="button" className="btn btn-istoric">Continuă cumpărăturile</Link>*!/*/}
-                                        {/*                /!*    </Card>*!/*/}
-                                        {/*                /!*</Modal.Body>*!/*/}
-                                        {/*                <Modal.Footer>*/}
-                                        {/*                    <button type="button" className="btn btn-exit-modal" onClick={this.closeModal}>Închide</button>*/}
-                                        {/*                </Modal.Footer>*/}
-                                        {/*            </Modal>*/}
-                                        {/*        </form>*/}
-                                        {/*    </Modal.Body>*/}
-                                        {/*</Modal>*/}
-                                        <Modal show={this.state.showModal2} onHide={this.closeModal} size="xl" scrollable={true}
+                                        <Modal show={this.state.showModal2} onHide={this.closeModal2} size="xl" scrollable={true}
                                                aria-labelledby="contained-modal-title-vcenter"
                                                centered>
                                             <Modal.Header closeButton className="header-modal">
@@ -412,12 +320,37 @@ export default class SearchResultsPageAdmin extends Form {
                                             }
                                             <Modal.Body>
                                                 <form onSubmit={this.doSubmit} className="contact-form">
+                                                    <div className="upload ml-0 mb-5" encType="multipart/form-data">
+                                                        <br/>
+                                                        <input type="file" accept="image/*" id="input" name="file" className="inputfile inputfile-1" onChange={this.onFileChangeHandler}/>
+                                                        {this.state.imagePreviewUrl ?
+                                                            <div className="img-holder">
+                                                                <img src={this.state.imagePreviewUrl} alt={"imagine-produs"} id="img" className="img"/>
+                                                                <label htmlFor="input" className="img-label">
+                                                                    <TiUpload className="mb-1 mr-1"/>
+                                                                    Încărcați altă fotografie...
+                                                                </label>
+                                                            </div>
+                                                            :
+                                                            <div className="img-holder">
+                                                                <img src={'data:image/jpeg;base64,'+ this.state.data.src} alt={"imagine-produs"} id="img" className="img"/>
+                                                                <label htmlFor="input" className="img-label">
+                                                                    <TiUpload className="mb-1 mr-1"/>
+                                                                    Încărcați altă fotografie...
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                    </div>
                                                     <div className="form-group text-label">
                                                         {this.renderInput('denumire', "Denumire: ","text","Denumire")}
                                                     </div>
 
+                                                    {/*<div className="form-group text-label">*/}
+                                                    {/*    {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}*/}
+                                                    {/*</div>*/}
                                                     <div className="form-group text-label">
-                                                        {this.renderInput('codDeBare', "Cod de bare:","text","Cod de bare")}
+                                                        <label className="text-label">Cod de bare:</label>
+                                                        <input type="text" value={this.state.data.codDeBare} className="form-control" readOnly/>
                                                     </div>
 
                                                     <div className="form-group text-label">
@@ -427,17 +360,6 @@ export default class SearchResultsPageAdmin extends Form {
                                                     <div className="form-group text-label">
                                                         {this.renderInput('descriere', "Descriere:","text","Descriere")}
                                                     </div>
-                                                    <div className="form-group" encType="multipart/form-data">
-                                                        <br/>
-                                                        <label className="text-label" htmlFor="src">Încărcați altă poză:</label>
-                                                        {/*<label>Încărcați altă poză </label>*/}
-                                                        <input type="file" className="form-control" name="file" onChange={this.onFileChangeHandler}/>
-                                                        {/*<img src={this.state.file} alt={"picture"}/>*/}
-                                                    </div>
-                                                    <div className="imgPreview">
-                                                        {$imagePreview}
-                                                    </div>
-
                                                     <div className="form-group text-label">
                                                         {this.renderInput('detalii', "Detalii: ","text","Detalii")}
                                                     </div>
@@ -448,10 +370,6 @@ export default class SearchResultsPageAdmin extends Form {
 
                                                     <div className="form-group text-label">
                                                         {this.renderInput('numeUtilizatorAdministrator', "Nume utilizator administrator:","text","Nume utilizator administrator")}
-                                                    </div>
-
-                                                    <div className="form-group text-label">
-                                                        {this.renderInput('cantitate', "Cantitate:","text","Cantitate în stoc")}
                                                     </div>
                                                     <button
                                                         type="submit"
@@ -489,6 +407,23 @@ export default class SearchResultsPageAdmin extends Form {
                                                     Produsul a fost șters! <AiFillCheckCircle style={{color:"green"}}/>
                                                 </Modal.Title>
                                             </Modal.Header>
+                                        </Modal>
+                                        <Modal backdrop="static" keyboard={false} show={this.state.showDeleteModal}
+                                               onHide={this.closeDeleteModal} centered>
+                                            <Modal.Header>
+                                                <Modal.Title>
+                                                    Ștergere produs
+                                                </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                {/*Denumire produs: {this.state.produsDetails.denumire}*/}
+                                                {/*<br/>*/}
+                                                Sunteți sigur că doriți ștergerea produsului?
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button className="btn-success" onClick={this.deleteProduct}>Da</Button>
+                                                <Button className="btn-danger" onClick={this.closeDeleteModal}>Nu</Button>
+                                            </Modal.Footer>
                                         </Modal>
                                     </div>
                                 </Col>

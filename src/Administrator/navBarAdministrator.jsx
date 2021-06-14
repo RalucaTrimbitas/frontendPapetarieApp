@@ -30,9 +30,9 @@ handleLogout = () => {
     });
   };
 
-  handleClearSearch = query => {
-    this.setState({ searchText: ""})
-  }
+  // handleClearSearch = query => {
+  //   this.setState({ searchText: ""})
+  // }
 
 
 links = () => {
@@ -46,7 +46,7 @@ links = () => {
               icon={faPhone}
               style={{ cursor: "pointer" , color: "#4b1515de"}}
             />
-            <a href="tel:+407270392149" id="headertext">
+            <a href="tel:+407270392149" id="headertext" style={{ color: "black" }}>
               +40 751 215 301
             </a>
             <FontAwesomeIcon
@@ -56,10 +56,11 @@ links = () => {
             />{" "}
             <a
               className="cg"
-              href="mailto:comenzz@papetarie.ro"
+              href="mailto:papetariadiana@gmail.com"
               id="headertext"
+              style={{ color: "black" }}
             >
-              comenzi@papetarie.ro
+              papetariadiana@gmail.com
             </a>
           </div>
         </div>
@@ -82,16 +83,6 @@ links = () => {
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            {/*<li className="nav-item active">*/}
-            {/*  <NavLink*/}
-            {/*      className="nav-item nav-link "*/}
-            {/*      id="navItem"*/}
-            {/*      to="/admin/produse/accesorii-birou/agende-si-blocnotes-uri"*/}
-            {/*      style={{ color: "#492020" }}*/}
-            {/*  >*/}
-            {/*    Gestionare produse*/}
-            {/*  </NavLink>*/}
-            {/*</li>*/}
             <li className="nav-item d-inline">
               <Form inline>
                 <FormControl
@@ -125,27 +116,6 @@ links = () => {
               style={{ color: "#492020" }}>
             <ImHome/>
           </NavLink>
-          {/*<NavLink*/}
-          {/*    className="nav-item nav-link "*/}
-          {/*    id="navItem"*/}
-          {/*    to="/admin/produse/accesorii-birou/agende-si-blocnotes-uri"*/}
-          {/*    style={{ color: "#492020" }}*/}
-          {/*>*/}
-          {/*  Gestionare produse*/}
-          {/*</NavLink>*/}
-          {/*<NavLink*/}
-          {/*  className="nav-item nav-link"*/}
-          {/*  to="/adaugare-produse"*/}
-          {/*  id="navItem"*/}
-          {/*  style={{ color: "#492020"}}*/}
-          {/*>*/}
-          {/*  /!*<FaRegUser*!/*/}
-          {/*  /!*className="icons-nav hvr-grow"*!/*/}
-          {/*  /!*style={{ cursor: "pointer" }}*!/*/}
-          {/*  /!*></FaRegUser>*!/*/}
-          {/*  Adăugare produs*/}
-          {/*</NavLink>*/}
-
           <NavLink
             onClick={this.handleLogout.bind(this)}
             className="nav-item nav-link"
@@ -177,6 +147,9 @@ links = () => {
         state: {
           searchText: this.state.searchText
         }
+      })
+      this.setState({
+        searchText: ""
       })
     } else {
         this.setState({

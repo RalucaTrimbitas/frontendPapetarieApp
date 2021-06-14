@@ -4,7 +4,6 @@ import Footer from "../utils/footer";
 const Termeni = () => {
   return (
     <React.Fragment>
-      {/*<NavBar/>*/}
       <div className="card card-info">
         <div className="card-header text-center" id="card-client">Termeni și Condiții</div>
         <div className="card-body">
@@ -12,147 +11,84 @@ const Termeni = () => {
             <p className="mb-0 ">
               <strong>Despre noi:</strong>
             </p>
-            <br></br>
-
+            <br/>
             <p className="mb-0">
               Site-ul www.papetariaDiana.ro se află in proprietatea și
-              administrarea SC Diana Servimpex SRL, cu sediul social în Blaj
+              administrarea SC Diana Servimpex SRL, cu sediul în Blaj
               Str. Simion Bărnuțiu Bl. 5, Scara A, Parter
             </p>
-            <br></br>
-
+            <br/>
             <p className="mb-0">
               {" "}
               <strong>Contact:</strong>
             </p>
-            <br></br>
-
-            <p className="mb-0">
-              {" "}
-              Adresa de corespondență pentru servicii poștale: Str. Gării Nr 76
-              Blaj{" "}
-            </p>
-            <br></br>
+            <br/>
             <p className="mb-0"> Program de lucru: L- V 08:00 – 16:00 </p>
-            <br></br>
+            <br/>
             <p className="mb-0"> Departamentul vânzări: +40 751 215 309 </p>
-            <br></br>
-            <p className="mb-0"> comenzi@papetarie.ro </p>
-            <br></br>
+            <br/>
+            <p className="mb-0"> papetariadiana@gmail.com </p>
+            <br/>
             <p className="mb-0"> Suport tehnic: +40 751 639 975 </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
               {" "}
-              Folosirea acestui site implica acceptarea termenilor si
-              conditiilor de mai jos. Recomandam citirea cu atentie a acestora.
-              SC Diana Servimpex SRL isi asuma dreptul de a modifica aceste
-              prevederi fara o alta notificare. Cea mai recenta versiune poate
-              fi gasita accesand aceasta pagina.{" "}
+              Folosirea acestui site implică acceptarea termenilor si
+              conditiilor de mai jos. Recomandăm citirea cu atenție a acestora.
+              SC Diana Servimpex SRL își asumă dreptul de a modifica aceste
+              prevederi fără o altă notificare.
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
               <strong>Inregistrarea ca utilizator</strong>{" "}
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
               {" "}
-              www.papetariaDiana.ro poate fi accesat in mod gratuit, iar simpla
-              navigare in paginile acestuia nu este conditionata de
-              inregistrarea ca utilizator (crearea unui cont de utilizator).
+              Aplicația poate fi accesă în mod gratuit, iar simpla
+              navigare în paginile acestuia nu este condiționată de
+              înregistrarea ca utilizator (crearea unui cont de utilizator).
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
-              Pentru a beneficia insa de anumite servicii oferite de magazinul
-              online, precum achizitionarea produselor oferite de acesta,
-              primirea newsletterului www.papetariaDiana.ro sau verificarea
-              situatiei unor comenzi proprii, va trebui sa va inregistrati ca
-              utilizator (sa va creati un cont de utilizator). Inregistrarea ca
-              utilizator presupune acceptarea prealabila de catre dvs. a
-              termenilor si conditiilor de utilizare a www.papetariaDiana.ro si
+              Pentru a beneficia însă de anumite servicii oferite de magazinul
+              online, precum rezervarea produselor oferite de acesta sau verificarea
+              situatiei unor comenzi proprii, va trebui să vă înregistrați ca
+              utilizator (să vă creați un cont de utilizator). Înregistrarea ca
+              utilizator presupune acceptarea prealabilă de către dvs. a
+              termenilor si condițiilor de utilizare a www.papetariaDiana.ro și
               a Politicii Privind Protectia Datelor Personale a acestuia. Aceste
               reglementari constituie baza contractuala a raporturilor dintre
-              utilizatori si Societate.{" "}
+              utilizatori si societate.
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
-              Intrucat prevederile termenilor si conditiilor de utilizare si ai
+              Intrucat prevederile termenilor si condițiilor de utilizare și ai
               Politicii Privind Protectia Datelor Personale pot fi modificate,
-              va rugam sa le revedeti periodic. In conditiile in care nu veti
-              mai fi de acord cu prevederile acestora, va rugam sa nu mai
-              accesati/folositi serviciile www.papetariaDiana.ro.{" "}
+              vă rugam să le revedeți periodic. În condițiile în care nu veți
+              mai fi de acord cu prevederile acestora, vă rugăm să nu mai
+              accesați/folosiți serviciile oferite de papetărie.
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
-              {" "}
               Daca folositi informatii din acest site, sunteti responsabil cu
-              privire la pastrarea confidentialitatii datelor de acces in contul
-              dumneavoastra de utilizator si sunteti de acord sa va asumati
-              responsabilitatea pentru toate activitatile efectuate din contul
-              dumneavoastra de utilizator, creat pe site.{" "}
+              privire la pastrarea confidențialității datelor de acces în contul
+              dumneavoastră de utilizator și sunteți de acord să vă asumați
+              responsabilitatea pentru toate activitățile efectuate din contul
+              dumneavoastră de utilizator, creat pe site.
             </p>
-            <br></br>
+            <br/>
             <p className="mb-0">
-              {" "}
-              www.papetariaDiana.ro poate vinde produse pentru copii sub 14
-              (paisprezece) ani, dar le vinde adultilor, care sunt autorizati sa
-              efectueze plati online cu cardul sau prin orice alta metoda de
-              plata acceptata de www.papetariaDiana.ro. Daca aveti mai putin de
-              14 (paisprezece) ani, puteti achizitiona produsele
-              www.papetariaDiana.ro numai cu ajutorul unui parinte sau tutore.
-            </p>
-            <br></br>
-            <p className="mb-0">
-              www.papetariaDiana.ro isi rezerva dreptul de a inchide conturi de
+              Papetăria Diana își rezervă dreptul de a închide conturi de
               utilizatori, de a modifica sau elimina texte, imagini,
-              hyperlinkuri, sau de a refuza vanzarea de produse, la propria sa
-              discretie.
+              hyperlinkuri, sau de a refuza vânzarea de produse, la propria sa
+              discreție.
             </p>
-            <br></br>
-            <p className="mb-0"><strong>Datele Personale</strong></p>
-            <br></br>
-            <p className="mb-0">
-              Prin inregistrarea ca utilizator al www.papetariaDiana.ro va vom
-              solicita o serie de date personale, precum numele si prenumele,
-              adresa de email, data nasterii dar si alte informatii cu caracter
-              personal, care sa permita identificarea dvs. ca utilizator al
-              serviciului www.papetariaDiana.ro. Va rugam sa navigati la "Politica
-              Privind Protectia Datelor Personale" pentru a va informa cu
-              privire la informatiile colectate de www.papetariaDiana.ro, cu
-              privire la modul in care sunt folosite acestea, precum si la
-              drepturile cu privire la protejarea intimitatii dumneavoastra.
-            </p>
-            <br></br>
-            <p className="mb-0">
-              www.papetariaDiana.ro nu solicita si nu stocheaza nici un fel de
-              informatii referitoare la cardul sau cardurile bancare ale
-              Clientului, acestea fiind procesate direct pe serverele
-              furnizorului de servicii de plata online.
-            </p>
-            <br></br>
-            <p className="mb-0">
-              <strong>Politica Privind Protectia Datelor Personale</strong>
-            </p>
-            <br></br>
-            <p className="mb-0">
-              Conform cerintelor Legii nr. 677/2001 pentru protectia persoanelor
-              cu privire la prelucrarea datelor cu caracter personal si libera
-              circulatie a acestor date, modificata si completata,
-              www.papetariaDiana.ro are obligatia de a administra in conditii de
-              siguranta si numai pentru scopurile specificate, datele personale
-              pe care ni le furnizati despre dumneavoastra.
-            </p>
-            <br></br>
-            <p className="mb-0">
-              Scopul colectarii datelor este: informarea utilizatorilor privind
-              situatia contului, informarea utilizatorilor privind evolutia si
-              starea comenzilor, evaluarea produselor si serviciilor oferite,
-              pentru reclama, marketing si publicitate.
-            </p>
-            <br></br>
+            <br/>
           </blockquote>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer/>
     </React.Fragment>
   );
 };

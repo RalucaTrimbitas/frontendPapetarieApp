@@ -109,14 +109,14 @@ class NavBarClient extends React.Component {
               </li>
 
               <li className="nav-item active">
-                <NavLink
-                    className="nav-item nav-link"
-                    to="/promotii"
-                    id="navItem"
-                    style={{ color: "#492020" }}
-                >
-                  Promoții
-                </NavLink>
+                {/*<NavLink*/}
+                {/*    className="nav-item nav-link"*/}
+                {/*    to="/promotii"*/}
+                {/*    id="navItem"*/}
+                {/*    style={{ color: "#492020" }}*/}
+                {/*>*/}
+                {/*  Promoții*/}
+                {/*</NavLink>*/}
               </li>
               <li className="nav-item d-inline">
                 <form className="form-inline ">

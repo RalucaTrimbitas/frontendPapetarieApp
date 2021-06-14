@@ -144,9 +144,9 @@ const Footer = () => {
               </Link>
               <Link
                 className="nav-item-aut nav-link menu-item"
-                to="/informatii/informatii-livrare"
+                to="/informatii/protectia-datelor"
               >
-                Informații livrare
+                Protecția datelor
               </Link>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Form, InputGroup, Modal} from "react-bootstrap";
-import {FaEnvelope, IoIosWarning} from "react-icons/all";
+import {FaEnvelope} from "react-icons/all";
 import Footer from "../utils/footer";
 
 export default class ForgotPasswordPage extends React.Component {
@@ -73,16 +73,16 @@ export default class ForgotPasswordPage extends React.Component {
             <React.Fragment>
                 <div className="align-content-center">
                     <div className="d-flex justify-content-center align-items-center my-5">
-                        <Modal className="modal-confirm mt-0" show={this.state.showAlert} onHide={this.closeAlert} centered>
+                        <Modal className="mt-0" show={this.state.showAlert} onHide={this.closeAlert} centered>
                             {/*<Modal.Header className="font-weight-bold">*/}
                             {/*    <Modal.Title>*/}
                             {/*        Schimbare parolă*/}
                             {/*    </Modal.Title>*/}
                             {/*</Modal.Header>*/}
-                            <Modal.Header closeButton className="modal-header">
-                                <div className="icon-box">
-                                    <IoIosWarning className="warning"/>
-                                </div>
+                            <Modal.Header closeButton>
+                                {/*<div className="icon-box">*/}
+                                {/*    <IoIosWarning className="warning"/>*/}
+                                {/*</div>*/}
                             </Modal.Header>
                             <Modal.Body>
                                 {this.state.message}
